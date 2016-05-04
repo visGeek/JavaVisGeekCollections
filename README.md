@@ -13,21 +13,21 @@ List<Integer> values =
 
 values.forEach(val -> System.out.print(val)); // 123
 
-// array
+// from array
 Cat[] catArray = new Cat[] { taro, jiro, sabro };
 IEnumerable<Cat> cats1 = Enumerable.of(catArray);
 
-// variable arguments
+// from variable arguments
 IEnumerable<Cat> cats2 = Enumerable.of(taro, jiro, sabro);
 
-// Iterable<T>
+// from Iterable<T>
 Iterable<Cat> catList = Arrays.asList(catArray);
 IEnumerable<Cat> cats3 = Enumerable.of(catList);
 
 // int
-IIntegerEnumerable intValues1 = Enumerable.ofInteger(new int[] { 1, 2, 3 });  // array
-IIntegerEnumerable intValues2 = Enumerable.ofInteger(1, 2, 3);                // variable arguments
-IIntegerEnumerable intValues3 = Enumerable.ofInteger(Arrays.asList(1, 2, 3)); // Iterable<T>
+IIntegerEnumerable intValues1 = Enumerable.ofInteger(new int[] { 1, 2, 3 });  // from array
+IIntegerEnumerable intValues2 = Enumerable.ofInteger(1, 2, 3);                // from variable arguments
+IIntegerEnumerable intValues3 = Enumerable.ofInteger(Arrays.asList(1, 2, 3)); // from Iterable<T>
 
 // long
 ILongEnumerable longValues1 = Enumerable.ofLong(new long[] { 1L, 2L, 3L });
@@ -52,3 +52,4 @@ EnumerableMap<String, Integer>             map = new EnumerableMap<>();        /
 EnumerableLinkedMap<String, Integer> linkedMap = new EnumerableLinkedMap<>();  // extends LinkedHashMap<K, V> implements IReadOnlyMap<T>
 EnumerableSet<Integer>                     set = new EnumerableSet<>();        // extends HashSet<T>          implements IReadOnlySet<T>
 EnumerableLinkedSet<Integer>         linkedSet = new EnumerableLinkedSet<>();  // extends LinkedHashSet<T>    implements IReadOnlySet<T>
+```
