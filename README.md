@@ -1,2 +1,2 @@
 # visGeekCollections
-Java ‚Å LINQ ‚ğÀŒ»‚µ‚Ü‚·B
+Java ã§ LINQ ã‚’å®Ÿç¾ã—ã¾ã™ã€‚
