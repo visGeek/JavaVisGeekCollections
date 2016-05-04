@@ -1,0 +1,51 @@
+package com.github.visgeek.utils.collections;
+
+import java.util.Iterator;
+
+import com.github.visgeek.utils.Func2;
+
+class LinqSelectManyIterator<T, TResult> extends AbstractSimpleEnumerator<T, TResult> {
+	public LinqSelectManyIterator(Iterable<T> source, Func2<? super T, Integer, Iterable<TResult>> selector) {
+		super(source);
+		this.selector = selector;
+		this.i = 0;
+		this.iterator = this.source.iterator();
+		this.itr = null;
+	}
+
+	private final Func2<? super T, Integer, Iterable<TResult>> selector;
+
+	private int i;
+
+	private final Iterator<T> iterator;
+
+	private Iterator<TResult> itr;
+
+	private TResult current;
+
+	@Override
+	public boolean moveNext() {
+		boolean result = false;
+
+		while (true) {
+			if (this.itr != null && this.itr.hasNext()) {
+				this.current = this.itr.next();
+				result = true;
+				break;
+
+			} else if (this.iterator.hasNext()) {
+				this.itr = this.selector.func(this.iterator.next(), this.i).iterator();
+
+			} else {
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	public TResult current() {
+		return this.current;
+	}
+}
