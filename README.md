@@ -1,5 +1,5 @@
 # visGeekCollections
-Java で LINQ を実現します。
+Java で LINQ を実現します。ほとんどの LINQ メソッドを C# と同じように使うことができます。
 
 ## Usage
 
@@ -53,3 +53,7 @@ EnumerableLinkedMap<String, Integer> linkedMap = new EnumerableLinkedMap<>();  /
 EnumerableSet<Integer>                     set = new EnumerableSet<>();        // extends HashSet<T>          implements IReadOnlySet<T>
 EnumerableLinkedSet<Integer>         linkedSet = new EnumerableLinkedSet<>();  // extends LinkedHashSet<T>    implements IReadOnlySet<T>
 ```
+
+## Reference
+Microsoft Reference Source - Enumerable.cs
+http://referencesource.microsoft.com/#System.Core/System/Linq/Enumerable.cs
