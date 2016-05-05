@@ -1,30 +1,22 @@
 package com.github.visgeek.utils.testing;
 
+import java.lang.reflect.Constructor;
+
 public class Activator {
-	// コンストラクター
 	private Activator() {
+		throw new RuntimeException();
 	}
 
-	// フィールド
+	static {
+		Activator.create(Activator.class);
+	}
 
-	// エンティティメソッド
-
-	// プロパティ
-
-	// メソッド
-
-	// スタティックフィールド
-
-	// スタティックイニシャライザー
-
-	// スタティックプロパティ
-
-	// スタティックメソッド
 	public static void create(Class<?> target) {
 		try {
-			target.newInstance();
+			Constructor<?> ctor = target.getDeclaredConstructor();
+			ctor.setAccessible(true);
+			ctor.newInstance();
 		} catch (Exception e) {
-			//
 		}
 	}
 }
