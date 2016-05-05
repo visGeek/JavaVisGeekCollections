@@ -1,26 +1,26 @@
 package com.github.visgeek.utils;
 
+import java.util.Arrays;
 import java.util.Objects;
 
 public class JoinedValue<TOuter, TInner> {
 	// コンストラクター
 	public JoinedValue(TOuter outer, TInner inner) {
-		this.outer = outer;
-		this.inner = inner;
+		this.values = new Object[] {outer, inner};
 	}
 
 	// フィールド
-	private final TOuter outer;
-
-	private final TInner inner;
+	private final Object[] values;
 
 	// プロパティ
+	@SuppressWarnings("unchecked")
 	public final TOuter outer() {
-		return this.outer;
+		return (TOuter) this.values[0];
 	}
 
+	@SuppressWarnings("unchecked")
 	public final TInner inner() {
-		return this.inner;
+		return (TInner) this.values[1];
 	}
 
 	// メソッド
@@ -43,7 +43,7 @@ public class JoinedValue<TOuter, TInner> {
 		boolean result = false;
 
 		if (obj != null) {
-			if (this.equals(obj.outer, obj.inner)) {
+			if (this.equals(obj.outer(), obj.inner())) {
 				result = true;
 			}
 		}
@@ -54,8 +54,8 @@ public class JoinedValue<TOuter, TInner> {
 	public final boolean equals(TOuter outer, TInner inner) {
 		boolean result = false;
 
-		if (Objects.equals(this.outer, outer)) {
-			if (Objects.equals(this.inner, inner)) {
+		if (Objects.equals(this.outer(), outer)) {
+			if (Objects.equals(this.inner(), inner)) {
 				result = true;
 			}
 		}
@@ -65,14 +65,12 @@ public class JoinedValue<TOuter, TInner> {
 
 	@Override
 	public final int hashCode() {
-		int outerHash = this.outer == null ? 0 : this.outer.hashCode();
-		int innerHash = this.inner == null ? 0 : this.inner.hashCode();
-		return outerHash * 31 + innerHash * 37;
+		return Arrays.hashCode(this.values);
 	}
 
 	@Override
 	public String toString() {
-		return String.format("outer:%s, inner:%s", this.outer, this.inner);
+		return String.format("outer:%s, inner:%s", this.outer(), this.inner());
 	}
 
 	// スタティックフィールド
