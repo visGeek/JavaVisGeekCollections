@@ -23,10 +23,10 @@ public class Contains {
 	public void test_contains02_01() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
-						obj -> Integer.parseInt(obj),
-						(a, b) -> Integer.parseInt(a) == Integer.parseInt(b));
+						str -> str.length(),
+						(a, b) -> Integer.parseInt(a.substring(0, 1)) == Integer.parseInt(b.substring(0, 1)));
 
-		boolean actual = Enumerable.of("01", "02", "03").contains("2", eComparator);
+		boolean actual = Enumerable.of("1aa", "2er", "3aaa").contains("2bb", eComparator);
 		Assert.assertTrue(actual);
 	}
 
@@ -34,10 +34,10 @@ public class Contains {
 	public void test_contains02_02() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
-						obj -> Integer.parseInt(obj),
-						(a, b) -> Integer.parseInt(a) == Integer.parseInt(b));
+						str -> str.length(),
+						(a, b) -> Integer.parseInt(a.substring(0, 1)) == Integer.parseInt(b.substring(0, 1)));
 
-		boolean actual = Enumerable.of("01", "02", "03").contains("4", eComparator);
+		boolean actual = Enumerable.of("1aa", "2er", "3aaa").contains("4bbe", eComparator);
 		Assert.assertFalse(actual);
 	}
 }
