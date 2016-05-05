@@ -5,6 +5,8 @@ import java.util.Objects;
 
 import org.junit.Assert;
 
+import com.github.visgeek.utils.Action0;
+
 public class Assert2 {
 	private Assert2() {
 	}
@@ -34,6 +36,17 @@ public class Assert2 {
 
 		if (count < expected.length) {
 			Assert.fail(message);
+		}
+	}
+
+	public static void exceptionThrown(Class<? extends Exception> expectedExceptionClass, Action0 action) {
+		try {
+			action.action();
+			Assert.fail();
+		} catch (Exception e) {
+			if (!e.getClass().equals(expectedExceptionClass)) {
+				Assert.fail();
+			}
 		}
 	}
 }
