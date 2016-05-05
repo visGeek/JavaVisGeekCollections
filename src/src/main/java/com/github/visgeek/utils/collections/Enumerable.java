@@ -70,14 +70,6 @@ public final class Enumerable {
 		return Enumerable.ofCharacter(source.toCharArray());
 	}
 
-	public static IEnumerable<Character> ofCharacter(Object source) {
-		return Enumerable.ofCharacter(source.toString());
-	}
-
-	public static IEnumerable<Character> ofCharacter(Character... source) {
-		return () -> new ArrayEnumerator<>(source);
-	}
-
 	public static <TMap extends Map<TKey, TValue>, TKey, TValue> IEnumerable<Entry<TKey, TValue>> ofMap(TMap map) {
 		return () -> map.entrySet().iterator();
 	}
