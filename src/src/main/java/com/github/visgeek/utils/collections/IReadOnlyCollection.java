@@ -5,8 +5,9 @@ public interface IReadOnlyCollection<T> extends IEnumerable<T> {
 
 	boolean isEmpty();
 
-	@Override
-	default boolean contains(T item) {
-		return IEnumerable.super.contains(item);
-	}
+	// 記述する必要がないコードをコメントアウトした。
+	// @Override
+	// default boolean contains(T item) {
+	// return IEnumerable.super.contains(item);
+	// }
 }
