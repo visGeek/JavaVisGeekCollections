@@ -1,7 +1,5 @@
 package com.github.visgeek.utils.collections;
 
-import java.util.Map;
-import java.util.Map.Entry;
 import java.util.stream.Stream;
 
 import com.github.visgeek.utils.Func0;
@@ -68,10 +66,6 @@ public final class Enumerable {
 
 	public static IEnumerable<Character> ofCharacter(String source) {
 		return Enumerable.ofCharacter(source.toCharArray());
-	}
-
-	public static <TMap extends Map<TKey, TValue>, TKey, TValue> IEnumerable<Entry<TKey, TValue>> ofMap(TMap map) {
-		return () -> map.entrySet().iterator();
 	}
 
 	public static <T> IEnumerable<T> empty() {
