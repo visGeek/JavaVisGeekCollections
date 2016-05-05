@@ -6,6 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
+import com.github.visgeek.utils.testing.Assert2;
 
 public class ElementAt {
 	@Test
@@ -16,22 +17,12 @@ public class ElementAt {
 
 	@Test
 	public void test_elementAt01_02() {
-		try {
-			Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(-1);
-			Assert.fail();
-		} catch (IndexOutOfBoundsException e) {
-			//
-		}
+		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(-1));
 	}
 
 	@Test
 	public void test_elementAt01_03() {
-		try {
-			Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(3);
-			Assert.fail();
-		} catch (IndexOutOfBoundsException e) {
-			//
-		}
+		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(3));
 	}
 
 	@Test
@@ -42,21 +33,11 @@ public class ElementAt {
 
 	@Test
 	public void test_elementAt02_02() {
-		try {
-			Enumerable.range(1, 3).elementAt(-1);
-			Assert.fail();
-		} catch (IndexOutOfBoundsException e) {
-			//
-		}
+		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.range(1, 3).elementAt(-1));
 	}
 
 	@Test
 	public void test_elementAt02_03() {
-		try {
-			Enumerable.range(1, 3).elementAt(3);
-			Assert.fail();
-		} catch (IndexOutOfBoundsException e) {
-			//
-		}
+		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.range(1, 3).elementAt(3));
 	}
 }
