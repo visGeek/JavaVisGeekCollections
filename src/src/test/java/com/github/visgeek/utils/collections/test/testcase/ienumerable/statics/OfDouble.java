@@ -9,9 +9,9 @@ import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
-public class AsDoubleEnumerable {
+public class OfDouble {
 	@Test
-	public void test__enumerable_asDoubleEnumerable01_01() {
+	public void primitiveArray_empty() {
 		double[] values = new double[] {};
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
@@ -19,7 +19,7 @@ public class AsDoubleEnumerable {
 	}
 
 	@Test
-	public void test__enumerable_asDoubleEnumerable01_02() {
+	public void primitiveArray_normal() {
 		double[] values = new double[] { 1.0, 2.0, 3.0 };
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
@@ -27,7 +27,7 @@ public class AsDoubleEnumerable {
 	}
 
 	@Test
-	public void test__enumerable_asDoubleEnumerable02_01() {
+	public void objectArray_empty() {
 		Double[] values = new Double[] {};
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
@@ -35,7 +35,7 @@ public class AsDoubleEnumerable {
 	}
 
 	@Test
-	public void test__enumerable_asDoubleEnumerable02_02() {
+	public void objectArray_normal() {
 		Double[] values = new Double[] { 1.0, 2.0, 3.0 };
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
@@ -43,7 +43,7 @@ public class AsDoubleEnumerable {
 	}
 
 	@Test
-	public void test__enumerable_asDoubleEnumerable03_01() {
+	public void iterable_empty() {
 		List<Double> values = new ArrayList<>();
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
@@ -51,7 +51,7 @@ public class AsDoubleEnumerable {
 	}
 
 	@Test
-	public void test__enumerable_asDoubleEnumerable03_02() {
+	public void iterable_normal() {
 		List<Double> values = new ArrayList<>();
 		values.add(1.0);
 		values.add(2.0);

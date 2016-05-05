@@ -9,7 +9,7 @@ import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
-public class AsLongEnumerable {
+public class OfLong {
 	@Test
 	public void test__enumerable_asLongEnumerable01_01() {
 		long[] values = new long[] {};
