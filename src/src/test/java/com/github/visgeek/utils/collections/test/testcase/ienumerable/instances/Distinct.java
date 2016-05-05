@@ -16,12 +16,15 @@ public class Distinct {
 
 	@Test
 	public void test_distinct02() {
-		IEqualityComparator<Integer> cpr =
-				IEqualityComparator.create(
-						obj -> new Integer(obj % 2).hashCode(),
-						(a, b) -> a % 2 == b % 2);
+		IEqualityComparator<String> cpr =
+				IEqualityComparator.create(str -> str.length(), (a, b) -> Integer.parseInt(a) == Integer.parseInt(b));
 
-		IEnumerable<Integer> actual = Enumerable.of(1, 2, 3, 2, 1, 4, 3, 4).distinct(cpr);
-		Assert2.assertSequanceEquals(actual, 1, 2);
+		IEnumerable<Integer> actual =
+				Enumerable
+						.of("01", "02", "03", "02", "01", "04", "03", "04")
+						.distinct(cpr)
+						.select(str -> Integer.parseInt(str));
+
+		Assert2.assertSequanceEquals(actual, 1, 2, 3, 4);
 	}
 }
