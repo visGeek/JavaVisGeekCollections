@@ -15,7 +15,7 @@ public interface Action2<T1, T2> {
 	 * @param arg
 	 * @return
 	 */
-	default Action1<T2> toAction1(T1 arg1) {
+	default Action1<T2> partialApply(T1 arg1) {
 		return arg2 -> this.action(arg1, arg2);
 	}
 

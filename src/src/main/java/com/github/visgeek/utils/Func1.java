@@ -15,7 +15,7 @@ public interface Func1<T, TResult> {
 	 * @param arg
 	 * @return
 	 */
-	default Func0<TResult> toFunc0(T arg) {
+	default Func0<TResult> partialApply(T arg) {
 		return () -> this.func(arg);
 	}
 
