@@ -27,7 +27,7 @@ public interface IEqualityComparator<T> {
 
 				@Override
 				public int hashCode(Object obj) {
-					return obj == null ? 0 : obj.hashCode();
+					return Objects.hashCode(obj);
 				}
 			};
 
