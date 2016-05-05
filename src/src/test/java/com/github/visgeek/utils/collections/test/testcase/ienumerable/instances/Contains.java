@@ -10,11 +10,23 @@ import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
 
 public class Contains {
-	private final IEqualityComparator<String> eComparator =
-			IEqualityComparator.create(
-					str -> {System.out.println(str);   return str.length(); },
-					(a, b) -> Integer.parseInt(a.substring(0, 1)) == Integer.parseInt(b.substring(0, 1)));
+	public Contains() {
+		// Contains メソッドでは hashCode を使わないのでカバレッジのために使っておく。
+		this.getHashCode("0");
+	}
 
+	// 等価比較子
+	private final IEqualityComparator<String> comparator =
+			IEqualityComparator.create(
+					this::getHashCode,
+					(a, b) -> Integer.parseInt(a) == Integer.parseInt(b));
+
+	// 使われないメソッド
+	private int getHashCode(String str) {
+		return Integer.parseInt(str);
+	}
+
+	// テストケース
 	@Test
 	public void test_contains01_01() {
 		IEnumerable<Integer> values = Enumerable.of(1, 2, 3);
@@ -45,13 +57,13 @@ public class Contains {
 
 	@Test
 	public void test_contains02_01() {
-		boolean actual = Enumerable.of("1aa", "2er", "3aaa").contains("2bb", this.eComparator);
+		boolean actual = Enumerable.of("01", "02", "03").contains("2", this.comparator);
 		Assert.assertTrue(actual);
 	}
 
 	@Test
 	public void test_contains02_02() {
-		boolean actual = Enumerable.of("1aa", "2er", "3aaa").contains("4bbe", this.eComparator);
+		boolean actual = Enumerable.of("01", "02", "03").contains("4", this.comparator);
 		Assert.assertFalse(actual);
 	}
 }
