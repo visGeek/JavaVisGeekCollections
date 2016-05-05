@@ -43,8 +43,8 @@ public class Assert2 {
 			raised = e;
 		}
 
-		Assert.assertTrue(raised != null);
-		Assert.assertTrue(Objects.equals(raised.getClass(), expectedExceptionClass));
+		Assert.assertTrue("exception was not thorwn", raised != null);
+		Assert.assertTrue(String.format("expected:<%s> but was:<%s>", expectedExceptionClass.getName(), raised.getClass().getName()), Objects.equals(raised.getClass(), expectedExceptionClass));
 	}
 
 	static {
