@@ -67,11 +67,11 @@ public final class Enumerable {
 	}
 
 	public static IEnumerable<Character> ofCharacter(String source) {
-		return ofCharacter(source.toCharArray());
+		return Enumerable.ofCharacter(source.toCharArray());
 	}
 
 	public static IEnumerable<Character> ofCharacter(Object source) {
-		return ofCharacter(source.toString());
+		return Enumerable.ofCharacter(source.toString());
 	}
 
 	public static IEnumerable<Character> ofCharacter(Character... source) {
