@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import com.github.visgeek.utils.testing.Activator;
 
-public class Enumerable {
+public class EnumerableTest {
 	@Test
 	public void dummyTest() {
 		Activator.create(com.github.visgeek.utils.collections.Enumerable.class);
