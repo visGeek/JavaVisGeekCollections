@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.test;
 
-import java.util.Arrays;
+import java.util.Objects;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -44,9 +44,9 @@ public class JoindValueTest {
 	@Test
 	public void equlaseJoinedValueMembers() {
 		JoinedValue<Integer, Integer> val = JoinedValue.create(1, 2);
-		Assert.assertTrue(val.equals(0, 2) == false);
-		Assert.assertTrue(val.equals(1, 2) == true);
-		Assert.assertTrue(val.equals(1, 3) == false);
+		Assert.assertFalse(val.equals(0, 2));
+		Assert.assertTrue(val.equals(1, 2));
+		Assert.assertFalse(val.equals(1, 3));
 	}
 
 	@Test
@@ -60,7 +60,7 @@ public class JoindValueTest {
 
 	public <T1, T2> void hashCodeInternal(T1 a, T2 b) {
 		JoinedValue<T1, T2> val = JoinedValue.create(a, b);
-		Assert.assertEquals(val.hashCode(), Arrays.hashCode(new Object[] { a, b }));
+		Assert.assertEquals(String.format("a:%s b:%s", a, b), val.hashCode(), Objects.hash(a, b));
 	}
 
 	@Test

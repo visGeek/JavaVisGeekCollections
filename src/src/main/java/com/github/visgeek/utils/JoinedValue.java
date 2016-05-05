@@ -1,26 +1,27 @@
 package com.github.visgeek.utils;
 
-import java.util.Arrays;
 import java.util.Objects;
 
 public class JoinedValue<TOuter, TInner> {
+
 	// コンストラクター
 	public JoinedValue(TOuter outer, TInner inner) {
-		this.values = new Object[] {outer, inner};
+		this.outer = outer;
+		this.inner = inner;
 	}
 
 	// フィールド
-	private final Object[] values;
+	private final TOuter outer;
+
+	private final TInner inner;
 
 	// プロパティ
-	@SuppressWarnings("unchecked")
 	public final TOuter outer() {
-		return (TOuter) this.values[0];
+		return this.outer;
 	}
 
-	@SuppressWarnings("unchecked")
 	public final TInner inner() {
-		return (TInner) this.values[1];
+		return this.inner;
 	}
 
 	// メソッド
@@ -65,7 +66,7 @@ public class JoinedValue<TOuter, TInner> {
 
 	@Override
 	public final int hashCode() {
-		return Arrays.hashCode(this.values);
+		return Objects.hash(this.outer(), this.inner());
 	}
 
 	@Override
