@@ -31,9 +31,6 @@ public class JoindValueTest {
 		Assert.assertNotEquals(val1_3, val1_2);
 		Assert.assertNotEquals(val1_3, testValue3_1);
 
-		// Assert.assertTrue(val1_3.equals(testValue1_3));
-		// Assert.assertFalse(val1_3.equals(testValue3_1));
-
 		Assert.assertEquals(val1_3.toString(), "outer:1, inner:3");
 
 		Set<JoinedValue<Integer, Integer>> set = new HashSet<>();
