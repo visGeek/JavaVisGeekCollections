@@ -24,18 +24,15 @@ public class JoinedValue<TOuter, TInner> {
 	}
 
 	// メソッド
-	@Override
 	@Deprecated
+	@Override
+	@SuppressWarnings("unchecked")
 	public final boolean equals(Object obj) {
 		boolean result = false;
 
 		if (obj instanceof JoinedValue<?, ?>) {
-			JoinedValue<?, ?> cast = (JoinedValue<?, ?>) obj;
-
-			if (Objects.equals(this.outer, cast.outer)) {
-				if (Objects.equals(this.inner, cast.inner)) {
-					result = true;
-				}
+			if (this.equals((JoinedValue<TOuter, TInner>) obj)) {
+				result = true;
 			}
 		}
 
@@ -43,7 +40,15 @@ public class JoinedValue<TOuter, TInner> {
 	}
 
 	public final boolean equals(JoinedValue<TOuter, TInner> obj) {
-		return this.equals(obj.outer, obj.inner);
+		boolean result = false;
+
+		if (obj != null) {
+			if (this.equals(obj.outer, obj.inner)) {
+				result = true;
+			}
+		}
+
+		return result;
 	}
 
 	public final boolean equals(TOuter outer, TInner inner) {
