@@ -75,7 +75,7 @@ public final class Enumerable {
 	}
 
 	public static <T> IEnumerable<T> empty() {
-		return () -> IEnumerator.create(null, val -> null, null);
+		return () -> IEnumerator.create(null, val -> false, null);
 	}
 
 	public static <T> IEnumerable<T> empty(Class<T> elementClass) {
