@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.testing;
 
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Objects;
 
@@ -24,29 +25,77 @@ public class Assert2 {
 		while (itr.hasNext()) {
 			count++;
 
-			if (expected.length < count) {
-				Assert.fail(message);
-			}
+			Assert.assertTrue(message, count <= expected.length);
 
 			T item = itr.next();
-			if (!Objects.equals(item, expected[count - 1])) {
-				Assert.fail(message);
-			}
+			Assert.assertTrue(message, Objects.equals(item, expected[count - 1]));
 		}
 
-		if (count < expected.length) {
-			Assert.fail(message);
-		}
+		Assert.assertTrue(message, expected.length <= count);
 	}
 
 	public static void exceptionThrown(Class<? extends Exception> expectedExceptionClass, Action0 action) {
+		Throwable raised = null;
+
 		try {
 			action.action();
-			Assert.fail();
-		} catch (Exception e) {
-			if (!e.getClass().equals(expectedExceptionClass)) {
-				Assert.fail();
+		} catch (Throwable e) {
+			raised = e;
+		}
+
+		Assert.assertTrue(raised != null);
+		Assert.assertTrue(Objects.equals(raised.getClass(), expectedExceptionClass));
+	}
+
+	static {
+		// このクラスのカバレッジのためのコード
+		new Assert2();
+
+		for (Sequences seqs : new Sequences[] {
+			new Sequences(Arrays.asList(1), 1),
+			new Sequences(Arrays.asList(1), 2),
+			new Sequences(Arrays.asList(1, 2), 1),
+			new Sequences(Arrays.asList(1, 2), 1, 2, 3),
+		}) {
+			try {
+				Assert2.assertSequanceEquals(seqs.seq1, seqs.seq2);
+			} catch (AssertionError e) {
 			}
 		}
+
+		for (ExceptionAndAction action : new ExceptionAndAction[] {
+			new ExceptionAndAction(RuntimeException.class, () -> {
+			}),
+			new ExceptionAndAction(RuntimeException.class, () -> {
+				throw new RuntimeException();
+			}),
+		}) {
+			try {
+				Assert2.exceptionThrown(action.expectedExceptionClass, action.action);
+			} catch (AssertionError e) {
+			}
+		}
+	}
+
+	private static class Sequences {
+		public Sequences(Iterable<Integer> seq1, Integer... seq2) {
+			this.seq1 = seq1;
+			this.seq2 = seq2;
+		}
+
+		private final Iterable<Integer> seq1;
+
+		private final Integer[] seq2;
+	}
+
+	private static class ExceptionAndAction {
+		public ExceptionAndAction(Class<? extends Exception> expectedExceptionClass, Action0 action) {
+			this.expectedExceptionClass = expectedExceptionClass;
+			this.action = action;
+		}
+
+		public final Class<? extends Exception> expectedExceptionClass;
+
+		public final Action0 action;
 	}
 }
