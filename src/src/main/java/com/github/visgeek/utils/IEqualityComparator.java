@@ -38,7 +38,7 @@ public interface IEqualityComparator<T> {
 	 * @param equals
 	 * @return
 	 */
-	public static <T, TResult> IEqualityComparator<T> create(Func1<T, Integer> hashCode, Func2<T, T, Boolean> equals) {
+	public static <T> IEqualityComparator<T> create(Func1<T, Integer> hashCode, Func2<T, T, Boolean> equals) {
 		return new IEqualityComparator<T>() {
 			@Override
 			public boolean equals(T a, T b) {
