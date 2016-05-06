@@ -22,7 +22,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
 	default IEnumerator<T> enumerator() {
 		return new AbstractEnumerator<T>() {
-			private Iterator<T> itr = IEnumerable.this.iterator();
+			private final Iterator<T> itr = IEnumerable.this.iterator();
 
 			private T current;
 
