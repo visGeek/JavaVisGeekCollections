@@ -27,8 +27,8 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 	// フィールド
 
 	// メソッド
-	public final void addAll(Iterable<? extends T> c) {
-		this.addAll(this.size(), c);
+	public boolean addAll(Iterable<? extends T> c) {
+		return this.addAll(this.size(), c);
 	}
 
 	public boolean addAll(int index, Iterable<? extends T> c) {
@@ -37,10 +37,12 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 		if (c instanceof Collection<?>) {
 			@SuppressWarnings("unchecked")
 			Collection<T> vals = (Collection<T>) c;
-			result = this.addAll(vals);
+			result = this.addAll(index, vals);
 		} else {
+			int idx = index;
 			for (T item : c) {
-				this.add(item);
+				this.add(idx, item);
+				idx++;
 				result = true;
 			}
 		}
@@ -115,26 +117,6 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 		return super.remove(o);
 	}
 
-	@Override
-	@Deprecated
-	public boolean removeAll(Collection<?> c) {
-		return super.removeAll(c);
-	}
-
-	public boolean removeAll(Iterable<? extends T> c) {
-		boolean result = false;
-
-		if (c instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> vals = (Collection<T>) c;
-			result = super.removeAll(vals);
-		} else {
-			result = super.removeAll(new EnumerableLinkedList<>(c));
-		}
-
-		return result;
-	}
-
 	/**
 	 * remove(int index) と同じ動作です。
 	 * @param index
@@ -142,6 +124,15 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 	 */
 	public T removeAt(int index) {
 		return super.remove(index);
+	}
+
+	/**
+	 * remove(Object o) と同じ動作です。
+	 * @param o
+	 * @return
+	 */
+	public boolean removeValue(T o) {
+		return super.remove(o);
 	}
 
 	@Override
@@ -170,23 +161,32 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 	 * @param o
 	 * @return
 	 */
-	public boolean removeLastOccurred(T o) {
+	public boolean removeLastOccurredValue(T o) {
 		return super.removeLastOccurrence(o);
 	}
 
-	/**
-	 * remove(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public boolean removeValue(T o) {
-		return super.remove(o);
+	@Override
+	@Deprecated
+	public boolean removeAll(Collection<?> c) {
+		return super.removeAll(c);
 	}
 
-	@Override
-	@SuppressWarnings("hiding")
-	public <T> T[] toArray(T[] a) {
-		return super.toArray(a);
+	public boolean removeAllValues(Iterable<? extends T> c) {
+		boolean result = false;
+
+		if (c instanceof Collection<?>) {
+			@SuppressWarnings("unchecked")
+			Collection<T> vals = (Collection<T>) c;
+			result = super.removeAll(vals);
+		} else {
+			for (T item : c) {
+				while (this.removeValue(item)) {
+					result = true;
+				}
+			}
+		}
+
+		return result;
 	}
 
 	@Override
@@ -195,18 +195,18 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 	}
 
 	// スタティックフィールド
-	private static final long serialVersionUID = 8293487880322227008L;
+	private static final long serialVersionUID = -2806056720008680671L;
 
-	public static final IReadOnlyList<Object> _emptyReadOnlyList = new EnumerableLinkedList<>();
+	private static final IReadOnlyList<Object> _emptyReadOnlyList = new EnumerableLinkedList<>();
 
 	// スタティックメソッド
 	public static <T> EnumerableLinkedList<T> create(Iterable<T> collection) {
-		return new EnumerableLinkedList<T>(collection);
+		return new EnumerableLinkedList<>(collection);
 	}
 
 	@SafeVarargs
 	public static <T> EnumerableLinkedList<T> create(T... values) {
-		return new EnumerableLinkedList<T>(values);
+		return new EnumerableLinkedList<>(values);
 	}
 
 	public static <T> IReadOnlyList<T> getEmptyReadOnlyList() {
