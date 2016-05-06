@@ -8,7 +8,7 @@ import java.util.Set;
 import com.github.visgeek.utils.IEqualityComparator;
 
 /**
- * EqualityComparator<T> インターフェイスを使った比較を行うハッシュセットです。
+ * EqualityComparator&lt;T&gt; インターフェイスを使った比較を行うハッシュセットです。
  * @param <T>
  */
 class EquatableSet<T> implements Set<T> {

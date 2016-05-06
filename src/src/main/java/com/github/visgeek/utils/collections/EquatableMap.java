@@ -8,8 +8,8 @@ import java.util.Set;
 import com.github.visgeek.utils.IEqualityComparator;
 
 /**
- * EqualityComparator<T> インターフェイスを使った比較を行うハッシュマップです。
- * 
+ * EqualityComparator&lt;T&gt; インターフェイスを使った比較を行うハッシュマップです。
+ *
  * @param <TKey>
  * @param <TValue>
  */
