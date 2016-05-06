@@ -2,6 +2,7 @@ package com.github.visgeek.utils.testing;
 
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Objects;
 
 import org.junit.Assert;
@@ -10,6 +11,20 @@ import com.github.visgeek.utils.Action0;
 
 public class Assert2 {
 	private Assert2() {
+	}
+
+	public static <T> void assertSequanceEquals(Iterable<T> actual, Iterable<T> expected) {
+		Assert2.assertSequanceEquals(null, actual, expected);
+	}
+
+	@SuppressWarnings("unchecked")
+	public static <T> void assertSequanceEquals(String message, Iterable<T> actual, Iterable<T> expected) {
+		LinkedList<T> list = new LinkedList<>();
+		for (T item : expected) {
+			list.add(item);
+		}
+
+		Assert2.assertSequanceEquals(message, actual, (T[]) list.toArray());
 	}
 
 	@SafeVarargs
