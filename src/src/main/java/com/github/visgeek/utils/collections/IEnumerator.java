@@ -20,12 +20,7 @@ public interface IEnumerator<T> extends Iterator<T> {
 	boolean moveNext();
 
 	default IEnumerable<T> toEnumerableRemaining() {
-		return new IEnumerable<T>() {
-			@Override
-			public Iterator<T> iterator() {
-				return IEnumerator.this;
-			}
-		};
+		return () -> IEnumerator.this;
 	}
 
 	// スタティックメソッド
