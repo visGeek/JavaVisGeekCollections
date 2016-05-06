@@ -17,12 +17,12 @@ public class ElementAt {
 
 	@Test
 	public void test_elementAt01_02() {
-		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(-1));
+		Assert2.assertExceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(-1));
 	}
 
 	@Test
 	public void test_elementAt01_03() {
-		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(3));
+		Assert2.assertExceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.of(Arrays.asList(1, 2, 3)).elementAt(3));
 	}
 
 	@Test
@@ -33,11 +33,11 @@ public class ElementAt {
 
 	@Test
 	public void test_elementAt02_02() {
-		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.range(1, 3).elementAt(-1));
+		Assert2.assertExceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.range(1, 3).elementAt(-1));
 	}
 
 	@Test
 	public void test_elementAt02_03() {
-		Assert2.exceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.range(1, 3).elementAt(3));
+		Assert2.assertExceptionThrown(IndexOutOfBoundsException.class, () -> Enumerable.range(1, 3).elementAt(3));
 	}
 }

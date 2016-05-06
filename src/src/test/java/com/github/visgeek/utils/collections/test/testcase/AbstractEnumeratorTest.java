@@ -88,14 +88,14 @@ public class AbstractEnumeratorTest {
 		Assert.assertEquals(enumerator.next(), Integer.valueOf(1));
 		Assert.assertEquals(enumerator.next(), Integer.valueOf(2));
 		Assert.assertEquals(enumerator.next(), Integer.valueOf(3));
-		Assert2.exceptionThrown(NoSuchElementException.class, () -> enumerator.next());
+		Assert2.assertExceptionThrown(NoSuchElementException.class, () -> enumerator.next());
 	}
 
 	@Test
 	@SuppressWarnings("deprecation")
 	public void remove() {
 		AbstractEnumerator<Integer> enumerator = this.create(1, 2, 3);
-		Assert2.exceptionThrown(UnsupportedOperationException.class, () -> {
+		Assert2.assertExceptionThrown(UnsupportedOperationException.class, () -> {
 			enumerator.moveNext();
 			enumerator.remove();
 		});

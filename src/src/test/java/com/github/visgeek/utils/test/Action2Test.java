@@ -56,6 +56,6 @@ public class Action2Test {
 	@Test
 	public void wrapThrowsException02() {
 		Action2<Integer, Integer> action = Action2.create((arg1, arg2) -> Functions.addToOrThrow(null));
-		Assert2.exceptionThrown(RuntimeException.class, () -> action.action(1, 2));
+		Assert2.assertExceptionThrown(RuntimeException.class, () -> action.action(1, 2));
 	}
 }

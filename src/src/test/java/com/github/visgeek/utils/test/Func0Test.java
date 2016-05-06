@@ -29,6 +29,6 @@ public class Func0Test {
 	@Test
 	public void wrapThrowsException02() {
 		Func0<List<Integer>> func = Func0.create(() -> Functions.toListOrThrow(true));
-		Assert2.exceptionThrown(RuntimeException.class, () -> func.func());
+		Assert2.assertExceptionThrown(RuntimeException.class, () -> func.func());
 	}
 }

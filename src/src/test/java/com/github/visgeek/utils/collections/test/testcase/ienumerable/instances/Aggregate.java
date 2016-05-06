@@ -9,7 +9,7 @@ import com.github.visgeek.utils.testing.Assert2;
 public class Aggregate {
 	@Test
 	public void test01_01() {
-		Assert2.exceptionThrown(NullPointerException.class, () -> Enumerable.of(1, 2, 3).aggregate(null));
+		Assert2.assertExceptionThrown(NullPointerException.class, () -> Enumerable.of(1, 2, 3).aggregate(null));
 	}
 
 	@Test
@@ -20,7 +20,7 @@ public class Aggregate {
 
 	@Test
 	public void test01_03() {
-		Assert2.exceptionThrown(IllegalStateException.class, () -> Enumerable.empty(Integer.class).aggregate((n1, n2) -> n1 + n2));
+		Assert2.assertExceptionThrown(IllegalStateException.class, () -> Enumerable.empty(Integer.class).aggregate((n1, n2) -> n1 + n2));
 	}
 
 	@Test

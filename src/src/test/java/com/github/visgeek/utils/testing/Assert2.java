@@ -49,7 +49,7 @@ public class Assert2 {
 		Assert.assertTrue(message, expected.length <= count);
 	}
 
-	public static void exceptionThrown(Class<? extends Exception> expectedExceptionClass, Action0 action) {
+	public static void assertExceptionThrown(Class<? extends Exception> expectedExceptionClass, Action0 action) {
 		Throwable raised = null;
 
 		try {
@@ -60,6 +60,10 @@ public class Assert2 {
 
 		Assert.assertTrue("exception was not thorwn", raised != null);
 		Assert.assertTrue(String.format("expected:<%s> but was:<%s>", expectedExceptionClass.getName(), raised.getClass().getName()), Objects.equals(raised.getClass(), expectedExceptionClass));
+	}
+
+	public static void assertNullPointerExceptionThrown(Action0 action) {
+		assertExceptionThrown(NullPointerException.class, action);
 	}
 
 	static {
@@ -87,7 +91,7 @@ public class Assert2 {
 			}),
 		}) {
 			try {
-				Assert2.exceptionThrown(action.expectedExceptionClass, action.action);
+				Assert2.assertExceptionThrown(action.expectedExceptionClass, action.action);
 			} catch (AssertionError e) {
 			  //
 			}
