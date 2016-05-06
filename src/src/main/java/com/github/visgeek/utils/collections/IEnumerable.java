@@ -354,7 +354,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default boolean contains(T item) {
 		return this.contains(item, null);
-	};
+	}
 
 	/**
 	 * 指定した比較方法を使用して、指定した要素がシーケンスに含まれているかどうかを判断します。
@@ -766,7 +766,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 
 		return value;
-	};
+	}
 
 	/**
 	 * シーケンスのすべての要素にインデックス位置を利用した処理を実行します。
@@ -1011,7 +1011,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 
 		return value;
-	};
+	}
 
 	// シーケンスの要素数を返します。
 	default long longCount() {
