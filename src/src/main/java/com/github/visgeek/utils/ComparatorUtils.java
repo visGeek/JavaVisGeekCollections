@@ -34,7 +34,7 @@ public class ComparatorUtils {
 	 * @param orders
 	 * @return
 	 */
-	public static <T> Comparator<T> create(Iterable<? extends T> orders) {
+	public static <T> Comparator<T> createFromOrders(Iterable<? extends T> orders) {
 		HashMap<T, Integer> orderMap = new HashMap<>();
 
 		int order = 0;
@@ -52,7 +52,7 @@ public class ComparatorUtils {
 	 * @return
 	 */
 	@SafeVarargs
-	public static <T> Comparator<T> create(T... orders) {
+	public static <T> Comparator<T> createFromOrders(T... orders) {
 		HashMap<T, Integer> orderMap = new HashMap<>();
 
 		int order = 0;
@@ -65,30 +65,10 @@ public class ComparatorUtils {
 	}
 
 	private static <T> Comparator<T> createComparator(HashMap<T, Integer> orderMap) {
-		return new Comparator<T>() {
-			@Override
-			public int compare(T o1, T o2) {
-				int result = 0;
-
-				Integer order1 = orderMap.get(o1);
-				Integer order2 = orderMap.get(o2);
-
-				if (order1 == null) {
-					if (order2 == null) {
-						result = 0;
-					} else {
-						result = -1;
-					}
-				} else {
-					if (order2 == null) {
-						result = 1;
-					} else {
-						result = order1.compareTo(order2);
-					}
-				}
-
-				return result;
-			}
+		return (o1, o2) -> {
+			Integer order1 = orderMap.get(o1);
+			Integer order2 = orderMap.get(o2);
+			return ComparatorUtils.<Integer> getDefault().compare(order1, order2);
 		};
 	}
 }
