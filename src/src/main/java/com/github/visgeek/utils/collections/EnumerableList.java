@@ -33,8 +33,8 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 	// フィールド
 
 	// メソッド
-	public final void addAll(Iterable<? extends T> c) {
-		this.addAll(this.size(), c);
+	public boolean addAll(Iterable<? extends T> c) {
+		return this.addAll(this.size(), c);
 	}
 
 	public boolean addAll(int index, Iterable<? extends T> c) {
@@ -43,10 +43,12 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 		if (c instanceof Collection<?>) {
 			@SuppressWarnings("unchecked")
 			Collection<T> vals = (Collection<T>) c;
-			result = this.addAll(vals);
+			result = this.addAll(index, vals);
 		} else {
+			int idx = index;
 			for (T item : c) {
-				this.add(item);
+				this.add(idx, item);
+				idx++;
 				result = true;
 			}
 		}
@@ -145,7 +147,7 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 		return super.removeAll(c);
 	}
 
-	public boolean removeAll(Iterable<? extends T> c) {
+	public boolean removeAllValues(Iterable<? extends T> c) {
 		boolean result = false;
 
 		if (c instanceof Collection<?>) {
@@ -153,16 +155,14 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 			Collection<T> vals = (Collection<T>) c;
 			result = super.removeAll(vals);
 		} else {
-			result = super.removeAll(new EnumerableList<>(c));
+			for (T item : c) {
+				while (this.removeValue(item)) {
+					result = true;
+				}
+			}
 		}
 
 		return result;
-	}
-
-	@Override
-	@SuppressWarnings("hiding")
-	public <T> T[] toArray(T[] a) {
-		return super.toArray(a);
 	}
 
 	@Override
@@ -173,7 +173,7 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 	// スタティックフィールド
 	private static final long serialVersionUID = 8293487880322227008L;
 
-	public static final IReadOnlyList<Object> _emptyReadOnlyList = new EnumerableList<>();
+	private static final IReadOnlyList<Object> _emptyReadOnlyList = new EnumerableList<>();
 
 	// スタティックメソッド
 	public static <T> EnumerableList<T> create(Iterable<T> collection) {
