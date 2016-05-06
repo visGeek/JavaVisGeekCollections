@@ -17,6 +17,7 @@ public class Activator {
 			ctor.setAccessible(true);
 			ctor.newInstance();
 		} catch (Exception e) {
+		  //
 		}
 	}
 }

@@ -60,6 +60,7 @@ public class Assert2 {
 			try {
 				Assert2.assertSequanceEquals(seqs.seq1, seqs.seq2);
 			} catch (AssertionError e) {
+			  //
 			}
 		}
 
@@ -73,6 +74,7 @@ public class Assert2 {
 			try {
 				Assert2.exceptionThrown(action.expectedExceptionClass, action.action);
 			} catch (AssertionError e) {
+			  //
 			}
 		}
 	}
