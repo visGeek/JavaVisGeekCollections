@@ -177,12 +177,12 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 
 	// スタティックメソッド
 	public static <T> EnumerableList<T> create(Iterable<T> collection) {
-		return new EnumerableList<T>(collection);
+		return new EnumerableList<>(collection);
 	}
 
 	@SafeVarargs
 	public static <T> EnumerableList<T> create(T... values) {
-		return new EnumerableList<T>(values);
+		return new EnumerableList<>(values);
 	}
 
 	public static <T> IReadOnlyList<T> getEmptyReadOnlyList() {
