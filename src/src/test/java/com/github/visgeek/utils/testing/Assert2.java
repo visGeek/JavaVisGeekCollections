@@ -62,8 +62,20 @@ public class Assert2 {
 		Assert.assertTrue(String.format("expected:<%s> but was:<%s>", expectedExceptionClass.getName(), raised.getClass().getName()), Objects.equals(raised.getClass(), expectedExceptionClass));
 	}
 
-	public static void assertNullPointerExceptionThrown(Action0 action) {
-		assertExceptionThrown(NullPointerException.class, action);
+	public static void assertNullPointerExceptionThrown(String expectedMessage, Action0 action) {
+		Throwable raised = null;
+
+		try {
+			action.action();
+		} catch (Throwable e) {
+			raised = e;
+		}
+
+		Class<NullPointerException> npeClass = NullPointerException.class;
+
+		Assert.assertTrue("exception was not thorwn", raised != null);
+		Assert.assertTrue(String.format("expected:<%s> but was:<%s>", npeClass.getName(), raised.getClass().getName()), Objects.equals(raised.getClass(), npeClass));
+		Assert.assertEquals(expectedMessage, raised.getMessage());
 	}
 
 	static {
