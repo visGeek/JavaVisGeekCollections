@@ -24,7 +24,7 @@ public interface IEnumerator<T> extends Iterator<T> {
 	}
 
 	// スタティックメソッド
-	public static <T> IEnumerator<T> create(Func0<? extends T> first, Func1<? super T, Boolean> predicate, Func1<? super T, ? extends T> next) {
+	static <T> IEnumerator<T> create(Func0<? extends T> first, Func1<? super T, Boolean> predicate, Func1<? super T, ? extends T> next) {
 		return new AbstractEnumerator<T>() {
 			private boolean initial = true;
 
