@@ -30,20 +30,6 @@ public class ComparatorUtils {
 	}
 
 	/**
-	 * 指定した比較方法で Comparator&lt;T&gt; を作成します。
-	 * @param comparison
-	 * @return
-	 */
-	public static <T> Comparator<T> create(Comparator<? super T> comparator) {
-		return new Comparator<T>() {
-			@Override
-			public int compare(T o1, T o2) {
-				return comparator.compare(o1, o2);
-			}
-		};
-	}
-
-	/**
 	 * 指定した値の順番を元に Comparator&lt;T&gt; を作成します。
 	 * @param orders
 	 * @return
