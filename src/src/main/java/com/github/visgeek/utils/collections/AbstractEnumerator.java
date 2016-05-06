@@ -2,6 +2,10 @@ package com.github.visgeek.utils.collections;
 
 import java.util.NoSuchElementException;
 
+/**
+ * IEnumerator&lt;T&gt; のメソッドを実装した抽象クラスです。Iterator&lt;T&gt; のメソッドと IEnumerator&lt;T&gt; のメソッドをあわせて実行した場合の動作は保証されません。
+ * @param <T>
+ */
 public abstract class AbstractEnumerator<T> implements IEnumerator<T> {
 	// コンストラクター
 	public AbstractEnumerator() {
