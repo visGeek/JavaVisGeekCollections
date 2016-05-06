@@ -12,7 +12,7 @@ public class Max {
 		try {
 			Enumerable.empty(Integer.class).max();
 			Assert.fail();
-		} catch (IllegalStateException e) {
+		} catch (UnsupportedOperationException e) {
 			//
 		}
 	}

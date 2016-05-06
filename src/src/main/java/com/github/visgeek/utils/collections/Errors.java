@@ -10,8 +10,8 @@ class Errors {
 		return new UnsupportedOperationException("不正な操作です。");
 	}
 
-	public static IllegalStateException empty() {
-		return new IllegalStateException("シーケンスに要素が一つもありません。");
+	public static UnsupportedOperationException empty() {
+		return new UnsupportedOperationException("シーケンスに要素が一つもありません。");
 	}
 
 	public static IllegalStateException noMatch() {

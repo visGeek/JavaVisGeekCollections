@@ -12,7 +12,7 @@ public class Min {
 		try {
 			Enumerable.empty(Integer.class).min();
 			Assert.fail();
-		} catch (IllegalStateException e) {
+		} catch (UnsupportedOperationException e) {
 			//
 		}
 	}
