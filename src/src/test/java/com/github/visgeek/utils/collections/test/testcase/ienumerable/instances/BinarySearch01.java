@@ -22,7 +22,7 @@ public class BinarySearch01 {
 	 * 見つかった場合
 	 */
 	@Test
-	public void case02() {
+	public void found() {
 		int[] source = new int[] { 0, 2, 4, 6, 8, 10, 12 };
 		int target = 6;
 		int expected = 3;
@@ -33,7 +33,7 @@ public class BinarySearch01 {
 	 * 見つからないが探す値より大きい値がある場合
 	 */
 	@Test
-	public void case03() {
+	public void notFound01() {
 		int[] source = new int[] { 0, 2, 4, 6, 8, 10, 12 };
 		int target = 5;
 		int expected = ~3; // 6 の位置の補数
@@ -44,7 +44,7 @@ public class BinarySearch01 {
 	 * 見つからなくて探す値より大きい値がない場合
 	 */
 	@Test
-	public void case04() {
+	public void notFound02() {
 		int[] source = new int[] { 0, 2, 4, 6, 8, 10, 12 };
 		int target = 20;
 		int expected = ~source.length; // 要素数の補数
