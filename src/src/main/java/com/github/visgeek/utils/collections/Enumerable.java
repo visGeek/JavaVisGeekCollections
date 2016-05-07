@@ -2,6 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.RandomAccess;
 import java.util.stream.Stream;
 
 import com.github.visgeek.utils.Func0;
@@ -19,10 +20,10 @@ public final class Enumerable {
 	}
 
 	public static <T> IEnumerable<T> of(Iterable<T> source) {
-		if (source instanceof List<?>) {
-			return new ListEnumerable<T>(((List<T>) source));
+		if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ListEnumerable<>((List<T>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerable<T>(((Collection<T>) source));
+			return new CollectionEnumerable<T>((Collection<T>) source);
 		} else {
 			return () -> source.iterator();
 		}
@@ -33,7 +34,7 @@ public final class Enumerable {
 	}
 
 	public static IIntegerEnumerable of(int[] source) {
-		return () -> new ArrayEnumeratorInt(source);
+		return new ArrayEnumerableInt(source);
 	}
 
 	public static IIntegerEnumerable of(Integer... source) {
@@ -41,17 +42,17 @@ public final class Enumerable {
 	}
 
 	public static IIntegerEnumerable ofInteger(Iterable<Integer> source) {
-		if (source instanceof List<?>) {
-			return new ListEnumerableInteger(((List<Integer>) source));
+		if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ListEnumerableInteger((List<Integer>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableInteger(((Collection<Integer>) source));
+			return new CollectionEnumerableInteger((Collection<Integer>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static ILongEnumerable of(long[] source) {
-		return () -> new ArrayEnumeratorLong(source);
+		return new ArrayEnumerableLong(source);
 	}
 
 	public static ILongEnumerable of(Long... source) {
@@ -59,17 +60,17 @@ public final class Enumerable {
 	}
 
 	public static ILongEnumerable ofLong(Iterable<Long> source) {
-		if (source instanceof List<?>) {
-			return new ListEnumerableLong(((List<Long>) source));
+		if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ListEnumerableLong((List<Long>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableLong(((Collection<Long>) source));
+			return new CollectionEnumerableLong((Collection<Long>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static IDoubleEnumerable of(double[] source) {
-		return () -> new ArrayEnumeratorDouble(source);
+		return new ArrayEnumerableDouble(source);
 	}
 
 	public static IDoubleEnumerable of(Double... source) {
@@ -77,17 +78,17 @@ public final class Enumerable {
 	}
 
 	public static IDoubleEnumerable ofDouble(Iterable<Double> source) {
-		if (source instanceof List<?>) {
+		if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ListEnumerableDouble(((List<Double>) source));
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableDouble(((Collection<Double>) source));
+			return new CollectionEnumerableDouble((Collection<Double>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static IEnumerable<Character> of(char[] source) {
-		return () -> new ArrayEnumeratorChar(source);
+		return new ArrayEnumerableChar(source);
 	}
 
 	public static IEnumerable<Character> of(String source) {

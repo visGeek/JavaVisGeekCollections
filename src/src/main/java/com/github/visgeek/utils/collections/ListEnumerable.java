@@ -1,79 +1,52 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
+import java.util.stream.Stream;
 
-class ListEnumerable<T> extends CollectionEnumerable<T> implements List<T> {
+class ListEnumerable<T> implements IListEnumerable<T> {
 	// コンストラクター
 	ListEnumerable(List<T> source) {
-		super(source);
+		this.source = Collections.unmodifiableList(source);
 	}
 
 	@SafeVarargs
 	ListEnumerable(T... source) {
-		super(Arrays.asList(source));
+		this(Arrays.asList(source));
 	}
 
 	// フィールド
+	private final List<T> source;
 
 	// メソッド
 	@Override
-	List<T> source() {
-		return (List<T>) super.source();
-	}
-
-	//////////////// IEnumerable<T>
-
-	//////////////// List<T>
-	@Override
-	public boolean addAll(int paramInt, Collection<? extends T> paramCollection) {
-		throw new UnsupportedOperationException();
+	public int count() {
+		return this.source.size();
 	}
 
 	@Override
-	public T get(int paramInt) {
-		return this.source().get(paramInt);
+	public boolean contains(T item) {
+		return this.source.contains(item);
 	}
 
 	@Override
-	public T set(int paramInt, T paramE) {
-		throw new UnsupportedOperationException();
+	public Stream<T> asStream() {
+		return this.source.stream();
 	}
 
 	@Override
-	public void add(int paramInt, T paramE) {
-		throw new UnsupportedOperationException();
+	public Iterator<T> iterator() {
+		return this.source.iterator();
 	}
 
 	@Override
-	public T remove(int paramInt) {
-		throw new UnsupportedOperationException();
-	}
-
-	@Override
-	public int indexOf(Object paramObject) {
-		return this.source().indexOf(paramObject);
-	}
-
-	@Override
-	public int lastIndexOf(Object paramObject) {
-		return this.lastIndexOf(paramObject);
-	}
-
-	@Override
-	public ListIterator<T> listIterator() {
-		return this.source().listIterator();
-	}
-
-	@Override
-	public ListIterator<T> listIterator(int paramInt) {
-		return this.source().listIterator(paramInt);
-	}
-
-	@Override
-	public List<T> subList(int paramInt1, int paramInt2) {
-		return this.source().subList(paramInt1, paramInt2);
+	public T elementAt(int index) {
+		try {
+			return this.source.get(index);
+		} catch (ArrayIndexOutOfBoundsException e) {
+			throw new IndexOutOfBoundsException(e.getMessage());
+		}
 	}
 }

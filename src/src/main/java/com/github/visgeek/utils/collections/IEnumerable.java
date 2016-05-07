@@ -147,7 +147,6 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default IDoubleEnumerable asDoubleEnumerable() {
 		if (this instanceof IDoubleEnumerable) {
 			return (IDoubleEnumerable) this;
-
 		} else {
 			return this.selectDouble(n -> (Double) n);
 		}
@@ -170,7 +169,6 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default IIntegerEnumerable asIntegerEnumerable() {
 		if (this instanceof IIntegerEnumerable) {
 			return (IIntegerEnumerable) this;
-
 		} else {
 			return this.selectInteger(n -> (Integer) n);
 		}
@@ -184,7 +182,6 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default ILongEnumerable asLongEnumerable() {
 		if (this instanceof ILongEnumerable) {
 			return (ILongEnumerable) this;
-
 		} else {
 			return this.selectLong(n -> (Long) n);
 		}
@@ -457,15 +454,10 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default int count() {
 		int count = 0;
 
-		if (this instanceof Collection<?>) {
-			count = ((Collection<?>) this).size();
-
-		} else {
-			Iterator<T> itr = this.iterator();
-			while (itr.hasNext()) {
-				itr.next();
-				count++;
-			}
+		Iterator<T> itr = this.iterator();
+		while (itr.hasNext()) {
+			itr.next();
+			count++;
 		}
 
 		return count;
@@ -557,21 +549,15 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default T elementAt(int index) {
-		if (this instanceof List<?>) {
-			@SuppressWarnings("unchecked")
-			List<T> list = (List<T>) this;
-			return list.get(index);
-
-		} else {
-			int i = -1;
-			for (T item : this) {
-				i++;
-				if (i == index) {
-					return item;
-				}
+		int i = -1;
+		for (T item : this) {
+			i++;
+			if (i == index) {
+				return item;
 			}
-			throw new IndexOutOfBoundsException();
 		}
+
+		throw new IndexOutOfBoundsException();
 	}
 
 	/**
@@ -603,27 +589,17 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default T elementAtOrDefault(int index, Func0<T> defaultValue) {
-		if (this instanceof List<?>) {
-			@SuppressWarnings("unchecked")
-			List<T> list = (List<T>) this;
-			if (0 <= index && index < list.size()) {
-				return list.get(index);
-			} else {
-				return defaultValue.func();
-			}
-
-		} else {
-			if (0 <= index) {
-				int i = -1;
-				for (T item : this) {
-					i++;
-					if (i == index) {
-						return item;
-					}
+		if (0 <= index) {
+			int i = -1;
+			for (T item : this) {
+				i++;
+				if (i == index) {
+					return item;
 				}
 			}
-			return defaultValue.func();
 		}
+
+		return defaultValue.func();
 	}
 
 	/**
@@ -653,16 +629,8 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default T first() {
-		if (this instanceof List<?>) {
-			@SuppressWarnings("unchecked")
-			List<T> list = (List<T>) this;
-			if (!list.isEmpty()) {
-				return list.get(0);
-			}
-		} else {
-			for (T item : this) {
-				return item;
-			}
+		for (T item : this) {
+			return item;
 		}
 
 		throw Errors.empty();
@@ -872,21 +840,13 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default T last() {
-		if (this instanceof List<?>) {
-			@SuppressWarnings("unchecked")
-			List<T> list = (List<T>) this;
-			if (!list.isEmpty()) {
-				return list.get(list.size() - 1);
-			}
-		} else {
-			Iterator<T> itr = this.iterator();
-			if (itr.hasNext()) {
-				T lastItem;
-				do {
-					lastItem = itr.next();
-				} while (itr.hasNext());
-				return lastItem;
-			}
+		Iterator<T> itr = this.iterator();
+		if (itr.hasNext()) {
+			T lastItem;
+			do {
+				lastItem = itr.next();
+			} while (itr.hasNext());
+			return lastItem;
 		}
 
 		throw Errors.empty();
@@ -919,16 +879,8 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default T lastOrDefault(T defaultValue) {
 		T value = defaultValue;
 
-		if (this instanceof List<?>) {
-			@SuppressWarnings("unchecked")
-			List<T> list = (List<T>) this;
-			if (!list.isEmpty()) {
-				value = list.get(list.size() - 1);
-			}
-		} else {
-			for (T tmp : this) {
-				value = tmp;
-			}
+		for (T tmp : this) {
+			value = tmp;
 		}
 
 		return value;
