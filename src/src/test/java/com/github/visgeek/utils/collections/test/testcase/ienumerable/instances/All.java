@@ -3,18 +3,22 @@ package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.collections.Enumerable;
 
 public class All {
 	@Test
 	public void test_all01() {
-		boolean actual = Enumerable.of(1, 2, 3).all(n -> n <= 3);
-		Assert.assertTrue(actual);
+		this.test(true, n -> n <= 3, 1, 2, 3);
 	}
 
 	@Test
 	public void test_all02() {
-		boolean actual = Enumerable.of(1, 2, 3, 4).all(n -> n <= 3);
-		Assert.assertFalse(actual);
+		this.test(false, n -> n <= 3, 1, 2, 3, 4);
+	}
+
+	public void test(boolean expected, Func1<Integer, Boolean> predicate, Integer... source) {
+		boolean actual = Enumerable.of(source).all(predicate);
+		Assert.assertEquals(expected, actual);
 	}
 }
