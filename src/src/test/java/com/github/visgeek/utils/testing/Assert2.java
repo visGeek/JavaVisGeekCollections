@@ -78,6 +78,15 @@ public class Assert2 {
 		Assert.assertEquals(expectedMessage, raised.getMessage());
 	}
 
+	public static void assertExceptionNotThrown(Action0 action) {
+		try {
+			action.action();
+		} catch (Throwable e) {
+			String message = String.format("%s was thorwn", e.getClass().getName());
+			Assert.fail(message);
+		}
+	}
+
 	static {
 		// このクラスのカバレッジのためのコード
 		new Assert2();
