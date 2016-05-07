@@ -241,37 +241,48 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default int binarySearch(int index, int count, T item, Comparator<? super T> comparer) {
 		Errors.throwIfNull(comparer, "comparer");
 
+		int itemCount;
+
 		if (index < 0) {
 			throw new IllegalArgumentException("index");
-		}
-		if (count < 0) {
+		} else if (count < 0) {
 			throw new IllegalArgumentException("count");
+		} else {
+			itemCount = this.count();
+			if (itemCount < index + count) {
+				throw new IllegalArgumentException();
+			}
 		}
 
 		int result;
 
-		int startIndex = index;
-		int endIndex = startIndex + count - 1;
-		while (true) {
-			int idx = startIndex + (endIndex - startIndex) / 2;
-			T val = this.elementAt(idx);
+		if (itemCount == 0) {
+			result = ~0;
 
-			int compareResult = comparer.compare(val, item);
-			if (compareResult == 0) {
-				result = idx;
-				break;
+		} else {
+			int startIndex = index;
+			int endIndex = startIndex + count - 1;
+			while (true) {
+				int idx = startIndex + (endIndex - startIndex) / 2;
+				T val = this.elementAt(idx);
 
-			} else {
-				if (compareResult < 0) {
-					startIndex = idx + 1;
+				int compareResult = comparer.compare(val, item);
+				if (compareResult == 0) {
+					result = idx;
+					break;
 
 				} else {
-					endIndex = idx - 1;
-				}
+					if (compareResult < 0) {
+						startIndex = idx + 1;
 
-				if (endIndex < startIndex) {
-					result = ~startIndex;
-					break;
+					} else {
+						endIndex = idx - 1;
+					}
+
+					if (endIndex < startIndex) {
+						result = ~startIndex;
+						break;
+					}
 				}
 			}
 		}
