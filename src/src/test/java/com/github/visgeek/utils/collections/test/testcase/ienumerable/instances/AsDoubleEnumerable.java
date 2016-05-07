@@ -2,9 +2,11 @@ package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances
 
 import org.junit.Test;
 
+import com.github.visgeek.utils.Action0;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IDoubleEnumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
+import com.github.visgeek.utils.testing.Assert2;
 
 public class AsDoubleEnumerable {
 	@Test
@@ -24,6 +26,7 @@ public class AsDoubleEnumerable {
 	@Test
 	public void noException() {
 		IEnumerable<String> source = Enumerable.of("a", "b", "c");
-		source.asDoubleEnumerable();
+		Action0 action = () -> source.asDoubleEnumerable();
+		Assert2.assertExceptionNotThrown(action);
 	}
 }
