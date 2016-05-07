@@ -11,7 +11,7 @@ import com.github.visgeek.utils.testing.Assert2;
 public class AsDoubleEnumerable {
 	@Test
 	public void isIDoubleEnumerable() {
-		IEnumerable<Double> source = Enumerable.ofDouble(1.0, 2.0, 3.0);
+		IEnumerable<Double> source = Enumerable.of(1.0, 2.0, 3.0);
 		IDoubleEnumerable source2 = source.asDoubleEnumerable();
 		source2.sum();
 	}

@@ -11,7 +11,7 @@ import com.github.visgeek.utils.testing.Assert2;
 public class AsLongEnumerable {
 	@Test
 	public void isILongEnumerable() {
-		IEnumerable<Long> source = Enumerable.ofLong(1L, 2L, 3L);
+		IEnumerable<Long> source = Enumerable.of(1L, 2L, 3L);
 		ILongEnumerable source2 = source.asLongEnumerable();
 		source2.sum();
 	}

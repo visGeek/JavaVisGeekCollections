@@ -1,6 +1,8 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.statics;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
@@ -13,7 +15,7 @@ public class OfDouble {
 	@Test
 	public void primitiveArray_empty() {
 		double[] values = new double[] {};
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -21,7 +23,7 @@ public class OfDouble {
 	@Test
 	public void primitiveArray_normal() {
 		double[] values = new double[] { 1.0, 2.0, 3.0 };
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);
 	}
@@ -29,7 +31,7 @@ public class OfDouble {
 	@Test
 	public void objectArray_empty() {
 		Double[] values = new Double[] {};
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -37,13 +39,13 @@ public class OfDouble {
 	@Test
 	public void objectArray_normal() {
 		Double[] values = new Double[] { 1.0, 2.0, 3.0 };
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);
 	}
 
 	@Test
-	public void iterable_empty() {
+	public void randomAccesss_empty() {
 		List<Double> values = new ArrayList<>();
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
@@ -51,12 +53,40 @@ public class OfDouble {
 	}
 
 	@Test
-	public void iterable_normal() {
-		List<Double> values = new ArrayList<>();
-		values.add(1.0);
-		values.add(2.0);
-		values.add(3.0);
+	public void randomAccesss_normal() {
+		List<Double> values = new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0));
+		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
+		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);
+	}
+
+	@Test
+	public void collection_empty() {
+		List<Double> values = new LinkedList<>();
+		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+
+		Assert2.assertSequanceEquals(actual);
+	}
+
+	@Test
+	public void collection_normal() {
+		List<Double> values = new LinkedList<>(Arrays.asList(1.0, 2.0, 3.0));
+		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+
+		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);
+	}
+
+	@Test
+	public void iterable_empty() {
+		Iterable<Double> values = () -> new ArrayList<Double>().iterator();
+		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+
+		Assert2.assertSequanceEquals(actual);
+	}
+
+	@Test
+	public void iterable_normal() {
+		Iterable<Double> values = () -> new ArrayList<>(Arrays.asList(1.0, 2.0, 3.0)).iterator();
 		IEnumerable<Double> actual = Enumerable.ofDouble(values);
 
 		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);

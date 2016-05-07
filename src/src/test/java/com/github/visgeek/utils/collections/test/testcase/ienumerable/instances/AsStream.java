@@ -10,7 +10,7 @@ import com.github.visgeek.utils.testing.Assert2;
 public class AsStream {
 	@Test
 	public void case01() {
-		IEnumerable<Integer> source = Enumerable.ofInteger(1, 2, 3);
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		Action0 action = () -> ((IEnumerable<Integer>) () -> source.asStream().iterator()).any();
 		Assert2.assertExceptionNotThrown(action);
 	}

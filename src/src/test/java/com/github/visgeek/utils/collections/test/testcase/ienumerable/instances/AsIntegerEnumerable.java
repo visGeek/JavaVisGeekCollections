@@ -11,7 +11,7 @@ import com.github.visgeek.utils.testing.Assert2;
 public class AsIntegerEnumerable {
 	@Test
 	public void isIIntegerEnumerable() {
-		IEnumerable<Integer> source = Enumerable.ofInteger(1, 2, 3);
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		IIntegerEnumerable source2 = source.asIntegerEnumerable();
 		source2.sum();
 	}

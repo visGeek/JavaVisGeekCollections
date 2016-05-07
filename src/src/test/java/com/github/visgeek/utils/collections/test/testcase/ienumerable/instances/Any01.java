@@ -14,7 +14,7 @@ public class Any01 {
 
 	@Test
 	public void caseIsEmpty() {
-		boolean actual = Enumerable.of().any();
+		boolean actual = Enumerable.empty().any();
 		Assert.assertFalse(actual);
 	}
 }

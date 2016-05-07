@@ -45,23 +45,23 @@ Iterable<Cat> catList = Arrays.asList(catArray);
 IEnumerable<Cat> cats3 = Enumerable.of(catList);
 
 // int
-IIntegerEnumerable intValues1 = Enumerable.ofInteger(new int[] { 1, 2, 3 });  // from array
-IIntegerEnumerable intValues2 = Enumerable.ofInteger(1, 2, 3);                // from variable arguments
+IIntegerEnumerable intValues1 = Enumerable.of(new int[] { 1, 2, 3 });  // from array
+IIntegerEnumerable intValues2 = Enumerable.of(1, 2, 3);                // from variable arguments
 IIntegerEnumerable intValues3 = Enumerable.ofInteger(Arrays.asList(1, 2, 3)); // from Iterable<T>
 
 // long
-ILongEnumerable longValues1 = Enumerable.ofLong(new long[] { 1L, 2L, 3L });
-ILongEnumerable longValues2 = Enumerable.ofLong(1L, 2L, 3L);
+ILongEnumerable longValues1 = Enumerable.of(new long[] { 1L, 2L, 3L });
+ILongEnumerable longValues2 = Enumerable.of(1L, 2L, 3L);
 ILongEnumerable longValues3 = Enumerable.ofLong(Arrays.asList(1L, 2L, 3L));
 
 // double
-IDoubleEnumerable doubleValues1 = Enumerable.ofDouble(new double[] { 1.0, 2.0, 3.0 });
-IDoubleEnumerable doubleValues2 = Enumerable.ofDouble(1.0, 2.0, 3.0);
+IDoubleEnumerable doubleValues1 = Enumerable.of(new double[] { 1.0, 2.0, 3.0 });
+IDoubleEnumerable doubleValues2 = Enumerable.of(1.0, 2.0, 3.0);
 IDoubleEnumerable doublevalues3 = Enumerable.ofDouble(Arrays.asList(1.0, 2.0, 3.0));
 
 // char
-IEnumerable<Character> charValues1 = Enumerable.ofCharacter(new char[] { 'a', 'b', 'c' });
-IEnumerable<Character> charValues3 = Enumerable.ofCharacter("abc");
+IEnumerable<Character> charValues1 = Enumerable.of(new char[] { 'a', 'b', 'c' });
+IEnumerable<Character> charValues3 = Enumerable.of("abc");
 
 // Collections
 EnumerableList<Integer>                   list = new EnumerableList<>();       // extends ArrayList<T>        implements IReadOnlyList<T>

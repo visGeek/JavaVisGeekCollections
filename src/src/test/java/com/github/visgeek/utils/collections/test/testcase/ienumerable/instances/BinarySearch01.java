@@ -52,7 +52,7 @@ public class BinarySearch01 {
 	}
 
 	private void test(int[] sourceArray, int target, int expected) {
-		IEnumerable<Integer> source = Enumerable.ofInteger(sourceArray);
+		IEnumerable<Integer> source = Enumerable.of(sourceArray);
 		int actual = source.binarySearch(target);
 		Assert.assertEquals(expected, actual);
 	}

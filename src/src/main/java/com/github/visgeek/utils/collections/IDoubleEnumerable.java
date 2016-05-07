@@ -30,7 +30,7 @@ public interface IDoubleEnumerable extends IEnumerable<Double> {
 	}
 
 	@SuppressWarnings("unchecked")
-	default double[] toArray() {
+	default double[] toDoubleArray() {
 		List<Double> list;
 		if (this instanceof List<?>) {
 			list = (List<Double>) this;

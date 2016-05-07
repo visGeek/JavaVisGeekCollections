@@ -2,6 +2,7 @@ package com.github.visgeek.utils.collections.test.testcase.ienumerable.statics;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import org.junit.Test;
@@ -14,7 +15,7 @@ public class OfLong {
 	@Test
 	public void primitiveArray_empty() {
 		long[] values = new long[] {};
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -22,7 +23,7 @@ public class OfLong {
 	@Test
 	public void primitiveArray_normal() {
 		long[] values = new long[] { 1L, 2L, 3L };
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);
 	}
@@ -30,7 +31,7 @@ public class OfLong {
 	@Test
 	public void objectArray_empty() {
 		Long[] values = new Long[] {};
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -38,13 +39,13 @@ public class OfLong {
 	@Test
 	public void objectArray_normal() {
 		Long[] values = new Long[] { 1L, 2L, 3L };
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);
 	}
 
 	@Test
-	public void iterable_empty() {
+	public void randomAccesss_empty() {
 		List<Long> values = new ArrayList<>();
 		IEnumerable<Long> actual = Enumerable.ofLong(values);
 
@@ -52,8 +53,40 @@ public class OfLong {
 	}
 
 	@Test
+	public void randomAccesss_normal() {
+		List<Long> values = new ArrayList<>(Arrays.asList(1L, 2L, 3L));
+		IEnumerable<Long> actual = Enumerable.ofLong(values);
+
+		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);
+	}
+
+	@Test
+	public void collection_empty() {
+		List<Long> values = new LinkedList<>();
+		IEnumerable<Long> actual = Enumerable.ofLong(values);
+
+		Assert2.assertSequanceEquals(actual);
+	}
+
+	@Test
+	public void collection_normal() {
+		List<Long> values = new LinkedList<>(Arrays.asList(1L, 2L, 3L));
+		IEnumerable<Long> actual = Enumerable.ofLong(values);
+
+		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);
+	}
+
+	@Test
+	public void iterable_empty() {
+		Iterable<Long> values = () -> new ArrayList<Long>().iterator();
+		IEnumerable<Long> actual = Enumerable.ofLong(values);
+
+		Assert2.assertSequanceEquals(actual);
+	}
+
+	@Test
 	public void iterable_normal() {
-		List<Long> values = Arrays.asList(1L, 2L, 3L);
+		Iterable<Long> values = () -> new ArrayList<>(Arrays.asList(1L, 2L, 3L)).iterator();
 		IEnumerable<Long> actual = Enumerable.ofLong(values);
 
 		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);

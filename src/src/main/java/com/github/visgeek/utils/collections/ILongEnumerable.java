@@ -30,7 +30,7 @@ public interface ILongEnumerable extends IEnumerable<Long> {
 	}
 
 	@SuppressWarnings("unchecked")
-	default long[] toArray() {
+	default long[] toLongArray() {
 		List<Long> list;
 		if (this instanceof List<?>) {
 			list = (List<Long>) this;
