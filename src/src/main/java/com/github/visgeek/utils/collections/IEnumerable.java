@@ -140,7 +140,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
-	 * IDoubleEnumerable に変換します。
+	 * IDoubleEnumerable に変換します。要素を Double にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
 	 */
@@ -163,7 +163,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
-	 * IIntegerEnumerable に変換します。
+	 * IIntegerEnumerable に変換します。要素を Integer にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
 	 */
@@ -177,7 +177,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
-	 * ILongEnumerable に変換します。
+	 * ILongEnumerable に変換します。要素を Long にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
 	 */
