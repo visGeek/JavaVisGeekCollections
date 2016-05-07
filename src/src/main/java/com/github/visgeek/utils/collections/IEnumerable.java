@@ -235,11 +235,14 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param index 検索開始位置を表すインデックス。
 	 * @param count 検索範囲の要素数。
 	 * @param item 検索する要素
-	 * @param comparer 要素を比較するための比較子
+	 * @param comparator 要素を比較するための比較子
 	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
 	 */
-	default int binarySearch(int index, int count, T item, Comparator<? super T> comparer) {
-		Errors.throwIfNull(comparer, "comparer");
+	@SuppressWarnings("unchecked")
+	default int binarySearch(int index, int count, T item, Comparator<? super T> comparator) {
+		if (comparator == null) {
+			comparator = (Comparator<? super T>) ComparatorUtils.getDefault();
+		}
 
 		int itemCount;
 
@@ -266,7 +269,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 				int idx = startIndex + (endIndex - startIndex) / 2;
 				T val = this.elementAt(idx);
 
-				int compareResult = comparer.compare(val, item);
+				int compareResult = comparator.compare(val, item);
 				if (compareResult == 0) {
 					result = idx;
 					break;
