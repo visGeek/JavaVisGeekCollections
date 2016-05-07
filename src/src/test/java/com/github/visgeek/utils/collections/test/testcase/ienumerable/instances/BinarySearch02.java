@@ -19,7 +19,7 @@ public class BinarySearch02 {
 		int count = source.length;
 		int target = 0;
 
-		Action0 action = () -> Enumerable.ofInteger(source).binarySearch(start, count, target);
+		Action0 action = () -> Enumerable.of(source).binarySearch(start, count, target);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 
@@ -33,7 +33,7 @@ public class BinarySearch02 {
 		int count = -1;
 		int target = 0;
 
-		Action0 action = () -> Enumerable.ofInteger(source).binarySearch(start, count, target);
+		Action0 action = () -> Enumerable.of(source).binarySearch(start, count, target);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 
@@ -47,7 +47,7 @@ public class BinarySearch02 {
 		int count = source.length;
 		int target = 0;
 
-		Action0 action = () -> Enumerable.ofInteger(source).binarySearch(start, count, target);
+		Action0 action = () -> Enumerable.of(source).binarySearch(start, count, target);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 
@@ -143,7 +143,7 @@ public class BinarySearch02 {
 	}
 
 	private void test(int[] sourceArray, int start, int count, int target, int expected) {
-		IEnumerable<Integer> source = Enumerable.ofInteger(sourceArray);
+		IEnumerable<Integer> source = Enumerable.of(sourceArray);
 		int actual = source.binarySearch(start, count, target);
 		Assert.assertEquals(expected, actual);
 	}

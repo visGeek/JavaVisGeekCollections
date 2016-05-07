@@ -13,7 +13,7 @@ public class OfDouble {
 	@Test
 	public void primitiveArray_empty() {
 		double[] values = new double[] {};
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -21,7 +21,7 @@ public class OfDouble {
 	@Test
 	public void primitiveArray_normal() {
 		double[] values = new double[] { 1.0, 2.0, 3.0 };
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);
 	}
@@ -29,7 +29,7 @@ public class OfDouble {
 	@Test
 	public void objectArray_empty() {
 		Double[] values = new Double[] {};
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -37,7 +37,7 @@ public class OfDouble {
 	@Test
 	public void objectArray_normal() {
 		Double[] values = new Double[] { 1.0, 2.0, 3.0 };
-		IEnumerable<Double> actual = Enumerable.ofDouble(values);
+		IEnumerable<Double> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1.0, 2.0, 3.0);
 	}

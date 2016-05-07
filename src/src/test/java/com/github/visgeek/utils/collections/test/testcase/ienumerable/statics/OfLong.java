@@ -14,7 +14,7 @@ public class OfLong {
 	@Test
 	public void primitiveArray_empty() {
 		long[] values = new long[] {};
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -22,7 +22,7 @@ public class OfLong {
 	@Test
 	public void primitiveArray_normal() {
 		long[] values = new long[] { 1L, 2L, 3L };
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);
 	}
@@ -30,7 +30,7 @@ public class OfLong {
 	@Test
 	public void objectArray_empty() {
 		Long[] values = new Long[] {};
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -38,7 +38,7 @@ public class OfLong {
 	@Test
 	public void objectArray_normal() {
 		Long[] values = new Long[] { 1L, 2L, 3L };
-		IEnumerable<Long> actual = Enumerable.ofLong(values);
+		IEnumerable<Long> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1L, 2L, 3L);
 	}

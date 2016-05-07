@@ -14,19 +14,19 @@ public class ToArray {
 
 	@Test
 	public void test_toArray02() {
-		double[] actual = Enumerable.ofDouble(1.0, 2.0, 3.0).toArray();
+		double[] actual = Enumerable.of(1.0, 2.0, 3.0).toDoubleArray();
 		Assert.assertArrayEquals(actual, new double[] { 1.0, 2.0, 3.0 }, 0);
 	}
 
 	@Test
 	public void test_toArray03() {
-		int[] actual = Enumerable.ofInteger(1, 2, 3).toArray();
+		int[] actual = Enumerable.of(1, 2, 3).toIntArray();
 		Assert.assertArrayEquals(actual, new int[] { 1, 2, 3 });
 	}
 
 	@Test
 	public void test_toArray04() {
-		long[] actual = Enumerable.ofLong(1L, 2L, 3L).toArray();
+		long[] actual = Enumerable.of(1L, 2L, 3L).toLongArray();
 		Assert.assertArrayEquals(actual, new long[] { 1L, 2L, 3L });
 	}
 }

@@ -14,7 +14,7 @@ public class OfInteger {
 	@Test
 	public void primitiveArray_empty() {
 		int[] values = new int[] {};
-		IEnumerable<Integer> actual = Enumerable.ofInteger(values);
+		IEnumerable<Integer> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -22,7 +22,7 @@ public class OfInteger {
 	@Test
 	public void primitiveArray_normal() {
 		int[] values = new int[] { 1, 2, 3 };
-		IEnumerable<Integer> actual = Enumerable.ofInteger(values);
+		IEnumerable<Integer> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
 	}
@@ -30,7 +30,7 @@ public class OfInteger {
 	@Test
 	public void objectArray_empty() {
 		Integer[] values = new Integer[] {};
-		IEnumerable<Integer> actual = Enumerable.ofInteger(values);
+		IEnumerable<Integer> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -38,7 +38,7 @@ public class OfInteger {
 	@Test
 	public void objectArray_normal() {
 		Integer[] values = new Integer[] { 1, 2, 3 };
-		IEnumerable<Integer> actual = Enumerable.ofInteger(values);
+		IEnumerable<Integer> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
 	}

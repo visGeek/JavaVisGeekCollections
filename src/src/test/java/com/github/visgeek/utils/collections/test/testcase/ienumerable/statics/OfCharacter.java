@@ -10,7 +10,7 @@ public class OfCharacter {
 	@Test
 	public void primitiveArray_empty() {
 		char[] values = new char[] {};
-		IEnumerable<Character> actual = Enumerable.ofCharacter(values);
+		IEnumerable<Character> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -18,7 +18,7 @@ public class OfCharacter {
 	@Test
 	public void primitiveArray_normal() {
 		char[] values = new char[] { 'a', 'b', 'c' };
-		IEnumerable<Character> actual = Enumerable.ofCharacter(values);
+		IEnumerable<Character> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 'a', 'b', 'c');
 	}
@@ -26,7 +26,7 @@ public class OfCharacter {
 	@Test
 	public void string_empty() {
 		String values = "";
-		IEnumerable<Character> actual = Enumerable.ofCharacter(values);
+		IEnumerable<Character> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -34,7 +34,7 @@ public class OfCharacter {
 	@Test
 	public void string_normal() {
 		String values = "abc";
-		IEnumerable<Character> actual = Enumerable.ofCharacter(values);
+		IEnumerable<Character> actual = Enumerable.of(values);
 
 		Assert2.assertSequanceEquals(actual, 'a', 'b', 'c');
 	}

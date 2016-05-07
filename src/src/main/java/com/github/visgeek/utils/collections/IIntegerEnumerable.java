@@ -30,7 +30,7 @@ public interface IIntegerEnumerable extends IEnumerable<Integer> {
 	}
 
 	@SuppressWarnings("unchecked")
-	default int[] toArray() {
+	default int[] toIntArray() {
 		List<Integer> list;
 		if (this instanceof List<?>) {
 			list = (List<Integer>) this;
