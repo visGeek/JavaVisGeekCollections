@@ -301,20 +301,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default <TResult> IEnumerable<TResult> cast(Class<TResult> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
-
-		// Func1<T, TResult> cast = new Func1<T, TResult>() {
-		// @SuppressWarnings("unchecked")
-		// @Override
-		// public TResult func(T arg) {
-		// return (TResult) arg;
-		// }
-		// };
-		//
-		// return this.select(cast);
-
-		@SuppressWarnings("unchecked")
-		IEnumerable<TResult> enumerable = (IEnumerable<TResult>) this;
-		return enumerable;
+		return this.<TResult> cast();
 	}
 
 	/**
