@@ -8,12 +8,12 @@ import com.github.visgeek.utils.collections.Enumerable;
 
 public class All {
 	@Test
-	public void test_all01() {
+	public void case01() {
 		this.test(true, n -> n <= 3, 1, 2, 3);
 	}
 
 	@Test
-	public void test_all02() {
+	public void case02() {
 		this.test(false, n -> n <= 3, 1, 2, 3, 4);
 	}
 
