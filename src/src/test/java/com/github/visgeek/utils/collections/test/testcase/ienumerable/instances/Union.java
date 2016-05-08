@@ -9,7 +9,7 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class Union {
 	@Test
-	public void test_union01() {
+	public void test01_01() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 1, 2, 2, 3, 3, 4, 4);
 		IEnumerable<Integer> values2 = Enumerable.of(3, 3, 2, 2, 4, 4, 5, 5);
 		IEnumerable<Integer> actual = values1.union(values2);
@@ -17,7 +17,7 @@ public class Union {
 	}
 
 	@Test
-	public void test_union02() {
+	public void test02_01() {
 		IEqualityComparator<Integer> comparator = IEqualityComparator.create(a -> a);
 
 		IEnumerable<Integer> values1 = Enumerable.of(1, 1, 2, 2, 3, 3, 4, 4);

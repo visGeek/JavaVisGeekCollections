@@ -9,13 +9,13 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class Distinct {
 	@Test
-	public void test_distinct01() {
+	public void test01_01() {
 		IEnumerable<Integer> actual = Enumerable.of(1, 2, 3, 2, 1, 4, 3, 4).distinct();
 		Assert2.assertSequanceEquals(actual, 1, 2, 3, 4);
 	}
 
 	@Test
-	public void test_distinct02() {
+	public void test02_01() {
 		IEqualityComparator<String> cpr =
 				IEqualityComparator.create(str -> str.length(), (a, b) -> Integer.parseInt(a) == Integer.parseInt(b));
 

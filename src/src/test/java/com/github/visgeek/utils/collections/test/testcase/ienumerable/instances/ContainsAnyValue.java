@@ -9,7 +9,7 @@ import com.github.visgeek.utils.collections.IEnumerable;
 
 public class ContainsAnyValue {
 	@Test
-	public void test_containsAnyValue01_01() {
+	public void test01_01() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 2, 3, 4, 5);
 		IEnumerable<Integer> values2 = Enumerable.of(2, 3, 4);
 
@@ -18,7 +18,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue01_02() {
+	public void test01_02() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 2, 3, 4, 5);
 		IEnumerable<Integer> values2 = Enumerable.of(2, 6, 7, 8);
 
@@ -27,7 +27,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue01_03() {
+	public void test01_03() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 2, 3, 4, 5);
 		IEnumerable<Integer> values2 = Enumerable.of(6, 7, 8);
 
@@ -36,7 +36,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue01_04() {
+	public void test01_04() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 2, 3, 4, 5);
 		IEnumerable<Integer> values2 = Enumerable.empty();
 
@@ -45,7 +45,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue01_05() {
+	public void test01_05() {
 		IEnumerable<Integer> values1 = Enumerable.empty();
 		IEnumerable<Integer> values2 = Enumerable.empty();
 
@@ -54,7 +54,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue02_01() {
+	public void test02_01() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
 						obj -> Integer.parseInt(obj),
@@ -68,7 +68,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue02_02() {
+	public void test02_02() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
 						obj -> Integer.parseInt(obj),
@@ -82,7 +82,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue02_03() {
+	public void test02_03() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
 						obj -> Integer.parseInt(obj),
@@ -96,7 +96,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue02_04() {
+	public void test02_04() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
 						obj -> Integer.parseInt(obj),
@@ -110,7 +110,7 @@ public class ContainsAnyValue {
 	}
 
 	@Test
-	public void test_containsAnyValue02_05() {
+	public void test02_05() {
 		IEqualityComparator<String> eComparator =
 				IEqualityComparator.create(
 						obj -> Integer.parseInt(obj),

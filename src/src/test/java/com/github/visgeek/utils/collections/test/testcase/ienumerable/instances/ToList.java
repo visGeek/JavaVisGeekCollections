@@ -9,7 +9,7 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class ToList {
 	@Test
-	public void test_toList01() {
+	public void test01() {
 		List<Integer> actual = Enumerable.of(1, 2, 3).toList();
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
 	}

@@ -9,7 +9,7 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class Zip {
 	@Test
-	public void test_zip01() {
+	public void test01() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 2, 3);
 		IEnumerable<String> values2 = Enumerable.of("one", "two", "three", "four");
 		Func2<Integer, String, String> resultSelector = (a1, a2) -> String.format("%d - %s", a1, a2);
@@ -19,7 +19,7 @@ public class Zip {
 	}
 
 	@Test
-	public void test_zip02() {
+	public void test02() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 2, 3, 4);
 		IEnumerable<String> values2 = Enumerable.of("one", "two", "three");
 		Func2<Integer, String, String> resultSelector = (a1, a2) -> String.format("%d - %s", a1, a2);
