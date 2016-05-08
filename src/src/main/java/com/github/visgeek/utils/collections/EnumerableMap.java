@@ -79,6 +79,20 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 		return super.get(key);
 	}
 
+	@Override
+	@Deprecated
+	public V getOrDefault(Object paramObject, V paramV) {
+		return super.getOrDefault(paramObject, paramV);
+	}
+
+	/**
+	 * getOrDefault(Object Key, V defaultValue) と同じ動作です。
+	 */
+	@Override
+	public V getValueOrDefault(K key, V defaultValue) {
+		return super.getOrDefault(key, defaultValue);
+	}
+
 	/**
 	 * キーに関連する値を取得します。登録されていない場合は規定値を登録します。
 	 * @param key

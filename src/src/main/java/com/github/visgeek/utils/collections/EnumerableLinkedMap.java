@@ -154,6 +154,20 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 		return Enumerable.of(this.values());
 	}
 
+	@Override
+	@Deprecated
+	public V getOrDefault(Object paramObject, V paramV) {
+		return super.getOrDefault(paramObject, paramV);
+	}
+
+	/**
+	 * getOrDefault(Object Key, V defaultValue) と同じ動作です。
+	 */
+	@Override
+	public V getValueOrDefault(K key, V defaultValue) {
+		return super.getOrDefault(key, defaultValue);
+	}
+
 	public V putOrThrow(K key, V value) {
 		return this.putOrThrow(key, value, (k, v) -> String.format("key %s is already contained.", key));
 	}

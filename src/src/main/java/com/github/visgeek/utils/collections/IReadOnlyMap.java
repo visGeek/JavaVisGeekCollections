@@ -22,13 +22,7 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 		}
 	}
 
-	default V getValueOrDefault(K key, V defaultValue) {
-		if (this.containsKey(key)) {
-			return this.get(key);
-		} else {
-			return defaultValue;
-		}
-	}
+	V getValueOrDefault(K key, V defaultValue);
 
 	default V getValueOrDefault(K key, Func0<? extends V> defaultValue) {
 		if (this.containsKey(key)) {
