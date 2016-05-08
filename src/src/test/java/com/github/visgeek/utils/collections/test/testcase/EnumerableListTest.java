@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -32,8 +33,16 @@ public class EnumerableListTest {
 	}
 
 	@Test
-	public void ctorIterable() {
+	public void ctorIterable_Collection() {
 		Iterable<Integer> values = Arrays.asList(1, 2, 3);
+		EnumerableList<Integer> actual = new EnumerableList<>(values);
+
+		Assert2.assertSequanceEquals(actual, 1, 2, 3);
+	}
+
+	@Test
+	public void ctorIterable_Iterable() {
+		Iterable<Integer> values = () -> Arrays.asList(1, 2, 3).iterator();
 		EnumerableList<Integer> actual = new EnumerableList<>(values);
 
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
@@ -50,12 +59,7 @@ public class EnumerableListTest {
 	@Test
 	public void ctorCapacity() throws NoSuchFieldException, SecurityException, IllegalArgumentException, IllegalAccessException {
 		EnumerableList<Integer> list = new EnumerableList<>(3);
-
-		// リフレクションで無理矢理キャパシティを取得する。
-		Field field = ArrayList.class.getDeclaredField("elementData");
-		field.setAccessible(true);
-		Object[] elementData = (Object[]) field.get(list);
-		int actual = elementData.length;
+		int actual = getCapacity(list);
 
 		Assert.assertEquals(actual, 3);
 	}
@@ -281,5 +285,17 @@ public class EnumerableListTest {
 	public void getEmptyReadOnlyList() {
 		IReadOnlyList<Integer> list = EnumerableList.getEmptyReadOnlyList();
 		Assert.assertTrue(list.isEmpty());
+	}
+
+	static int getCapacity(List<?> list) {
+		try {
+			// リフレクションで無理矢理キャパシティを取得する。
+			Field field = ArrayList.class.getDeclaredField("elementData");
+			field.setAccessible(true);
+			Object[] elementData = (Object[]) field.get(list);
+			return elementData.length;
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

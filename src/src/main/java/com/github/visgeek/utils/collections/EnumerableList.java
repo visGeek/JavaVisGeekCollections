@@ -14,7 +14,13 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 
 	public EnumerableList(Iterable<? extends T> collection) {
 		this();
-		this.addAll(collection);
+		if (collection instanceof Collection<?>) {
+			@SuppressWarnings("unchecked")
+			Collection<T> c = (Collection<T>) collection;
+			this.addAll(c);
+		} else {
+			this.addAll(collection);
+		}
 	}
 
 	@SafeVarargs
