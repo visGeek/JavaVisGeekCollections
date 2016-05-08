@@ -51,8 +51,6 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 
 	Collection<V> values();
 
-	IKeyValueCollection<K, V> toKeyValueCollection();
-
 	public static <K, V extends V2, V2> IReadOnlyMap<K, V2> cast(IReadOnlyMap<K, V> map) {
 		@SuppressWarnings("unchecked")
 		IReadOnlyMap<K, V2> result = (IReadOnlyMap<K, V2>) map;

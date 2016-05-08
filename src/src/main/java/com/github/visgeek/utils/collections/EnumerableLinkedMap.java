@@ -248,11 +248,6 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 	}
 
 	@Override
-	public IKeyValueCollection<K, V> toKeyValueCollection() {
-		return new KeyValueCollection<>(this);
-	}
-
-	@Override
 	public String toString() {
 		return String.format("size:%d", this.size());
 	}

@@ -243,11 +243,6 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 	}
 
 	@Override
-	public IKeyValueCollection<K, V> toKeyValueCollection() {
-		return new KeyValueCollection<>(this);
-	}
-
-	@Override
 	public String toString() {
 		return String.format("size:%d", this.size());
 	}
