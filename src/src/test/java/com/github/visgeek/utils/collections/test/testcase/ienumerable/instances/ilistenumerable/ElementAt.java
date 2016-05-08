@@ -22,13 +22,13 @@ public class ElementAt {
 	public void testIndexOutOfRange01() {
 		IEnumerable<Integer> source = Enumerable.of(Arrays.asList(1, 2, 3));
 		Action0 action = () -> source.elementAt(-1);
-		Assert2.assertExceptionThrown(IndexOutOfBoundsException.class, action);
+		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 
 	@Test
 	public void testIndexOutOfRange02() {
 		IEnumerable<Integer> source = Enumerable.of(Arrays.asList(1, 2, 3));
 		Action0 action = () -> source.elementAt(4);
-		Assert2.assertExceptionThrown(IndexOutOfBoundsException.class, action);
+		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 }

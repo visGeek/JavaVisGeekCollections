@@ -15,7 +15,7 @@ class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleEn
 		try {
 			return this.source[index];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw new IndexOutOfBoundsException(e.getMessage());
+			throw Errors.ArgumentOfOutOfRange("index");
 		}
 	}
 

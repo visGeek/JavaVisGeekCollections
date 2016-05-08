@@ -549,6 +549,10 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default T elementAt(int index) {
+		if (index < 0) {
+			throw Errors.ArgumentOfOutOfRange("index");
+		}
+
 		int i = -1;
 		for (T item : this) {
 			i++;
@@ -557,7 +561,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 			}
 		}
 
-		throw new IndexOutOfBoundsException();
+		throw Errors.ArgumentOfOutOfRange("index");
 	}
 
 	/**
