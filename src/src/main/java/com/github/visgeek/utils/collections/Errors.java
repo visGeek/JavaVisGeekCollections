@@ -14,16 +14,16 @@ class Errors {
 		return new UnsupportedOperationException("シーケンスに要素が一つもありません。");
 	}
 
-	public static IllegalStateException noMatch() {
-		return new IllegalStateException("シーケンスに、条件に適合する要素が一つもありません。");
+	public static UnsupportedOperationException noMatch() {
+		return new UnsupportedOperationException("シーケンスに、条件に適合する要素が一つもありません。");
 	}
 
-	public static IllegalStateException moreThanOneElement() {
-		return new IllegalStateException("シーケンスに複数の要素が含まれています。");
+	public static UnsupportedOperationException moreThanOneElement() {
+		return new UnsupportedOperationException("シーケンスに複数の要素が含まれています。");
 	}
 
-	public static IllegalStateException moreThanOneMatch() {
-		return new IllegalStateException("シーケンスに、条件に適合する要素が複数含まれています。");
+	public static UnsupportedOperationException moreThanOneMatch() {
+		return new UnsupportedOperationException("シーケンスに、条件に適合する要素が複数含まれています。");
 	}
 
 	public static IllegalArgumentException argumentOfOutOfRange(String argName) {
