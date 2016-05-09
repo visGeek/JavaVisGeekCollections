@@ -21,10 +21,8 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 	final <TResult> IEnumerable<TResult> applyResultSelector(final Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector) {
 		final Iterator<Entry<TKey, IGrouping<TKey, TElement>>> iterator = this.map.entrySet().iterator();
 
-		Iterable<TResult> iterable = new Iterable<TResult>() {
-			@Override
-			public Iterator<TResult> iterator() {
-				return new Iterator<TResult>() {
+		Iterable<TResult> iterable =
+				() -> new Iterator<TResult>() {
 					@Override
 					public boolean hasNext() {
 						return iterator.hasNext();
@@ -36,8 +34,6 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 						return resultSelector.func(entry.getKey(), entry.getValue());
 					}
 				};
-			}
-		};
 
 		return Enumerable.of(iterable);
 	}
@@ -49,7 +45,7 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 			grouping = (Grouping<TKey, TElement>) this.map.get(key);
 
 		} else if (create) {
-			grouping = new Grouping<TKey, TElement>(key);
+			grouping = new Grouping<>(key);
 			this.map.put(key, grouping);
 
 		} else {
@@ -81,7 +77,7 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 		Errors.throwIfNull(keySelector, "keySelector");
 		Errors.throwIfNull(elementSelector, "elementSelector");
 
-		Lookup<TKey, TElement> lookup = new Lookup<TKey, TElement>(comparator);
+		Lookup<TKey, TElement> lookup = new Lookup<>(comparator);
 
 		for (T local : source) {
 			lookup.getGrouping(keySelector.func(local), true).add(elementSelector.func(local));

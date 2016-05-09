@@ -29,7 +29,7 @@ abstract class LinqGroupByIterable<T, TKey, TElement, TResult> implements IEnume
 	private final IEqualityComparator<TKey> comparator;
 
 	// メソッド
-	protected final Lookup<TKey, TElement> lookup() {
+	final Lookup<TKey, TElement> lookup() {
 		return Lookup.create(this.source, this.keySelector, this.elementSelector, this.comparator);
 	}
 
