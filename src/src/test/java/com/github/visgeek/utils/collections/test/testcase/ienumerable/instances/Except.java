@@ -9,7 +9,7 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class Except {
 	@Test
-	public void test_except01_01() {
+	public void test01_01() {
 		IEnumerable<Integer> values1 = Enumerable.of(1, 1, 2, 2, 3, 3, 4, 4);
 		IEnumerable<Integer> values2 = Enumerable.of(4, 4, 3, 3, 5, 5, 6, 6);
 
@@ -18,7 +18,7 @@ public class Except {
 	}
 
 	@Test
-	public void test_except02_01() {
+	public void test02_01() {
 		IEqualityComparator<Integer> comparator =
 				IEqualityComparator.create(
 						obj -> obj.hashCode(),
