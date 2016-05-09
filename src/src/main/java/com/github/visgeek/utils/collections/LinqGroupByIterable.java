@@ -52,14 +52,14 @@ abstract class LinqGroupByIterable<T, TKey, TElement, TResult> implements IEnume
 
 	static class Iterable2<T, TKey, TElement, TResult> extends LinqGroupByIterable<T, TKey, TElement, TResult> {
 		// コンストラクター
-		public Iterable2(IEnumerable<T> source, Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
+		public Iterable2(IEnumerable<T> source, Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
 			super(source, keySelector, elementSelector, comparator);
 
 			Errors.throwIfNull(resultSelector, "resultSelector");
 			this.resultSelector = resultSelector;
 		}
 
-		private final Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector;
+		private final Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector;
 
 		@Override
 		public Iterator<TResult> iterator() {

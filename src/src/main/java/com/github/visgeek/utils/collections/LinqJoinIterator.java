@@ -3,7 +3,6 @@ package com.github.visgeek.utils.collections;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.Func2;
@@ -35,7 +34,7 @@ class LinqJoinIterator<TOuter, TInner, TKey, TResult> extends AbstractEnumerator
 
 	private boolean isReadInner = false;
 
-	private final Map<TKey, List<TInner>> innerMap;
+	private final EquatableMap<TKey, List<TInner>> innerMap;
 
 	private TOuter outerValue;
 

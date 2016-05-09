@@ -737,19 +737,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return new LinqGroupByIterable.Iterable1<>(this, keySelector, elementSelector, comparator);
 	}
 
-	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, IEnumerable<? super T>, TResult> resultSelector) {
+	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, ? super IEnumerable<T>, TResult> resultSelector) {
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, n -> n, resultSelector, null);
 	}
 
-	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, IEnumerable<? super T>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
+	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, ? super IEnumerable<T>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, n -> n, resultSelector, comparator);
 	}
 
-	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector) {
+	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, null);
 	}
 
-	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
+	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, comparator);
 	}
 

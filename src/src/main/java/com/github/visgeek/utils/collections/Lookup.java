@@ -1,8 +1,6 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
 
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.Func2;
@@ -15,27 +13,11 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 	}
 
 	// フィールド
-	public final Map<TKey, IGrouping<TKey, TElement>> map;
+	private final EquatableMap<TKey, IGrouping<TKey, TElement>> map;
 
 	// メソッド
-	final <TResult> IEnumerable<TResult> applyResultSelector(final Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector) {
-		final Iterator<Entry<TKey, IGrouping<TKey, TElement>>> iterator = this.map.entrySet().iterator();
-
-		Iterable<TResult> iterable =
-				() -> new Iterator<TResult>() {
-					@Override
-					public boolean hasNext() {
-						return iterator.hasNext();
-					}
-
-					@Override
-					public TResult next() {
-						Entry<TKey, IGrouping<TKey, TElement>> entry = iterator.next();
-						return resultSelector.func(entry.getKey(), entry.getValue());
-					}
-				};
-
-		return Enumerable.of(iterable);
+	final <TResult> IEnumerable<TResult> applyResultSelector(final Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
+		return this.map.entries().select(kv -> resultSelector.func(kv.key, kv.value));
 	}
 
 	private final Grouping<TKey, TElement> getGrouping(TKey key, boolean create) {
