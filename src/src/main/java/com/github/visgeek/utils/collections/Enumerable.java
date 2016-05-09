@@ -103,16 +103,57 @@ public final class Enumerable {
 		return Enumerable.<T> empty();
 	}
 
-	public static IEnumerable<Integer> forTo(int start, int finish) {
-		return () -> IEnumerator.create(() -> start, n -> n <= finish, n -> n + 1);
+	/**
+	 * start から end までの連続する整数のシーケンスを作成します。作成されたシーケンスはランダムアクセスをサポートします。
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static IIntegerEnumerable forTo(int start, int end) {
+		if (end < start) {
+			throw Errors.ArgumentOfOutOfRange("end");
+		} else {
+			return new IntegerSequenceEnumerable(start, end);
+		}
 	}
 
 	public static <T> IEnumerable<T> forTo(Func0<? extends T> first, Func1<? super T, Boolean> predicate, Func1<? super T, ? extends T> next) {
 		return () -> IEnumerator.create(first, predicate, next);
 	}
 
-	public static IEnumerable<Integer> range(int start, int count) {
+	/**
+	 * start から始まる count の数の連続した整数のシーケンスを作成します。
+	 * @param start
+	 * @param count
+	 * @return
+	 */
+	public static IIntegerEnumerable range(int start, int count) {
+		Enumerable.rangeParameterCheck(start, count);
 		return () -> new LinqRangeEnumerator(start, count);
+	}
+
+	/**
+	 * start から始まる count の数の連続した整数のシーケンスを作成します。作成されたシーケンスはランダムアクセスをサポートします。
+	 * @param start
+	 * @param count
+	 * @return
+	 */
+	public static IIntegerEnumerable range2(int start, int count) {
+		int end = Enumerable.rangeParameterCheck(start, count);
+		return new IntegerSequenceEnumerable(start, end);
+	}
+
+	private static int rangeParameterCheck(int start, int count) {
+		if (count < 0) {
+			throw Errors.ArgumentOfOutOfRange("count");
+		}
+
+		long end = ((long) start) + count - 1;
+		if (Integer.MAX_VALUE < end) {
+			throw Errors.ArgumentOfOutOfRange("count");
+		}
+
+		return (int) end;
 	}
 
 	public static <T> IEnumerable<T> repeat(final T element, int count) {
