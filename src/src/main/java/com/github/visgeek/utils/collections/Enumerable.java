@@ -156,7 +156,31 @@ public final class Enumerable {
 		return (int) end;
 	}
 
-	public static <T> IEnumerable<T> repeat(final T element, int count) {
+	/**
+	 * element を count の数だけ含むシーケンスを作成します。
+	 * @param element
+	 * @param count
+	 * @return
+	 */
+	public static <T> IEnumerable<T> repeat(T element, int count) {
+		if (count < 0) {
+			throw Errors.argumentOfOutOfRange("count");
+		}
+
 		return Enumerable.range(0, count).select(n -> element);
+	}
+
+	/**
+	 * element を count の数だけ含むシーケンスを作成します。作成されたシーケンスはランダムアクセスをサポートします。
+	 * @param element
+	 * @param count
+	 * @return
+	 */
+	public static <T> IEnumerable<T> repeat2(T element, int count) {
+		if (count < 0) {
+			throw Errors.argumentOfOutOfRange("count");
+		}
+
+		return new RepeatEnumerable<>(element, count);
 	}
 }
