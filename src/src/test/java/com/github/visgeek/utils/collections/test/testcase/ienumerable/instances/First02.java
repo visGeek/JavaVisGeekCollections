@@ -30,7 +30,7 @@ public class First02 {
 
 	@Test
 	public void found() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3, 4);
+		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3, 4).iterator();
 		Func1<Integer, Boolean> predicate = n -> n % 2 == 0;
 		int expected = 2;
 

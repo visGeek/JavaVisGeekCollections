@@ -3,24 +3,27 @@ package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.visgeek.utils.Action0;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
-import com.github.visgeek.utils.testing.Assert2;
 
-public class First01 {
+public class FirstOrDefault02 {
 	@Test
 	public void empty() {
 		IEnumerable<Integer> source = Enumerable.empty();
-		Action0 action = () -> source.first();
-		Assert2.assertExceptionThrown(UnsupportedOperationException.class, action);
+		Integer defaultValue = 0;
+		Integer expected = defaultValue;
+
+		Integer actual = source.firstOrDefault(defaultValue);
+		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void any() {
-		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3, 4).iterator();
-		int actual = source.first();
-		int expected = 1;
+		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3).iterator();
+		Integer defaultValue = 0;
+		Integer expected = 1;
+
+		Integer actual = source.firstOrDefault(defaultValue);
 		Assert.assertEquals(expected, actual);
 	}
 }
