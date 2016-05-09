@@ -212,9 +212,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
 	 */
 	default int binarySearch(int index, int count, T item) {
-		@SuppressWarnings("unchecked")
-		Comparator<? super T> comparer = (Comparator<? super T>) ComparatorUtils.getDefault();
-		return this.binarySearch(index, count, item, comparer);
+		return this.binarySearch(index, count, item, ComparatorUtils.getDefault());
 	}
 
 	/***
@@ -235,10 +233,9 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param comparator 要素を比較するための比較子
 	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
 	 */
-	@SuppressWarnings("unchecked")
 	default int binarySearch(int index, int count, T item, Comparator<? super T> comparator) {
 		if (comparator == null) {
-			comparator = (Comparator<? super T>) ComparatorUtils.getDefault();
+			comparator = ComparatorUtils.getDefault();
 		}
 
 		int itemCount;
@@ -620,11 +617,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * 指定した比較方法を利用して、シーケンスの差集合を取得します。
 	 *
 	 * @param second
-	 * @param comparetor
+	 * @param comparator
 	 * @return
 	 */
-	default IEnumerable<T> except(Iterable<? extends T> second, IEqualityComparator<? super T> comparetor) {
-		return () -> new LinqExceptIterator<>(IEnumerable.this, second, comparetor);
+	default IEnumerable<T> except(Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
+		return () -> new LinqExceptIterator<>(IEnumerable.this, second, comparator);
 	}
 
 	/**
@@ -948,9 +945,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default T max() {
-		@SuppressWarnings("unchecked")
-		Comparator<? super T> comparator = (Comparator<? super T>) ComparatorUtils.getDefault();
-		return this.max(comparator);
+		return this.max(ComparatorUtils.getDefault());
 	}
 
 	default T max(Comparator<? super T> comparator) {
@@ -985,9 +980,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default T min() {
-		@SuppressWarnings("unchecked")
-		Comparator<? super T> comparator = (Comparator<? super T>) ComparatorUtils.getDefault();
-		return this.min(comparator);
+		return this.min(ComparatorUtils.getDefault());
 	}
 
 	default T min(Comparator<? super T> comparator) {
@@ -1043,24 +1036,12 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default IOrderedEnumerable<T> orderByDefaultKey() {
-		Comparator<T> comparator =
-				(arg0, arg1) -> {
-					@SuppressWarnings("unchecked")
-					Comparable<T> a = (Comparable<T>) arg0;
-					return a.compareTo(arg1);
-				};
-
+		Comparator<T> comparator = ComparatorUtils.getDefault();
 		return this.orderBy(comparator);
 	}
 
 	default IOrderedEnumerable<T> orderByDefaultKeyDescending() {
-		Comparator<T> comparator =
-				(arg0, arg1) -> {
-					@SuppressWarnings("unchecked")
-					Comparable<T> a = (Comparable<T>) arg0;
-					return a.compareTo(arg1);
-				};
-
+		Comparator<T> comparator = ComparatorUtils.getDefault();
 		return this.orderByDescending(comparator);
 	}
 

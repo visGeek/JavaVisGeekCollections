@@ -15,7 +15,7 @@ public class ComparatorUtils {
 	// メソッド
 
 	// スタティックフィールド
-	private static Comparator<Comparable<Object>> defaultComparator = Comparator.nullsFirst(Comparator.naturalOrder());
+	private static Comparator<?> defaultComparator = Comparator.nullsFirst(Comparator.naturalOrder());
 
 	// スタティックイニシャライザー
 
@@ -25,7 +25,7 @@ public class ComparatorUtils {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends Comparable<T>> Comparator<T> getDefault() {
+	public static <T> Comparator<T> getDefault() {
 		return (Comparator<T>) ComparatorUtils.defaultComparator;
 	}
 
