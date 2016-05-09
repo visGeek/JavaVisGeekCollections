@@ -45,8 +45,8 @@ Iterable<Cat> catList = Arrays.asList(catArray);
 IEnumerable<Cat> cats3 = Enumerable.of(catList);
 
 // int
-IIntegerEnumerable intValues1 = Enumerable.of(new int[] { 1, 2, 3 });  // from array
-IIntegerEnumerable intValues2 = Enumerable.of(1, 2, 3);                // from variable arguments
+IIntegerEnumerable intValues1 = Enumerable.of(new int[] { 1, 2, 3 });         // from array
+IIntegerEnumerable intValues2 = Enumerable.of(1, 2, 3);                       // from variable arguments
 IIntegerEnumerable intValues3 = Enumerable.ofInteger(Arrays.asList(1, 2, 3)); // from Iterable<T>
 
 // long
