@@ -725,43 +725,43 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default <TKey> IEnumerable<IGrouping<TKey, T>> groupBy(Func1<? super T, TKey> keySelector) {
-		return new LinqGroupByIterable.Iterable1<T, TKey, T>(this, keySelector, n -> n, null);
+		return new LinqGroupByIterable.Iterable1<>(this, keySelector, n -> n, null);
 	}
 
 	default <TKey> IEnumerable<IGrouping<TKey, T>> groupBy(Func1<? super T, TKey> keySelector, IEqualityComparator<TKey> comparator) {
-		return new LinqGroupByIterable.Iterable1<T, TKey, T>(this, keySelector, n -> n, comparator);
+		return new LinqGroupByIterable.Iterable1<>(this, keySelector, n -> n, comparator);
 	}
 
 	default <TKey, TElement> IEnumerable<IGrouping<TKey, TElement>> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector) {
-		return new LinqGroupByIterable.Iterable1<T, TKey, TElement>(this, keySelector, elementSelector, null);
+		return new LinqGroupByIterable.Iterable1<>(this, keySelector, elementSelector, null);
 	}
 
 	default <TKey, TElement> IEnumerable<IGrouping<TKey, TElement>> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, IEqualityComparator<TKey> comparator) {
-		return new LinqGroupByIterable.Iterable1<T, TKey, TElement>(this, keySelector, elementSelector, comparator);
+		return new LinqGroupByIterable.Iterable1<>(this, keySelector, elementSelector, comparator);
 	}
 
 	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, IEnumerable<? super T>, TResult> resultSelector) {
-		return new LinqGroupByIterable.Iterable2<T, TKey, T, TResult>(this, keySelector, n -> n, resultSelector, null);
+		return new LinqGroupByIterable.Iterable2<>(this, keySelector, n -> n, resultSelector, null);
 	}
 
 	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, IEnumerable<? super T>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
-		return new LinqGroupByIterable.Iterable2<T, TKey, T, TResult>(this, keySelector, n -> n, resultSelector, comparator);
+		return new LinqGroupByIterable.Iterable2<>(this, keySelector, n -> n, resultSelector, comparator);
 	}
 
 	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector) {
-		return new LinqGroupByIterable.Iterable2<T, TKey, TElement, TResult>(this, keySelector, elementSelector, resultSelector, null);
+		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, null);
 	}
 
 	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, IEnumerable<? super TElement>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
-		return new LinqGroupByIterable.Iterable2<T, TKey, TElement, TResult>(this, keySelector, elementSelector, resultSelector, comparator);
+		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, comparator);
 	}
 
 	default <TInner, TKey> IEnumerable<JoinedValue<T, IReadOnlyList<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
 		Func2<T, Iterable<? super TInner>, JoinedValue<T, IReadOnlyList<TInner>>> resultSelector =
 				(arg1, arg2) -> {
 					@SuppressWarnings("unchecked")
-					IReadOnlyList<TInner> inner_ = (IReadOnlyList<TInner>) new EnumerableList<Object>(arg2);
-					return new JoinedValue<T, IReadOnlyList<TInner>>(arg1, inner_);
+					IReadOnlyList<TInner> inner_ = (IReadOnlyList<TInner>) new EnumerableList<>(arg2);
+					return new JoinedValue<>(arg1, inner_);
 				};
 
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector);
@@ -775,8 +775,8 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Func2<T, Iterable<? super TInner>, JoinedValue<T, IReadOnlyList<TInner>>> resultSelector =
 				(arg1, arg2) -> {
 					@SuppressWarnings("unchecked")
-					IReadOnlyList<TInner> inner_ = (IReadOnlyList<TInner>) new EnumerableList<Object>(arg2);
-					return new JoinedValue<T, IReadOnlyList<TInner>>(arg1, inner_);
+					IReadOnlyList<TInner> inner_ = (IReadOnlyList<TInner>) new EnumerableList<>(arg2);
+					return new JoinedValue<>(arg1, inner_);
 				};
 
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
@@ -788,7 +788,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
 		Errors.throwIfNull(resultSelector, "resultSelector");
 
-		return () -> new LinqGroupJoinIterator<T, TInner, TKey, TResult>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
+		return () -> new LinqGroupJoinIterator<>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
 	default int indexOf(T item) {
@@ -821,7 +821,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
-		Func2<T, TInner, JoinedValue<T, TInner>> resultSelector = (arg1, arg2) -> new JoinedValue<T, TInner>(arg1, arg2);
+		Func2<T, TInner, JoinedValue<T, TInner>> resultSelector = (arg1, arg2) -> new JoinedValue<>(arg1, arg2);
 		return this.join(inner, outerKeySelector, innerKeySelector, resultSelector);
 	}
 
@@ -830,7 +830,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, IEqualityComparator<? super TKey> comparator) {
-		Func2<T, TInner, JoinedValue<T, TInner>> resultSelector = (arg1, arg2) -> new JoinedValue<T, TInner>(arg1, arg2);
+		Func2<T, TInner, JoinedValue<T, TInner>> resultSelector = (arg1, arg2) -> new JoinedValue<>(arg1, arg2);
 		return this.join(inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
@@ -840,7 +840,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
 		Errors.throwIfNull(resultSelector, "resultSelector");
 
-		return () -> new LinqJoinIterator<T, TInner, TKey, TResult>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
+		return () -> new LinqJoinIterator<>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
 	default T last() {
@@ -1023,7 +1023,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TResult extends T> IEnumerable<TResult> ofType(Class<TResult> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
-		return () -> new LinqOfTypeIterator<T, TResult>(IEnumerable.this, elementClass);
+		return () -> new LinqOfTypeIterator<>(IEnumerable.this, elementClass);
 	}
 
 	default <TKey extends Comparable<TKey>> IOrderedEnumerable<T> orderBy(Func1<? super T, TKey> keySelector) {
@@ -1091,7 +1091,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TResult> IEnumerable<TResult> select(Func2<? super T, Integer, TResult> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> new LinqSelectIterator<T, TResult>(IEnumerable.this, selector);
+		return () -> new LinqSelectIterator<>(IEnumerable.this, selector);
 	}
 
 	default IDoubleEnumerable selectDouble(Func1<? super T, Double> selector) {
@@ -1113,7 +1113,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TResult> IEnumerable<TResult> selectMany(Func2<? super T, Integer, Iterable<TResult>> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> new LinqSelectManyIterator<T, TResult>(IEnumerable.this, selector);
+		return () -> new LinqSelectManyIterator<>(IEnumerable.this, selector);
 	}
 
 	default boolean sequenceEqual(Iterable<? extends T> second) {
@@ -1451,6 +1451,6 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default <TSecond, TResult> IEnumerable<TResult> zip(Iterable<TSecond> second, Func2<? super T, ? super TSecond, TResult> resultSelector) {
-		return () -> new LinqZipIterator<T, TSecond, TResult>(IEnumerable.this, second, resultSelector);
+		return () -> new LinqZipIterator<>(IEnumerable.this, second, resultSelector);
 	}
 }
