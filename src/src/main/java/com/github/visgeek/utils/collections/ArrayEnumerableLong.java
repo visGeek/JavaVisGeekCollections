@@ -15,7 +15,7 @@ class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongEnumerab
 		try {
 			return this.source[index];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw Errors.ArgumentOfOutOfRange("index");
+			throw Errors.argumentOfOutOfRange("index");
 		}
 	}
 

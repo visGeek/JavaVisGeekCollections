@@ -15,7 +15,7 @@ class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerEnu
 		try {
 			return this.source[index];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw Errors.ArgumentOfOutOfRange("index");
+			throw Errors.argumentOfOutOfRange("index");
 		}
 	}
 

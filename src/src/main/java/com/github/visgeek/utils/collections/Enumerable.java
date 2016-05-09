@@ -111,7 +111,7 @@ public final class Enumerable {
 	 */
 	public static IIntegerEnumerable forTo(int start, int end) {
 		if (end < start) {
-			throw Errors.ArgumentOfOutOfRange("end");
+			throw Errors.argumentOfOutOfRange("end");
 		} else {
 			return new IntegerSequenceEnumerable(start, end);
 		}
@@ -145,12 +145,12 @@ public final class Enumerable {
 
 	private static int rangeParameterCheck(int start, int count) {
 		if (count < 0) {
-			throw Errors.ArgumentOfOutOfRange("count");
+			throw Errors.argumentOfOutOfRange("count");
 		}
 
 		long end = ((long) start) + count - 1;
 		if (Integer.MAX_VALUE < end) {
-			throw Errors.ArgumentOfOutOfRange("count");
+			throw Errors.argumentOfOutOfRange("count");
 		}
 
 		return (int) end;

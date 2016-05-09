@@ -15,7 +15,7 @@ class ArrayEnumerableChar extends ArrayEnumerable<Character> implements IEnumera
 		try {
 			return this.source[index];
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw Errors.ArgumentOfOutOfRange("index");
+			throw Errors.argumentOfOutOfRange("index");
 		}
 	}
 

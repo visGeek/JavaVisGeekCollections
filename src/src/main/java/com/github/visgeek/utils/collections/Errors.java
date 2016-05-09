@@ -26,7 +26,7 @@ class Errors {
 		return new IllegalStateException("シーケンスに、条件に適合する要素が複数含まれています。");
 	}
 
-	public static IllegalArgumentException ArgumentOfOutOfRange(String argName) {
+	public static IllegalArgumentException argumentOfOutOfRange(String argName) {
 		String message = String.format("", argName);
 		return new IllegalArgumentException(message);
 	}

@@ -550,7 +550,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default T elementAt(int index) {
 		if (index < 0) {
-			throw Errors.ArgumentOfOutOfRange("index");
+			throw Errors.argumentOfOutOfRange("index");
 		}
 
 		int i = -1;
@@ -561,7 +561,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 			}
 		}
 
-		throw Errors.ArgumentOfOutOfRange("index");
+		throw Errors.argumentOfOutOfRange("index");
 	}
 
 	/**

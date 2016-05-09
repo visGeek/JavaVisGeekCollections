@@ -47,7 +47,7 @@ class IntegerSequenceEnumerable implements IListEnumerable<Integer>, IIntegerEnu
 	@Override
 	public final Integer elementAt(int index) {
 		if (index < 0 || this.count() <= index) {
-			throw Errors.ArgumentOfOutOfRange("index");
+			throw Errors.argumentOfOutOfRange("index");
 		} else {
 			return this.start + index;
 		}

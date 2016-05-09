@@ -46,7 +46,7 @@ class ListEnumerable<T> implements IListEnumerable<T> {
 		try {
 			return this.source.get(index);
 		} catch (ArrayIndexOutOfBoundsException e) {
-			throw Errors.ArgumentOfOutOfRange("index");
+			throw Errors.argumentOfOutOfRange("index");
 		}
 	}
 }
