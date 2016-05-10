@@ -819,11 +819,22 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return () -> new LinqGroupJoinIterator<>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
+	/**
+	 * 積集合を作成します。
+	 * @param second
+	 * @return
+	 */
 	default IEnumerable<T> intersect(Iterable<? extends T> second) {
 		Errors.throwIfNull(second, "second");
 		return this.intersect(second, null);
 	}
 
+	/**
+	 * 積集合を作成します。
+	 * @param second
+	 * @param comparator
+	 * @return
+	 */
 	default IEnumerable<T> intersect(Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
 		Errors.throwIfNull(second, "second");
 		return () -> new LinqIntersectIterator<>(IEnumerable.this, second, comparator);
