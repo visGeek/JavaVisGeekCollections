@@ -18,11 +18,9 @@ class EquatableSet<T> implements Set<T> {
 	}
 
 	// フィールド
-	private final HashSet<Entry> set = new HashSet<Entry>();
+	private final HashSet<Entry> set = new HashSet<>();
 
 	private final IEqualityComparator<? super T> comparator;
-
-	private final Entry entryForCompare = new Entry(null);
 
 	// メソッド
 	@Override
@@ -44,8 +42,7 @@ class EquatableSet<T> implements Set<T> {
 	public boolean contains(Object o) {
 		@SuppressWarnings("unchecked")
 		T cast = (T) o;
-		this.entryForCompare.obj = cast;
-		return this.set.contains(this.entryForCompare);
+		return this.set.contains(new Entry(cast));
 	}
 
 	@Override
