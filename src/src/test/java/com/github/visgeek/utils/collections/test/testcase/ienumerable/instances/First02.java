@@ -11,6 +11,13 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class First02 {
 	@Test
+	public void arg1IsNull() {
+		IEnumerable<Integer> source = Enumerable.empty(Integer.class);
+		Action0 action = () -> source.first(null);
+		Assert2.assertNullPointerExceptionThrown("predicate", action);
+	}
+
+	@Test
 	public void sourceIsEmpty() {
 		IEnumerable<Integer> source = Enumerable.empty(Integer.class);
 		Func1<Integer, Boolean> predicate = n -> n % 2 == 0;
