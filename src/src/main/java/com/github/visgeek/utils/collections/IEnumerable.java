@@ -21,28 +21,32 @@ import com.github.visgeek.utils.JoinedValue;
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
 	default IEnumerator<T> enumerator() {
-		return new AbstractEnumerator<T>() {
-			private final Iterator<T> itr = IEnumerable.this.iterator();
+		if (this.iterator() instanceof IEnumerator<?>) {
+			return (IEnumerator<T>) this.iterator();
+		} else {
+			return new AbstractEnumerator<T>() {
+				private final Iterator<T> itr = IEnumerable.this.iterator();
 
-			private T current;
+				private T current;
 
-			@Override
-			public T current() {
-				return this.current;
-			}
-
-			@Override
-			public boolean moveNext() {
-				boolean result = false;
-
-				if (this.itr.hasNext()) {
-					this.current = this.itr.next();
-					result = true;
+				@Override
+				public T current() {
+					return this.current;
 				}
 
-				return result;
-			}
-		};
+				@Override
+				public boolean moveNext() {
+					boolean result = false;
+
+					if (this.itr.hasNext()) {
+						this.current = this.itr.next();
+						result = true;
+					}
+
+					return result;
+				}
+			};
+		}
 	}
 
 	// LINQ メソッド
@@ -1369,7 +1373,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> take(int count) {
 		if (count < 0) {
-			throw new IllegalArgumentException("count:" + count);
+			throw Errors.argumentOfOutOfRange("count");
 		}
 
 		return this.takeWhile((item, index) -> index < count);

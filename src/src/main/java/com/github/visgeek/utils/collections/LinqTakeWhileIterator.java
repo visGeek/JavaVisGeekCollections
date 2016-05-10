@@ -30,13 +30,15 @@ class LinqTakeWhileIterator<T> extends AbstractSimpleEnumerator<T, T> {
 	public boolean moveNext() {
 		boolean result = false;
 
-		if (this.taking && this.itr.hasNext()) {
-			this.current = this.itr.next();
-			this.index++;
-			if (this.predicate.func(this.current, this.index)) {
-				result = true;
-			} else {
-				this.taking = false;
+		if (this.taking) {
+			if (this.itr.hasNext()) {
+				this.current = this.itr.next();
+				this.index++;
+				if (this.predicate.func(this.current, this.index)) {
+					result = true;
+				} else {
+					this.taking = false;
+				}
 			}
 		}
 
