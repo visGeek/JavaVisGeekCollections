@@ -1426,25 +1426,44 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 	}
 
+	/**
+	 * 要素を連結した文字列を作成します。各要素の間に指定した区切り文字列が挿入されます。
+	 * @param separator
+	 * @return
+	 */
 	default String toString(String separator) {
 		return this.toString(separator, item -> item);
 	}
 
+	/**
+	 * セレクター関数で要素から取得した値を連結した文字列を作成します。各要素の間に指定した区切り文字列が挿入されます。
+	 * @param separator
+	 * @param selector
+	 * @return
+	 */
 	default String toString(String separator, Func1<? super T, ? extends Object> selector) {
-		Errors.throwIfNull(selector, "stringSelector");
+		Errors.throwIfNull(selector, "selector");
 
 		if (separator == null) {
 			separator = "";
 		}
 
-		EnumerableList<String> strList = new EnumerableList<>();
-
+		boolean first = true;
+		StringBuilder sb = new StringBuilder();
 		for (T item : this) {
+			if (first) {
+				first = false;
+			} else {
+				sb.append(separator);
+			}
+
 			Object obj = selector.func(item);
-			strList.add(obj == null ? "" : obj.toString());
+			if (obj != null) {
+				sb.append(obj);
+			}
 		}
 
-		return String.join(separator, strList);
+		return sb.toString();
 	}
 
 	default EnumerableList<T> toList() {
