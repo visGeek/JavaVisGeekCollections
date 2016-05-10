@@ -625,6 +625,37 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
+	 * シーケンスから指定した要素を検索して、最初に見つかった要素のインデックスを取得します。
+	 * @param item
+	 * @return
+	 */
+	default int findIndex(T item) {
+		return this.findIndex(val -> Objects.equals(val, item));
+	}
+
+	/**
+	 * シーケンスから検索条件を満たす要素を検索して、最初に見つかった要素のインデックスを取得します。
+	 * @param match
+	 * @return
+	 */
+	default int findIndex(Func1<? super T, Boolean> match) {
+		Errors.throwIfNull(match, "match");
+
+		int result = -1;
+
+		int idx = -1;
+		for (T item : this) {
+			idx++;
+			if (match.func(item)) {
+				result = idx;
+				break;
+			}
+		}
+
+		return result;
+	}
+
+	/**
 	 * シーケンスの最初の要素を取得します。シーケンスに要素が含まれていない場合はエラーとなります。
 	 *
 	 * @return
@@ -786,25 +817,6 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Errors.throwIfNull(resultSelector, "resultSelector");
 
 		return () -> new LinqGroupJoinIterator<>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
-	}
-
-	default int indexOf(T item) {
-		return this.indexOf(val -> Objects.equals(val, item));
-	}
-
-	default int indexOf(Func1<? super T, Boolean> predicate) {
-		int result = -1;
-
-		int idx = -1;
-		for (T item : this) {
-			idx++;
-			if (predicate.func(item)) {
-				result = idx;
-				break;
-			}
-		}
-
-		return result;
 	}
 
 	default IEnumerable<T> intersect(Iterable<? extends T> second) {
