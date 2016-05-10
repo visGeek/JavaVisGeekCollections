@@ -1,65 +1,33 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances;
 
+import java.util.Random;
+
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
-import com.github.visgeek.utils.testing.Assert2;
 
 public class Shift {
 	@Test
-	public void empty() {
-		IEnumerable<Integer> actual = Enumerable.empty(Integer.class).shift(1);
-		Assert2.assertSequanceEquals(actual);
+	public void test01() {
+		IEnumerable<Integer> source = Enumerable.range(0, 10).toList();
+		IEnumerable<Integer> actual1 = source.shuffle().toList();
+		IEnumerable<Integer> actual2 = source.shuffle().toList();
+		Assert.assertFalse(source.sequenceEqual(actual1));
+		Assert.assertFalse(source.sequenceEqual(actual2));
+		Assert.assertFalse(actual1.sequenceEqual(actual2));
 	}
 
 	@Test
-	public void countIsZero() {
-		IEnumerable<Integer> source = () -> Enumerable.range(0, 4).iterator();
-		int count = 0;
-		Integer[] expected = new Integer[] { 0, 1, 2, 3 };
+	public void test02() {
+		long t = System.currentTimeMillis();
 
-		IEnumerable<Integer> actual = source.shift(count);
-		Assert2.assertSequanceEquals(actual, expected);
-	}
+		IEnumerable<Integer> source = Enumerable.range(0, 10).toList();
+		IEnumerable<Integer> actual1 = source.shuffle(new Random(t)).toList();
+		IEnumerable<Integer> actual2 = source.shuffle(new Random(t)).toList();
 
-	@Test
-	public void countIsPositive01() {
-		IEnumerable<Integer> source = () -> Enumerable.range(0, 4).iterator();
-		int count = 1;
-		Integer[] expected = new Integer[] { 1, 2, 3, 0 };
-
-		IEnumerable<Integer> actual = source.shift(count);
-		Assert2.assertSequanceEquals(actual, expected);
-	}
-
-	@Test
-	public void countIsPositive02() {
-		IEnumerable<Integer> source = () -> Enumerable.range(0, 4).iterator();
-		int count = 5;
-		Integer[] expected = new Integer[] { 1, 2, 3, 0 };
-
-		IEnumerable<Integer> actual = source.shift(count);
-		Assert2.assertSequanceEquals(actual, expected);
-	}
-
-	@Test
-	public void countIsNegative01() {
-		IEnumerable<Integer> source = () -> Enumerable.range(0, 4).iterator();
-		int count = -1;
-		Integer[] expected = new Integer[] { 3, 0, 1, 2 };
-
-		IEnumerable<Integer> actual = source.shift(count);
-		Assert2.assertSequanceEquals(actual, expected);
-	}
-
-	@Test
-	public void countIsNegative02() {
-		IEnumerable<Integer> source = () -> Enumerable.range(0, 4).iterator();
-		int count = -5;
-		Integer[] expected = new Integer[] { 3, 0, 1, 2 };
-
-		IEnumerable<Integer> actual = source.shift(count);
-		Assert2.assertSequanceEquals(actual, expected);
+		Assert.assertFalse(source.sequenceEqual(actual1));
+		Assert.assertTrue(actual1.sequenceEqual(actual2));
 	}
 }
