@@ -1,7 +1,6 @@
 package com.github.visgeek.utils.collections;
 
 import java.lang.reflect.Array;
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -1415,15 +1414,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default EnumerableSet<T> toHashSet() {
-		if (this instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> collection = (Collection<T>) this;
-			return new EnumerableSet<>(collection);
-		} else {
-			EnumerableSet<T> set = new EnumerableSet<>();
-			set.addAll(this);
-			return set;
-		}
+		return new EnumerableSet<>(this);
 	}
 
 	/**

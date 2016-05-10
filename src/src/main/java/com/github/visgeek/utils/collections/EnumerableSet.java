@@ -8,9 +8,19 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements IReadOnlyS
 		super();
 	}
 
+	public EnumerableSet(Collection<T> collection) {
+		super(collection);
+	}
+
 	public EnumerableSet(Iterable<? extends T> collection) {
 		this();
-		this.addAll(collection);
+		if (collection instanceof Collection<?>) {
+			@SuppressWarnings("unchecked")
+			Collection<T> c = (Collection<T>) collection;
+			this.addAll(c);
+		} else {
+			this.addAll(collection);
+		}
 	}
 
 	@SafeVarargs
@@ -21,10 +31,6 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements IReadOnlyS
 
 	public EnumerableSet(int initialCapacity) {
 		super(initialCapacity);
-	}
-
-	public EnumerableSet(java.util.Set<T> set) {
-		super(set);
 	}
 
 	// フィールド
