@@ -1308,37 +1308,60 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return () -> new LinqSkipWhileIterator<>(IEnumerable.this, predicate);
 	}
 
-	default long sumLong(Func1<? super T, Long> selector) {
-		Errors.throwIfNull(selector, "selector");
-
-		long sum = 0;
-
-		for (T item : this) {
-			sum += selector.func(item);
-		}
-
-		return sum;
-	}
-
+	/**
+	 * セレクター関数を使用して要素から取得した値の合計を取得します。セレクター関数の結果が null の場合は 0 として扱います。
+	 * @param selector
+	 * @return
+	 */
 	default double sumDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
 
 		double sum = 0;
 
 		for (T item : this) {
-			sum += selector.func(item);
+			Double parsed = selector.func(item);
+			if (parsed != null) {
+				sum += parsed;
+			}
 		}
 
 		return sum;
 	}
 
-	default int sumInt(Func1<? super T, Integer> selector) {
+	/**
+	 * セレクター関数を使用して要素から取得した値の合計を取得します。セレクター関数の結果が null の場合は 0 として扱います。
+	 * @param selector
+	 * @return
+	 */
+	default int sumInteger(Func1<? super T, Integer> selector) {
 		Errors.throwIfNull(selector, "selector");
 
 		int sum = 0;
+		for (T item : this) {
+			Integer parsed = selector.func(item);
+			if (parsed != null) {
+				sum = Math.addExact(sum, parsed);
+			}
+		}
+
+		return sum;
+	}
+
+	/**
+	 * セレクター関数を使用して要素から取得した値の合計を取得します。セレクター関数の結果が null の場合は 0 として扱います。
+	 * @param selector
+	 * @return
+	 */
+	default long sumLong(Func1<? super T, Long> selector) {
+		Errors.throwIfNull(selector, "selector");
+
+		long sum = 0;
 
 		for (T item : this) {
-			sum += selector.func(item);
+			Long parsed = selector.func(item);
+			if (parsed != null) {
+				sum = Math.addExact(sum, parsed);
+			}
 		}
 
 		return sum;

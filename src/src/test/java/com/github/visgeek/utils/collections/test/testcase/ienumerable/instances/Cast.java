@@ -37,7 +37,7 @@ public class Cast {
 		Assert2.assertExceptionNotThrown(action1);
 
 		// 列挙するとエラー。
-		Action0 action2 = () -> objects.cast(Integer.class).sumInt(n -> n);
+		Action0 action2 = () -> objects.cast(Integer.class).sumInteger(n -> n);
 		Assert2.assertExceptionThrown(ClassCastException.class, action2);
 	}
 
@@ -63,7 +63,7 @@ public class Cast {
 		Assert2.assertExceptionNotThrown(action1);
 
 		// 列挙するとエラー。
-		Action0 action2 = () -> objects.<Integer> cast().sumInt(n -> n);
+		Action0 action2 = () -> objects.<Integer> cast().sumInteger(n -> n);
 		Assert2.assertExceptionThrown(ClassCastException.class, action2);
 	}
 }
