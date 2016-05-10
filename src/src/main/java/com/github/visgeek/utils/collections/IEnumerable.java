@@ -1121,14 +1121,17 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default IDoubleEnumerable selectDouble(Func1<? super T, Double> selector) {
+		Errors.throwIfNull(selector, "selector");
 		return () -> IEnumerable.this.select(selector).iterator();
 	}
 
 	default IIntegerEnumerable selectInteger(Func1<? super T, Integer> selector) {
+		Errors.throwIfNull(selector, "selector");
 		return () -> IEnumerable.this.select(selector).iterator();
 	}
 
 	default ILongEnumerable selectLong(Func1<? super T, Long> selector) {
+		Errors.throwIfNull(selector, "selector");
 		return () -> IEnumerable.this.select(selector).iterator();
 	}
 
