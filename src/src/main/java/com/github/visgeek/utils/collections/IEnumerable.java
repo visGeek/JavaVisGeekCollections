@@ -753,33 +753,33 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, comparator);
 	}
 
-	default <TInner, TKey> IEnumerable<JoinedValue<T, IReadOnlyList<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
-		Func2<T, Iterable<? super TInner>, JoinedValue<T, IReadOnlyList<TInner>>> resultSelector =
+	default <TInner, TKey> IEnumerable<JoinedValue<T, IEnumerable<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
+		Func2<T, Iterable<? super TInner>, JoinedValue<T, IEnumerable<TInner>>> resultSelector =
 				(arg1, arg2) -> {
 					@SuppressWarnings("unchecked")
-					IReadOnlyList<TInner> inner_ = (IReadOnlyList<TInner>) new EnumerableList<>(arg2);
+					IEnumerable<TInner> inner_ = (IEnumerable<TInner>) new EnumerableList<>(arg2);
 					return new JoinedValue<>(arg1, inner_);
 				};
 
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector);
 	}
 
-	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, Iterable<? super TInner>, TResult> resultSelector) {
+	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, ? super IEnumerable<TInner>, TResult> resultSelector) {
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, null);
 	}
 
-	default <TInner, TKey> IEnumerable<JoinedValue<T, IReadOnlyList<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, IEqualityComparator<? super TKey> comparator) {
-		Func2<T, Iterable<? super TInner>, JoinedValue<T, IReadOnlyList<TInner>>> resultSelector =
+	default <TInner, TKey> IEnumerable<JoinedValue<T, IEnumerable<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, IEqualityComparator<? super TKey> comparator) {
+		Func2<T, Iterable<? super TInner>, JoinedValue<T, IEnumerable<TInner>>> resultSelector =
 				(arg1, arg2) -> {
 					@SuppressWarnings("unchecked")
-					IReadOnlyList<TInner> inner_ = (IReadOnlyList<TInner>) new EnumerableList<>(arg2);
+					IEnumerable<TInner> inner_ = (IEnumerable<TInner>) new EnumerableList<>(arg2);
 					return new JoinedValue<>(arg1, inner_);
 				};
 
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
-	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, Iterable<? super TInner>, TResult> resultSelector, IEqualityComparator<? super TKey> comparator) {
+	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, ? super IEnumerable<TInner>, TResult> resultSelector, IEqualityComparator<? super TKey> comparator) {
 		Errors.throwIfNull(inner, "inner");
 		Errors.throwIfNull(outerKeySelector, "outerKeySelector");
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
