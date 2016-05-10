@@ -61,7 +61,7 @@ class OrderedEnumerable<T> implements IOrderedEnumerable<T> {
 			comparator = ComparatorUtils.getDefault();
 		}
 
-		return new OrderedEnumerable<T>(this.source, this.comparator().thenComparing(comparator));
+		return new OrderedEnumerable<>(this.source, this.comparator().thenComparing(comparator));
 	}
 
 	@Override
@@ -70,6 +70,6 @@ class OrderedEnumerable<T> implements IOrderedEnumerable<T> {
 			comparator = ComparatorUtils.getDefault();
 		}
 
-		return new OrderedEnumerable<T>(this.source, this.comparator().thenComparing(comparator.reversed()));
+		return new OrderedEnumerable<>(this.source, this.comparator().thenComparing(comparator.reversed()));
 	}
 }

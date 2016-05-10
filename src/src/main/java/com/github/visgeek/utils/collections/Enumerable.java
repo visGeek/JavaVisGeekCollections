@@ -23,7 +23,7 @@ public final class Enumerable {
 		if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ListEnumerable<>((List<T>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerable<T>((Collection<T>) source);
+			return new CollectionEnumerable<>((Collection<T>) source);
 		} else {
 			return () -> source.iterator();
 		}

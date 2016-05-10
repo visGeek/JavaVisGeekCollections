@@ -11,7 +11,7 @@ class Grouping<TKey, TElement> implements IGrouping<TKey, TElement> {
 	// フィールド
 	private final TKey key;
 
-	private final EnumerableList<TElement> list = new EnumerableList<TElement>();
+	private final EnumerableList<TElement> list = new EnumerableList<>();
 
 	// メソッド
 	final void add(TElement element) {

@@ -52,7 +52,7 @@ class LinqJoinIterator<TOuter, TInner, TKey, TResult> extends AbstractEnumerator
 			for (TInner innerValue : inner) {
 				TKey innerKey = innerKeySelector.func(innerValue);
 				if (!this.innerMap.containsKey(innerKey)) {
-					this.innerMap.put(innerKey, new ArrayList<TInner>());
+					this.innerMap.put(innerKey, new ArrayList<>());
 				}
 
 				this.innerMap.get(innerKey).add(innerValue);

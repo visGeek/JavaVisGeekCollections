@@ -121,9 +121,9 @@ class EquatableSet<T> implements Set<T> {
 	// スタティックメソッド
 	public static <T> Set<T> create(IEqualityComparator<? super T> comparator) {
 		if (comparator == null) {
-			return new HashSet<T>();
+			return new HashSet<>();
 		} else {
-			return new EquatableSet<T>(comparator);
+			return new EquatableSet<>(comparator);
 		}
 	}
 }

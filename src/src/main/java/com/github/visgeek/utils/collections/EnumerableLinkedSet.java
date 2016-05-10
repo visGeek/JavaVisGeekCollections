@@ -58,7 +58,7 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 
 	@Override
 	public EnumerableLinkedSet<T> clone() {
-		return new EnumerableLinkedSet<T>(this);
+		return new EnumerableLinkedSet<>(this);
 	}
 
 	@Override

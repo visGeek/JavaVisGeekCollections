@@ -19,7 +19,7 @@ class LinqShuffleIterator<T> extends AbstractSimpleIterator<T, T> {
 	@Override
 	public boolean hasNext() {
 		if (this.itr == null) {
-			List<T> list = new ArrayList<T>();
+			List<T> list = new ArrayList<>();
 			while (this.iterator.hasNext()) {
 				list.add(this.iterator.next());
 			}
