@@ -1044,17 +1044,28 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TKey extends Comparable<TKey>> IOrderedEnumerable<T> orderBy(Func1<? super T, TKey> keySelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
-		return this.orderBy(Comparator.comparing(keySelector::func));
+
+		Comparator<? super T> comparator = Comparator.comparing(keySelector::func);
+		comparator = Comparator.nullsFirst(comparator); // null 優先
+
+		return this.orderBy(comparator);
 	}
 
 	default <TKey> IOrderedEnumerable<T> orderBy(Func1<? super T, TKey> keySelector, Comparator<? super TKey> comparator) {
 		Errors.throwIfNull(keySelector, "keySelector");
-		Errors.throwIfNull(comparator, "comparator");
+
+		if (comparator == null) {
+			comparator = ComparatorUtils.getDefault();
+		}
+
 		return this.orderBy(Comparator.comparing(keySelector::func, comparator));
 	}
 
 	default IOrderedEnumerable<T> orderBy(Comparator<? super T> comparator) {
-		Errors.throwIfNull(comparator, "comparator");
+		if (comparator == null) {
+			comparator = ComparatorUtils.getDefault();
+		}
+
 		return new OrderedEnumerable<>(this, comparator);
 	}
 
@@ -1070,17 +1081,28 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TKey extends Comparable<TKey>> IOrderedEnumerable<T> orderByDescending(Func1<? super T, TKey> keySelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
-		return this.orderByDescending(Comparator.comparing(keySelector::func));
+
+		Comparator<? super T> comparator = Comparator.comparing(keySelector::func);
+		comparator = Comparator.nullsFirst(comparator); // null 優先
+
+		return this.orderByDescending(comparator);
 	}
 
 	default <TKey> IOrderedEnumerable<T> orderByDescending(Func1<? super T, TKey> keySelector, Comparator<? super TKey> comparator) {
 		Errors.throwIfNull(keySelector, "keySelector");
-		Errors.throwIfNull(comparator, "comparator");
+
+		if (comparator == null) {
+			comparator = ComparatorUtils.getDefault();
+		}
+
 		return this.orderByDescending(Comparator.comparing(keySelector::func, comparator));
 	}
 
 	default IOrderedEnumerable<T> orderByDescending(Comparator<? super T> comparator) {
-		Errors.throwIfNull(comparator, "comparator");
+		if (comparator == null) {
+			comparator = ComparatorUtils.getDefault();
+		}
+
 		return new OrderedEnumerable<>(this, comparator.reversed());
 	}
 

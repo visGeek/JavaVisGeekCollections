@@ -4,6 +4,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
+import com.github.visgeek.utils.ComparatorUtils;
+
 class OrderedEnumerable<T> implements IOrderedEnumerable<T> {
 	// コンストラクター
 	public OrderedEnumerable(Iterable<T> source, Comparator<? super T> comparator) {
@@ -32,24 +34,22 @@ class OrderedEnumerable<T> implements IOrderedEnumerable<T> {
 
 			@Override
 			public boolean hasNext() {
-				if (this.sortedIterator == null) {
-					this.sortedIterator = this.createIterator();
-				}
+				this.tryCreateIterator();
 				return this.sortedIterator.hasNext();
 			}
 
 			@Override
 			public T next() {
-				if (this.sortedIterator == null) {
-					this.sortedIterator = this.createIterator();
-				}
+				this.tryCreateIterator();
 				return this.sortedIterator.next();
 			}
 
-			private Iterator<T> createIterator() {
-				EnumerableList<T> list = new EnumerableList<T>(OrderedEnumerable.this.source);
-				Collections.sort(list, OrderedEnumerable.this.comparator());
-				return list.iterator();
+			private void tryCreateIterator() {
+				if (this.sortedIterator == null) {
+					EnumerableList<T> list = new EnumerableList<>(OrderedEnumerable.this.source);
+					Collections.sort(list, OrderedEnumerable.this.comparator());
+					this.sortedIterator = list.iterator();
+				}
 			}
 		};
 	}
@@ -57,13 +57,19 @@ class OrderedEnumerable<T> implements IOrderedEnumerable<T> {
 	// LINQ メソッド
 	@Override
 	public IOrderedEnumerable<T> thenBy(Comparator<? super T> comparator) {
-		Errors.throwIfNull(comparator, "comparator");
+		if (comparator == null) {
+			comparator = ComparatorUtils.getDefault();
+		}
+
 		return new OrderedEnumerable<T>(this.source, this.comparator().thenComparing(comparator));
 	}
 
 	@Override
 	public IOrderedEnumerable<T> thenByDescending(Comparator<? super T> comparator) {
-		Errors.throwIfNull(comparator, "comparator");
+		if (comparator == null) {
+			comparator = ComparatorUtils.getDefault();
+		}
+
 		return new OrderedEnumerable<T>(this.source, this.comparator().thenComparing(comparator.reversed()));
 	}
 }
