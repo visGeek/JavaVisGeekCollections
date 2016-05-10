@@ -1292,7 +1292,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> skip(int count) {
 		if (count < 0) {
-			throw new IllegalArgumentException("count:" + count);
+			throw Errors.argumentOfOutOfRange("count");
 		}
 
 		return this.skipWhile((item, index) -> index < count);
