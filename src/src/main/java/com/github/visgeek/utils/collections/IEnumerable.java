@@ -1162,7 +1162,10 @@ public interface IEnumerable<T> extends Iterable<T> {
 		boolean equal = true;
 
 		while (itr1.hasNext()) {
-			if (!itr2.hasNext() || !comparator.equals(itr1.next(), itr2.next())) {
+			if (!itr2.hasNext()) {
+				equal = false;
+				break;
+			} else if (!comparator.equals(itr1.next(), itr2.next())) {
 				equal = false;
 				break;
 			}
