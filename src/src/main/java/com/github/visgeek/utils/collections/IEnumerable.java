@@ -1457,6 +1457,10 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return sb.toString();
 	}
 
+	/**
+	 * EnumerableList&lt;T&gt; を作成します。
+	 * @return
+	 */
 	default EnumerableList<T> toList() {
 		return new EnumerableList<>(this);
 	}
