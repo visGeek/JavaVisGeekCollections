@@ -8,7 +8,7 @@ class LinqSelectManyIterator<T, TResult> extends AbstractSimpleEnumerator<T, TRe
 	public LinqSelectManyIterator(Iterable<T> source, Func2<? super T, Integer, Iterable<TResult>> selector) {
 		super(source);
 		this.selector = selector;
-		this.i = 0;
+		this.i = -1;
 		this.iterator = this.source.iterator();
 		this.itr = null;
 	}
@@ -34,6 +34,7 @@ class LinqSelectManyIterator<T, TResult> extends AbstractSimpleEnumerator<T, TRe
 				break;
 
 			} else if (this.iterator.hasNext()) {
+				this.i++;
 				this.itr = this.selector.func(this.iterator.next(), this.i).iterator();
 
 			} else {
