@@ -1410,14 +1410,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return list.toArray(array);
 	}
 
+	/**
+	 * EnumerableSet&lt;T&gt; を作成します。
+	 * @return
+	 */
 	default EnumerableSet<T> toHashSet() {
-
 		if (this instanceof Collection<?>) {
 			@SuppressWarnings("unchecked")
 			Collection<T> collection = (Collection<T>) this;
 			return new EnumerableSet<>(collection);
 		} else {
-			return new EnumerableSet<>(this.toList());
+			EnumerableSet<T> set = new EnumerableSet<>();
+			set.addAll(this);
+			return set;
 		}
 	}
 
