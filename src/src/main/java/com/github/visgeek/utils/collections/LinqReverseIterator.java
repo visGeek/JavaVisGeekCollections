@@ -19,7 +19,7 @@ class LinqReverseIterator<T> extends AbstractSimpleEnumerator<T, T> {
 	@Override
 	public boolean moveNext() {
 		if (this.list == null) {
-			this.list = new EnumerableList<T>(this.source);
+			this.list = new EnumerableList<>(this.source);
 			this.index = list.size();
 		}
 

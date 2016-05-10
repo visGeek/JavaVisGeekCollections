@@ -8,8 +8,9 @@ import com.github.visgeek.utils.testing.Assert2;
 
 public class Reverse {
 	@Test
-	public void test_reverse01() {
-		IEnumerable<Integer> actual = Enumerable.of(1, 2, 3).reverse();
+	public void test() {
+		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3).iterator();
+		IEnumerable<Integer> actual = source.reverse();
 		Assert2.assertSequanceEquals(actual, 3, 2, 1);
 	}
 }
