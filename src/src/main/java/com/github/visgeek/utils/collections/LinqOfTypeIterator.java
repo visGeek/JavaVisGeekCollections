@@ -10,18 +10,19 @@ class LinqOfTypeIterator<T, TResult extends T> extends AbstractSimpleIterator<T,
 
 	private TResult currentValue;
 
-	@SuppressWarnings("unchecked")
 	@Override
+	@SuppressWarnings("unchecked")
 	public boolean hasNext() {
 		boolean result = false;
 
 		while (this.iterator.hasNext()) {
 			T tmp = this.iterator.next();
-			// if (tmp != null && tmp.getClass().isAssignableFrom(clazz)) {
-			if (tmp != null && this.elementClass.isAssignableFrom(tmp.getClass())) {
-				this.currentValue = (TResult) tmp;
-				result = true;
-				break;
+			if (tmp != null) {
+				if (this.elementClass.isAssignableFrom(tmp.getClass())) {
+					this.currentValue = (TResult) tmp;
+					result = true;
+					break;
+				}
 			}
 		}
 
