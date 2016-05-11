@@ -20,7 +20,9 @@ public final class Enumerable {
 	}
 
 	public static <T> IEnumerable<T> of(Iterable<T> source) {
-		if (source instanceof List<?> && source instanceof RandomAccess) {
+		if (source instanceof IEnumerable<?>) {
+			return (IEnumerable<T>) source;
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ListEnumerable<>((List<T>) source);
 		} else if (source instanceof Collection<?>) {
 			return new CollectionEnumerable<>((Collection<T>) source);
@@ -33,6 +35,26 @@ public final class Enumerable {
 		return () -> source.iterator();
 	}
 
+	public static IDoubleEnumerable of(double[] source) {
+		return new ArrayEnumerableDouble(source);
+	}
+
+	public static IDoubleEnumerable of(Double... source) {
+		return new ListEnumerableDouble(source);
+	}
+
+	public static IDoubleEnumerable ofDouble(Iterable<Double> source) {
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Double>) source).asDoubleEnumerable();
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ListEnumerableDouble(((List<Double>) source));
+		} else if (source instanceof Collection<?>) {
+			return new CollectionEnumerableDouble((Collection<Double>) source);
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
 	public static IIntegerEnumerable of(int[] source) {
 		return new ArrayEnumerableInt(source);
 	}
@@ -42,7 +64,9 @@ public final class Enumerable {
 	}
 
 	public static IIntegerEnumerable ofInteger(Iterable<Integer> source) {
-		if (source instanceof List<?> && source instanceof RandomAccess) {
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Integer>) source).asIntegerEnumerable();
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ListEnumerableInteger((List<Integer>) source);
 		} else if (source instanceof Collection<?>) {
 			return new CollectionEnumerableInteger((Collection<Integer>) source);
@@ -60,28 +84,12 @@ public final class Enumerable {
 	}
 
 	public static ILongEnumerable ofLong(Iterable<Long> source) {
-		if (source instanceof List<?> && source instanceof RandomAccess) {
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Long>) source).asLongEnumerable();
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ListEnumerableLong((List<Long>) source);
 		} else if (source instanceof Collection<?>) {
 			return new CollectionEnumerableLong((Collection<Long>) source);
-		} else {
-			return () -> source.iterator();
-		}
-	}
-
-	public static IDoubleEnumerable of(double[] source) {
-		return new ArrayEnumerableDouble(source);
-	}
-
-	public static IDoubleEnumerable of(Double... source) {
-		return new ListEnumerableDouble(source);
-	}
-
-	public static IDoubleEnumerable ofDouble(Iterable<Double> source) {
-		if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ListEnumerableDouble(((List<Double>) source));
-		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableDouble((Collection<Double>) source);
 		} else {
 			return () -> source.iterator();
 		}
