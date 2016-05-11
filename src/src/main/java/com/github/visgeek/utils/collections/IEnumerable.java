@@ -1466,18 +1466,22 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default <TKey> EnumerableMap<TKey, T> toMap(Func1<? super T, TKey> keySelector) {
-		return this.toMap(keySelector, n -> n);
+		Errors.throwIfNull(keySelector, "keySelector");
+		return this.toMap((item, idx) -> keySelector.func(item), (item, idx) -> item);
 	}
 
 	default <TKey> EnumerableMap<TKey, T> toMap(Func2<? super T, Integer, TKey> keySelector) {
-		return this.toMap(keySelector, n -> n);
+		Errors.throwIfNull(keySelector, "keySelector");
+		return this.toMap(keySelector, (item, idx) -> item);
 	}
 
 	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(Func1<? super T, TKey> keySelector, Func1<? super T, TValue> valueSelector) {
-		return this.toMap((item, idx) -> keySelector.func(item), valueSelector);
+		Errors.throwIfNull(keySelector, "keySelector");
+		Errors.throwIfNull(valueSelector, "valueSelector");
+		return this.toMap((item, idx) -> keySelector.func(item), (item, idx) -> valueSelector.func(item));
 	}
 
-	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(Func2<? super T, Integer, TKey> keySelector, Func1<? super T, TValue> valueSelector) {
+	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(Func2<? super T, Integer, TKey> keySelector, Func2<? super T, Integer, TValue> valueSelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
 		Errors.throwIfNull(valueSelector, "valueSelector");
 
@@ -1485,8 +1489,9 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 		int i = -1;
 		for (T item : this) {
-			TKey key = keySelector.func(item, ++i);
-			TValue value = valueSelector.func(item);
+			i++;
+			TKey key = keySelector.func(item, i);
+			TValue value = valueSelector.func(item, i);
 			map.putOrThrow(key, value);
 		}
 
