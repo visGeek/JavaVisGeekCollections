@@ -28,10 +28,13 @@ class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongEnumerab
 	public boolean contains(Long item) {
 		boolean result = false;
 
-		for (Long val : this.source) {
-			if (val == item) {
-				result = true;
-				break;
+		if (item != null) {
+			long primitive = item;
+			for (long val : this.source) {
+				if (val == primitive) {
+					result = true;
+					break;
+				}
 			}
 		}
 

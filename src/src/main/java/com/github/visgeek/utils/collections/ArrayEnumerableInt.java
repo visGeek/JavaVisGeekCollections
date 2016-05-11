@@ -28,10 +28,13 @@ class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerEnu
 	public boolean contains(Integer item) {
 		boolean result = false;
 
-		for (int val : this.source) {
-			if (val == item) {
-				result = true;
-				break;
+		if (item != null) {
+			int primitive = item;
+			for (int val : this.source) {
+				if (val == primitive) {
+					result = true;
+					break;
+				}
 			}
 		}
 

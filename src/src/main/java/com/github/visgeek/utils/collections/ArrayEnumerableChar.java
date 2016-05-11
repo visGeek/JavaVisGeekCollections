@@ -28,10 +28,13 @@ class ArrayEnumerableChar extends ArrayEnumerable<Character> implements IEnumera
 	public boolean contains(Character item) {
 		boolean result = false;
 
-		for (char val : this.source) {
-			if (val == item) {
-				result = true;
-				break;
+		if (item != null) {
+			char primitive = item;
+			for (char val : this.source) {
+				if (val == primitive) {
+					result = true;
+					break;
+				}
 			}
 		}
 

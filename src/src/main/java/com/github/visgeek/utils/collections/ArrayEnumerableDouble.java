@@ -28,10 +28,13 @@ class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleEn
 	public boolean contains(Double item) {
 		boolean result = false;
 
-		for (double val : this.source) {
-			if (val == item) {
-				result = true;
-				break;
+		if (item != null) {
+			double primitive = item;
+			for (double val : this.source) {
+				if (val == primitive) {
+					result = true;
+					break;
+				}
 			}
 		}
 

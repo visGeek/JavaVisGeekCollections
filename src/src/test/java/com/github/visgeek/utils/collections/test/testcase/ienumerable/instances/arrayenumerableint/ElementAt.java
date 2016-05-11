@@ -1,4 +1,4 @@
-package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances;
+package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances.arrayenumerableint;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -11,21 +11,24 @@ import com.github.visgeek.utils.testing.Assert2;
 public class ElementAt {
 	@Test
 	public void testSuccess() {
-		IEnumerable<Integer> source = () -> Enumerable.forTo(1, 3).iterator();
-		int actual = source.elementAt(1);
-		Assert.assertEquals(2, actual);
+		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		int index = 1;
+		int expected = 2;
+
+		int actual = source.elementAt(index);
+		Assert.assertEquals(expected, actual, 0);
 	}
 
 	@Test
 	public void testIndexOutOfRange01() {
-		IEnumerable<Integer> source = () -> Enumerable.forTo(1, 3).iterator();
+		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
 		Action0 action = () -> source.elementAt(-1);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 
 	@Test
-	public void testIndexOutOfRange02() {
-		IEnumerable<Integer> source = () -> Enumerable.forTo(1, 3).iterator();
+	public void testIndexOutOfRange022() {
+		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
 		Action0 action = () -> source.elementAt(4);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
