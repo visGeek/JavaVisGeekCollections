@@ -26,7 +26,11 @@ public interface IListEnumerable<T> extends ICollectionEnumerable<T> {
 
 	@Override
 	default T firstOrDefault(T defaultValue) {
-		return this.any() ? this.first() : defaultValue;
+		if (this.any()) {
+			return this.first();
+		} else {
+			return defaultValue;
+		}
 	}
 
 	@Override
@@ -40,13 +44,11 @@ public interface IListEnumerable<T> extends ICollectionEnumerable<T> {
 
 	@Override
 	default T lastOrDefault(T defaultValue) {
-		T value = defaultValue;
-
 		if (this.any()) {
-			value = this.last();
+			return this.last();
+		} else {
+			return defaultValue;
 		}
-
-		return value;
 	}
 
 	@Override
@@ -60,6 +62,15 @@ public interface IListEnumerable<T> extends ICollectionEnumerable<T> {
 			return this.first();
 		} else {
 			throw Errors.moreThanOneElement();
+		}
+	}
+
+	@Override
+	default T singleOrDefault(T defaultValue) {
+		if (this.count() == 1) {
+			return this.first();
+		} else {
+			return defaultValue;
 		}
 	}
 }
