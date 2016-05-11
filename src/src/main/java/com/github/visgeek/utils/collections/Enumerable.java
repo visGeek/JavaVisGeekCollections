@@ -35,11 +35,11 @@ public final class Enumerable {
 		return () -> source.iterator();
 	}
 
-	public static IDoubleEnumerable of(double[] source) {
+	public static IDoubleEnumerable of(double... source) {
 		return new ArrayEnumerableDouble(source);
 	}
 
-	public static IDoubleEnumerable of(Double... source) {
+	public static IDoubleEnumerable of(Double[] source) {
 		return new ListEnumerableDouble(source);
 	}
 
@@ -55,11 +55,11 @@ public final class Enumerable {
 		}
 	}
 
-	public static IIntegerEnumerable of(int[] source) {
+	public static IIntegerEnumerable of(int... source) {
 		return new ArrayEnumerableInt(source);
 	}
 
-	public static IIntegerEnumerable of(Integer... source) {
+	public static IIntegerEnumerable of(Integer[] source) {
 		return new ListEnumerableInteger(source);
 	}
 
@@ -75,11 +75,11 @@ public final class Enumerable {
 		}
 	}
 
-	public static ILongEnumerable of(long[] source) {
+	public static ILongEnumerable of(long... source) {
 		return new ArrayEnumerableLong(source);
 	}
 
-	public static ILongEnumerable of(Long... source) {
+	public static ILongEnumerable of(Long[] source) {
 		return new ListEnumerableLong(source);
 	}
 
@@ -95,7 +95,7 @@ public final class Enumerable {
 		}
 	}
 
-	public static IEnumerable<Character> of(char[] source) {
+	public static IEnumerable<Character> of(char... source) {
 		return new ArrayEnumerableChar(source);
 	}
 
