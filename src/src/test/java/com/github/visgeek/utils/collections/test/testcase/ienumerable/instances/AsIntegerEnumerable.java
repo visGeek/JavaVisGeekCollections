@@ -18,7 +18,7 @@ public class AsIntegerEnumerable {
 
 	@Test
 	public void isIntegerEnumerable() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
+		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3).iterator();
 		IIntegerEnumerable source2 = source.asIntegerEnumerable();
 		source2.sum();
 	}

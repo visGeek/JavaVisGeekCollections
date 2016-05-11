@@ -18,7 +18,7 @@ public class AsDoubleEnumerable {
 
 	@Test
 	public void isDoubleEnumerable() {
-		IEnumerable<Double> source = Enumerable.of(1.0, 2.0, 3.0);
+		IEnumerable<Double> source = () -> Enumerable.of(1.0, 2.0, 3.0).iterator();
 		IDoubleEnumerable source2 = source.asDoubleEnumerable();
 		source2.sum();
 	}

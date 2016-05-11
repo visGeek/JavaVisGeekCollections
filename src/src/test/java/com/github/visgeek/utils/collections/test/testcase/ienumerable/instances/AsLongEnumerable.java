@@ -18,7 +18,7 @@ public class AsLongEnumerable {
 
 	@Test
 	public void isLongEnumerable() {
-		IEnumerable<Long> source = Enumerable.of(1L, 2L, 3L);
+		IEnumerable<Long> source = () -> Enumerable.of(1L, 2L, 3L).iterator();
 		ILongEnumerable source2 = source.asLongEnumerable();
 		source2.sum();
 	}
