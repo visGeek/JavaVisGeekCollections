@@ -1,7 +1,5 @@
 package com.github.visgeek.utils.collections;
 
-import java.util.Collection;
-
 import com.github.visgeek.utils.IEqualityComparator;
 
 /**
@@ -16,13 +14,15 @@ abstract class EquatableMap<TKey, TValue> {
 	// フィールド
 
 	// メソッド
+	public abstract int count();
+
 	public abstract boolean containsKey(TKey key);
 
 	public abstract TValue get(TKey key);
 
 	public abstract TValue put(TKey key, TValue value);
 
-	public abstract Collection<TValue> values();
+	public abstract IEnumerable<TValue> values();
 
 	public abstract IEnumerable<KeyValue> entries();
 

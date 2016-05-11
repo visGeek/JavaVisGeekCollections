@@ -1,7 +1,5 @@
 package com.github.visgeek.utils.collections;
 
-import java.util.Collection;
-
 /**
  * EqualityComparator&lt;T&gt; インターフェイスを使った比較を行うハッシュマップです。
  *
@@ -15,6 +13,11 @@ class EquatableMap1<TKey, TValue> extends EquatableMap<TKey, TValue> {
 	private final EnumerableLinkedMap<TKey, TValue> map = new EnumerableLinkedMap<>();
 
 	// メソッド
+	@Override
+	public int count() {
+		return this.map.size();
+	}
+
 	@Override
 	public boolean containsKey(TKey key) {
 		return this.map.containsKey2(key);
@@ -31,8 +34,8 @@ class EquatableMap1<TKey, TValue> extends EquatableMap<TKey, TValue> {
 	}
 
 	@Override
-	public Collection<TValue> values() {
-		return this.map.values();
+	public IEnumerable<TValue> values() {
+		return this.map.enumerateValues();
 	}
 
 	@Override

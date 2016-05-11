@@ -1,7 +1,5 @@
 package com.github.visgeek.utils.collections;
 
-import java.util.Collection;
-
 import com.github.visgeek.utils.IEqualityComparator;
 
 /**
@@ -23,6 +21,11 @@ class EquatableMap2<TKey, TValue> extends EquatableMap<TKey, TValue> {
 
 	// メソッド
 	@Override
+	public int count() {
+		return this.map.size();
+	}
+
+	@Override
 	public boolean containsKey(TKey key) {
 		Key internalKey = new Key(key);
 		return this.map.containsKey2(internalKey);
@@ -40,8 +43,8 @@ class EquatableMap2<TKey, TValue> extends EquatableMap<TKey, TValue> {
 	}
 
 	@Override
-	public Collection<TValue> values() {
-		return this.map.values();
+	public IEnumerable<TValue> values() {
+		return this.map.enumerateValues();
 	}
 
 	@Override

@@ -7,8 +7,7 @@ import com.github.visgeek.utils.Action0;
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
-import com.github.visgeek.utils.collections.IGrouping;
-import com.github.visgeek.utils.collections.IReadOnlyList;
+import com.github.visgeek.utils.collections.ILookup;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class ToLookup01 {
@@ -32,23 +31,26 @@ public class ToLookup01 {
 					new Entry("d", 1),
 				};
 
-		IEnumerable<IGrouping<String, Entry>> groups =
+		ILookup<String, Entry> lookup =
 				Enumerable
 						.of(source)
 						.toLookup(ety -> ety.key);
 
-		IReadOnlyList<IGrouping<String, Entry>> groupList = groups.toList();
+		IEnumerable<String> keys = lookup.select(group -> group.key()).orderByDefaultKey();
+		Assert2.assertSequanceEquals(keys, "a", "b", "c", "d");
 
-		Assert.assertEquals(4, groupList.size());
+		Assert.assertEquals(4, lookup.count());
 
-		assertEquals(groupList.get(0), "a", 1, 2, 3);
-		assertEquals(groupList.get(1), "b", 1);
-		assertEquals(groupList.get(2), "c", 1, 2);
-		assertEquals(groupList.get(3), "d", 1);
+		this.assertEquals(lookup, "a", true, 1, 2, 3);
+		this.assertEquals(lookup, "b", true, 1);
+		this.assertEquals(lookup, "c", true, 1, 2);
+		this.assertEquals(lookup, "d", true, 1);
+		this.assertEquals(lookup, "_", false);
 	}
 
-	private void assertEquals(IGrouping<String, Entry> group, String key, Integer... values) {
-		Assert.assertEquals(key, group.key());
+	private void assertEquals(ILookup<String, Entry> lookup, String key, boolean containsKey, Integer... values) {
+		Assert.assertEquals(containsKey, lookup.containsKey(key));
+		IEnumerable<Entry> group = lookup.get(key);
 		Assert2.assertSequanceEquals(group.select(ety -> ety.value), values);
 	}
 

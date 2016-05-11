@@ -13,25 +13,32 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 	}
 
 	// フィールド
-	private final EquatableMap<TKey, IGrouping<TKey, TElement>> map;
+	private final EquatableMap<TKey, Grouping<TKey, TElement>> map;
 
 	// メソッド
 	final <TResult> IEnumerable<TResult> applyResultSelector(Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
 		return this.map.entries().select(kv -> resultSelector.func(kv.key, kv.value));
 	}
 
-	private final Grouping<TKey, TElement> getGrouping(TKey key, boolean create) {
+	@Override
+	public final boolean containsKey(TKey key) {
+		return this.map.containsKey(key);
+	}
+
+	@Override
+	public final int count() {
+		return this.map.count();
+	}
+
+	private final Grouping<TKey, TElement> getOrCreateGrouping(TKey key) {
 		Grouping<TKey, TElement> grouping;
 
 		if (this.map.containsKey(key)) {
-			grouping = (Grouping<TKey, TElement>) this.map.get(key);
-
-		} else if (create) {
-			grouping = new Grouping<>(key);
-			this.map.put(key, grouping);
+			grouping = this.map.get(key);
 
 		} else {
-			grouping = null;
+			grouping = new Grouping<>(key);
+			this.map.put(key, grouping);
 		}
 
 		return grouping;
@@ -48,13 +55,13 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 
 	@Override
 	public final Iterator<IGrouping<TKey, TElement>> iterator() {
-		return this.map.values().iterator();
+		return this.map.values().<IGrouping<TKey, TElement>> cast().iterator();
 	}
 
 	// スタティックフィールド
 
 	// スタティックメソッド
-	public static <T, TKey, TElement> Lookup<TKey, TElement> create(
+	static <T, TKey, TElement> Lookup<TKey, TElement> create(
 			Iterable<T> source,
 			Func1<? super T, TKey> keySelector,
 			Func1<? super T, TElement> elementSelector,
@@ -67,7 +74,7 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 		Lookup<TKey, TElement> lookup = new Lookup<>(comparator);
 
 		for (T local : source) {
-			lookup.getGrouping(keySelector.func(local), true).add(elementSelector.func(local));
+			lookup.getOrCreateGrouping(keySelector.func(local)).add(elementSelector.func(local));
 		}
 
 		return lookup;
