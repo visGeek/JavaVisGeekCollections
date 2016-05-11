@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.lang.reflect.Array;
 
-public interface ICollectionEnumerable<T> extends IEnumerable<T> {
+interface ICollectionEnumerable<T> extends IEnumerable<T> {
 	@Override
 	default boolean any() {
 		return this.count() != 0;
