@@ -8,7 +8,7 @@ import com.github.visgeek.utils.collections.IEnumerable;
 
 public class Contains01 {
 	@Test
-	public void IterableContains() {
+	public void iterableContains() {
 		Integer[] source = new Integer[] { 1, 2, 3 };
 		int target = 2;
 		boolean expected = true;
@@ -19,7 +19,7 @@ public class Contains01 {
 	}
 
 	@Test
-	public void IterableNotContains() {
+	public void iterableNotContains() {
 		Integer[] source = new Integer[] { 1, 2, 3 };
 		int target = 4;
 		boolean expected = false;

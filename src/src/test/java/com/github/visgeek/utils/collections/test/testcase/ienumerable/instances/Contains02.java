@@ -16,7 +16,7 @@ public class Contains02 {
 
 	// テストケース
 	@Test
-	public void IterableContains_ComparatorIsNull() {
+	public void iterableContains_ComparatorIsNull() {
 		Integer[] source = new Integer[] { 1, 2, 3 };
 		int target = 2;
 		boolean expected = true;
@@ -27,7 +27,7 @@ public class Contains02 {
 	}
 
 	@Test
-	public void IterableNotContains_ComparatorIsNull() {
+	public void iterableNotContains_ComparatorIsNull() {
 		Integer[] source = new Integer[] { 1, 2, 3 };
 		int target = 4;
 		boolean expected = false;
@@ -38,7 +38,7 @@ public class Contains02 {
 	}
 
 	@Test
-	public void IterableContains() {
+	public void iterableContains() {
 		String[] source = new String[] { "01", "02", "03" };
 		String target = "2";
 		boolean expected = true;
@@ -49,7 +49,7 @@ public class Contains02 {
 	}
 
 	@Test
-	public void IterableNotContains() {
+	public void iterableNotContains() {
 		String[] source = new String[] { "01", "02", "03" };
 		String target = "4";
 		boolean expected = false;
