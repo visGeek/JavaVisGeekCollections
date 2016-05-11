@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -48,5 +49,13 @@ class ListEnumerable<T> implements IListEnumerable<T> {
 		} catch (ArrayIndexOutOfBoundsException e) {
 			throw Errors.argumentOfOutOfRange("index");
 		}
+	}
+
+	@Override
+	public T[] toArray(Class<T> elementClass) {
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) Array.newInstance(elementClass, this.count());
+
+		return this.source.toArray(array);
 	}
 }
