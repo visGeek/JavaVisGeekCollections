@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
@@ -12,6 +13,20 @@ import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class OfLong {
+	@Test
+	public void iEnumerable_empty() {
+		IEnumerable<Long> source = Enumerable.ofLong(Arrays.asList());
+		IEnumerable<Long> actual = Enumerable.ofLong(source);
+		Assert.assertSame(source, actual);
+	}
+
+	@Test
+	public void iEnumerable_normal() {
+		IEnumerable<Long> source = Enumerable.of(1L, 2L, 3L);
+		IEnumerable<Long> actual = Enumerable.ofLong(source);
+		Assert.assertSame(source, actual);
+	}
+
 	@Test
 	public void primitiveArray_empty() {
 		long[] values = new long[] {};

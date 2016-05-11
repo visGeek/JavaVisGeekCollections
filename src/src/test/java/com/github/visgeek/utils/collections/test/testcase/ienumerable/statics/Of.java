@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Stream;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
@@ -13,6 +14,20 @@ import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class Of {
+	@Test
+	public void iEnumerable_empty() {
+		IEnumerable<Object> source = Enumerable.empty();
+		IEnumerable<Object> actual = Enumerable.of(source);
+		Assert.assertSame(source, actual);
+	}
+
+	@Test
+	public void iEnumerable_normal() {
+		IEnumerable<Object> source = Enumerable.of(new Object(), new Object(), new Object());
+		IEnumerable<Object> actual = Enumerable.of(source);
+		Assert.assertSame(source, actual);
+	}
+
 	@Test
 	public void array_empty() {
 		Object[] values = new Object[] {};

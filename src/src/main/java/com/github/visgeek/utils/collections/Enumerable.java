@@ -99,7 +99,7 @@ public final class Enumerable {
 		return new ArrayEnumerableChar(source);
 	}
 
-	public static IEnumerable<Character> of(String source) {
+	public static IEnumerable<Character> ofCharacter(String source) {
 		return Enumerable.of(source.toCharArray());
 	}
 

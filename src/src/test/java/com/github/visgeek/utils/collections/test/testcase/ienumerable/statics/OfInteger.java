@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
@@ -12,6 +13,20 @@ import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class OfInteger {
+	@Test
+	public void iEnumerable_empty() {
+		IEnumerable<Integer> source = Enumerable.ofInteger(Arrays.asList());
+		IEnumerable<Integer> actual = Enumerable.ofInteger(source);
+		Assert.assertSame(source, actual);
+	}
+
+	@Test
+	public void iEnumerable_normal() {
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
+		IEnumerable<Integer> actual = Enumerable.ofInteger(source);
+		Assert.assertSame(source, actual);
+	}
+
 	@Test
 	public void primitiveArray_empty() {
 		int[] values = new int[] {};

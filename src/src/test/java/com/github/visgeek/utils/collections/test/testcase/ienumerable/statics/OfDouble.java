@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
@@ -12,6 +13,20 @@ import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class OfDouble {
+	@Test
+	public void iEnumerable_empty() {
+		IEnumerable<Double> source = Enumerable.ofDouble(Arrays.asList());
+		IEnumerable<Double> actual = Enumerable.ofDouble(source);
+		Assert.assertSame(source, actual);
+	}
+
+	@Test
+	public void iEnumerable_normal() {
+		IEnumerable<Double> source = Enumerable.of(1.0, 2.0, 3.0);
+		IEnumerable<Double> actual = Enumerable.ofDouble(source);
+		Assert.assertSame(source, actual);
+	}
+
 	@Test
 	public void primitiveArray_empty() {
 		double[] values = new double[] {};

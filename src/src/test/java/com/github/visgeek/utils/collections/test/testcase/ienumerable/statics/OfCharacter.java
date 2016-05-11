@@ -26,7 +26,7 @@ public class OfCharacter {
 	@Test
 	public void string_empty() {
 		String values = "";
-		IEnumerable<Character> actual = Enumerable.of(values);
+		IEnumerable<Character> actual = Enumerable.ofCharacter(values);
 
 		Assert2.assertSequanceEquals(actual);
 	}
@@ -34,7 +34,7 @@ public class OfCharacter {
 	@Test
 	public void string_normal() {
 		String values = "abc";
-		IEnumerable<Character> actual = Enumerable.of(values);
+		IEnumerable<Character> actual = Enumerable.ofCharacter(values);
 
 		Assert2.assertSequanceEquals(actual, 'a', 'b', 'c');
 	}

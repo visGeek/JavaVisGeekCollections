@@ -61,7 +61,7 @@ IDoubleEnumerable doublevalues3 = Enumerable.ofDouble(Arrays.asList(1.0, 2.0, 3.
 
 // char
 IEnumerable<Character> charValues1 = Enumerable.of(new char[] { 'a', 'b', 'c' });
-IEnumerable<Character> charValues3 = Enumerable.of("abc");
+IEnumerable<Character> charValues3 = Enumerable.ofCharacter("abc");
 
 // Collections
 EnumerableList<Integer>                   list = new EnumerableList<>();       // extends ArrayList<T>        implements IReadOnlyList<T>
