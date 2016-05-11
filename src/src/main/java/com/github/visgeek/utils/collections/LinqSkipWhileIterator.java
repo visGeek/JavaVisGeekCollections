@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.Func2;
 
-class LinqSkipWhileIterator<T> extends AbstractSimpleEnumerator<T, T> {
+class LinqSkipWhileIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqSkipWhileIterator(Iterable<T> source, Func2<? super T, Integer, Boolean> predicate) {
 		super(source);
 		this.predicate = predicate;

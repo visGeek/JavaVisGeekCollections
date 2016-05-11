@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.Func2;
 
-class LinqZipIterator<TFirst, TSecond, TResult> extends AbstractSimpleIterator<TFirst, TResult> {
+class LinqZipIterator<TFirst, TSecond, TResult> extends AbstractConvertedIterator<TFirst, TResult> {
 	public LinqZipIterator(Iterable<TFirst> source, Iterable<TSecond> second, Func2<? super TFirst, ? super TSecond, TResult> resultSelector) {
 		super(source);
 		this.resultSelector = resultSelector;

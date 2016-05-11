@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.Func2;
 
-class LinqSelectManyIterator<T, TResult> extends AbstractSimpleEnumerator<T, TResult> {
+class LinqSelectManyIterator<T, TResult> extends AbstractConvertedEnumerator<T, TResult> {
 	public LinqSelectManyIterator(Iterable<T> source, Func2<? super T, Integer, Iterable<TResult>> selector) {
 		super(source);
 		this.selector = selector;

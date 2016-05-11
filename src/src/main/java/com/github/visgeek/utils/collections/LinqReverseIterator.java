@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-class LinqReverseIterator<T> extends AbstractSimpleEnumerator<T, T> {
+class LinqReverseIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqReverseIterator(Iterable<T> source) {
 		super(source);
 	}

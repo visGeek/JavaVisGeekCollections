@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-class LinqDefaultIfEmptyIterator<T> extends AbstractSimpleIterator<T, T> {
+class LinqDefaultIfEmptyIterator<T> extends AbstractConvertedIterator<T, T> {
 	// コンストラクター
 	public LinqDefaultIfEmptyIterator(Iterable<T> source, Iterable<? extends T> defaultValues) {
 		super(source);

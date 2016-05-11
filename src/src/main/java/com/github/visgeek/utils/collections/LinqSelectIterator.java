@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import com.github.visgeek.utils.Func2;
 
-class LinqSelectIterator<T, TResult> extends AbstractSimpleIterator<T, TResult> {
+class LinqSelectIterator<T, TResult> extends AbstractConvertedIterator<T, TResult> {
 	public LinqSelectIterator(Iterable<T> source, Func2<? super T, Integer, TResult> selector) {
 		super(source);
 		this.selector = selector;

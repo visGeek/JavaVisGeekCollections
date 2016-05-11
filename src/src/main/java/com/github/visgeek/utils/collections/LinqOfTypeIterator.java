@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-class LinqOfTypeIterator<T, TResult extends T> extends AbstractSimpleIterator<T, TResult> {
+class LinqOfTypeIterator<T, TResult extends T> extends AbstractConvertedIterator<T, TResult> {
 	public LinqOfTypeIterator(Iterable<T> source, Class<TResult> elementClass) {
 		super(source);
 		this.elementClass = elementClass;

@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-class LinqShiftIterator<T> extends AbstractSimpleEnumerator<T, T> {
+class LinqShiftIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqShiftIterator(Iterable<T> source, int count) {
 		super(source);
 		this.count = count;

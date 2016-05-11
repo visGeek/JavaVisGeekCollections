@@ -6,7 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
-class LinqShuffleIterator<T> extends AbstractSimpleIterator<T, T> {
+class LinqShuffleIterator<T> extends AbstractConvertedIterator<T, T> {
 	public LinqShuffleIterator(Iterable<T> source, Random rnd) {
 		super(source);
 		this.rnd = rnd;

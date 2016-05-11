@@ -5,7 +5,7 @@ import java.util.Set;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
-class LinqDistinctIterator<T> extends AbstractSimpleEnumerator<T, T> {
+class LinqDistinctIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqDistinctIterator(Iterable<T> source, IEqualityComparator<? super T> comparator) {
 		super(source);
 		this.iterator = this.source.iterator();

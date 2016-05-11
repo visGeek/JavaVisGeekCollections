@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.Func2;
 
-class LinqTakeWhileIterator<T> extends AbstractSimpleEnumerator<T, T> {
+class LinqTakeWhileIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqTakeWhileIterator(Iterable<T> source, Func2<? super T, Integer, Boolean> predicate) {
 		super(source);
 		this.predicate = predicate;
