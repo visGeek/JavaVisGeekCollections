@@ -34,9 +34,4 @@ class CollectionEnumerable<T> implements ICollectionEnumerable<T> {
 	public int count() {
 		return this.source.size();
 	}
-
-	@Override
-	public T[] toArray(Class<T> elementClass) {
-		return this.source.toArray(null);
-	}
 }
