@@ -29,19 +29,14 @@ public interface IIntegerEnumerable extends IEnumerable<Integer> {
 		return sum;
 	}
 
-	@SuppressWarnings("unchecked")
-	default int[] toIntArray() {
-		List<Integer> list;
-		if (this instanceof List<?>) {
-			list = (List<Integer>) this;
-		} else {
-			list = this.toList();
-		}
+	default int[] toPrimitiveArray() {
+		List<Integer> list = this.toList();
 
 		int[] array = new int[list.size()];
+
 		int i = 0;
 		for (Integer value : list) {
-			array[i] = value;
+			array[i] = value == null ? 0 : value;
 			i++;
 		}
 

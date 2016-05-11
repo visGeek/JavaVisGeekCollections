@@ -3,7 +3,7 @@ package com.github.visgeek.utils.collections;
 import java.util.Arrays;
 import java.util.List;
 
-class ListEnumerableDouble extends ListEnumerable<Double> implements IDoubleEnumerable {
+class ListEnumerableDouble extends ListEnumerable<Double> implements IDoubleCollectionEnumerable {
 	// コンストラクター
 	ListEnumerableDouble(List<Double> source) {
 		super(source);

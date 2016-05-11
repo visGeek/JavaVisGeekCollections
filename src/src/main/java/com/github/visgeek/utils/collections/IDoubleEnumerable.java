@@ -29,19 +29,14 @@ public interface IDoubleEnumerable extends IEnumerable<Double> {
 		return sum;
 	}
 
-	@SuppressWarnings("unchecked")
-	default double[] toDoubleArray() {
-		List<Double> list;
-		if (this instanceof List<?>) {
-			list = (List<Double>) this;
-		} else {
-			list = this.toList();
-		}
+	default double[] toPrimitiveArray() {
+		List<?> list = this.toList();
 
 		double[] array = new double[list.size()];
+
 		int i = 0;
-		for (Double value : list) {
-			array[i] = value;
+		for (Double value : this) {
+			array[i] = value == null ? 0 : value;
 			i++;
 		}
 

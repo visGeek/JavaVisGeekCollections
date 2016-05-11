@@ -1,6 +1,8 @@
 package com.github.visgeek.utils.collections;
 
-class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongEnumerable {
+import java.util.Arrays;
+
+class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableLong(long[] source) {
 		this.source = source;
@@ -39,5 +41,11 @@ class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongEnumerab
 		}
 
 		return result;
+	}
+
+	@Override
+	public long[] toPrimitiveArray() {
+		long[] array = Arrays.copyOf(this.source, this.count());
+		return array;
 	}
 }

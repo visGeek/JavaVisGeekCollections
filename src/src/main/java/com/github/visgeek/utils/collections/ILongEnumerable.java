@@ -29,19 +29,14 @@ public interface ILongEnumerable extends IEnumerable<Long> {
 		return sum;
 	}
 
-	@SuppressWarnings("unchecked")
-	default long[] toLongArray() {
-		List<Long> list;
-		if (this instanceof List<?>) {
-			list = (List<Long>) this;
-		} else {
-			list = this.toList();
-		}
+	default long[] toPrimitiveArray() {
+		List<?> list = this.toList();
 
 		long[] array = new long[list.size()];
+
 		int i = 0;
-		for (Long value : list) {
-			array[i] = value;
+		for (Long value : this) {
+			array[i] = value == null ? 0 : value;
 			i++;
 		}
 

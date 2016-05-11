@@ -1,6 +1,8 @@
 package com.github.visgeek.utils.collections;
 
-class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerEnumerable {
+import java.util.Arrays;
+
+class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableInt(int[] source) {
 		this.source = source;
@@ -39,5 +41,11 @@ class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerEnu
 		}
 
 		return result;
+	}
+
+	@Override
+	public int[] toPrimitiveArray() {
+		int[] array = Arrays.copyOf(this.source, this.count());
+		return array;
 	}
 }

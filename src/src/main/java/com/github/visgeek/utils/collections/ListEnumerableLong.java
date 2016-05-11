@@ -3,7 +3,7 @@ package com.github.visgeek.utils.collections;
 import java.util.Arrays;
 import java.util.List;
 
-class ListEnumerableLong extends ListEnumerable<Long> implements ILongEnumerable {
+class ListEnumerableLong extends ListEnumerable<Long> implements ILongCollectionEnumerable {
 	// コンストラクター
 	ListEnumerableLong(List<Long> source) {
 		super(source);

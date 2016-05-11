@@ -1,6 +1,8 @@
 package com.github.visgeek.utils.collections;
 
-class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleEnumerable {
+import java.util.Arrays;
+
+class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableDouble(double[] source) {
 		this.source = source;
@@ -39,5 +41,11 @@ class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleEn
 		}
 
 		return result;
+	}
+
+	@Override
+	public double[] toPrimitiveArray() {
+		double[] array = Arrays.copyOf(this.source, this.count());
+		return array;
 	}
 }
