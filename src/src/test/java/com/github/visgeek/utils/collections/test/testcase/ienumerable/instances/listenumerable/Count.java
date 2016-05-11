@@ -9,7 +9,7 @@ import com.github.visgeek.utils.collections.IEnumerable;
 public class Count {
 	@Test
 	public void test() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
+		IEnumerable<Item> source = Enumerable.of(new Item(1), new Item(2), new Item(3));
 		int expected = 3;
 
 		int actual = source.count();

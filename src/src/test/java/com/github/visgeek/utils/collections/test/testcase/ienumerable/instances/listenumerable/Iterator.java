@@ -9,9 +9,10 @@ import com.github.visgeek.utils.testing.Assert2;
 public class Iterator {
 	@Test
 	public void test() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
+		IEnumerable<Item> source = Enumerable.of(new Item(1), new Item(2), new Item(3));
 		Integer[] expected = new Integer[] { 1, 2, 3 };
 
-		Assert2.assertSequanceEquals(source, expected);
+		IEnumerable<Integer> actual = source.select(item -> item.value());
+		Assert2.assertSequanceEquals(actual, expected);
 	}
 }

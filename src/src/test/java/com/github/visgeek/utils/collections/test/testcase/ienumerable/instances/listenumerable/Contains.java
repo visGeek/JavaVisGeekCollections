@@ -8,9 +8,9 @@ import com.github.visgeek.utils.collections.IEnumerable;
 
 public class Contains {
 	@Test
-	public void iterableContains() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
-		Integer target = 2;
+	public void contains() {
+		IEnumerable<Item> source = Enumerable.of(new Item(1), new Item(2), new Item(3));
+		Item target = new Item(2);
 		boolean expected = true;
 
 		boolean actual = source.contains(target);
@@ -18,9 +18,9 @@ public class Contains {
 	}
 
 	@Test
-	public void iterableNotContains() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
-		Integer target = 4;
+	public void notContains() {
+		IEnumerable<Item> source = Enumerable.of(new Item(1), new Item(2), new Item(3));
+		Item target = new Item(4);
 		boolean expected = false;
 
 		boolean actual = source.contains(target);
