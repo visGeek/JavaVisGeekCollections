@@ -41,7 +41,34 @@ class IntegerSequenceEnumerable implements IListEnumerable<Integer>, IIntegerEnu
 
 	@Override
 	public final Iterator<Integer> iterator() {
-		return IEnumerator.create(() -> start, n -> n <= end, n -> n + 1);
+		return new AbstractEnumerator<Integer>() {
+			boolean first = true;
+
+			private int current;
+
+			@Override
+			public Integer current() {
+				return this.current;
+			}
+
+			@Override
+			public boolean moveNext() {
+				boolean result = false;
+
+				if (this.first) {
+					this.first = false;
+					this.current = IntegerSequenceEnumerable.this.start;
+				} else {
+					this.current++;
+				}
+
+				if (this.current <= IntegerSequenceEnumerable.this.end) {
+					result = true;
+				}
+
+				return result;
+			}
+		};
 	}
 
 	@Override
