@@ -1391,19 +1391,8 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default T[] toArray(Class<T> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
 
-		List<?> list;
-		if (this instanceof List<?>) {
-			list = (List<?>) this;
-		} else {
-			list = this.toList();
-		}
-
-		T[] array;
-		if (elementClass == Object.class) {
-			array = (T[]) new Object[list.size()];
-		} else {
-			array = (T[]) Array.newInstance(elementClass, list.size());
-		}
+		List<?> list = this.toList();
+		T[] array = (T[]) Array.newInstance(elementClass, list.size());
 
 		return list.toArray(array);
 	}
