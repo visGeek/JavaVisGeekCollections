@@ -49,8 +49,8 @@ public class SumDouble {
 
 	@Test
 	public void successNormal() {
-		IEnumerable<String> source = () -> Enumerable.of("1.0", "2.0", "3.0", "4.0").iterator();
-		Func1<String, Double> selector = Double::parseDouble;
+		IEnumerable<String> source = () -> Enumerable.of("1.0", "2.0", "3.0", null, "4.0").iterator();
+		Func1<String, Double> selector = str -> str == null ? null : Double.parseDouble(str);
 		double expected = 1.0 + 2.0 + 3.0 + 4.0;
 
 		double actual = source.sumDouble(selector);

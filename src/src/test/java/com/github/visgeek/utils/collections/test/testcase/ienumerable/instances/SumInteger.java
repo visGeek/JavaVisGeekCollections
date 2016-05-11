@@ -49,11 +49,11 @@ public class SumInteger {
 
 	@Test
 	public void successNormal() {
-		IEnumerable<String> source = () -> Enumerable.of("1", "2", "3", "4").iterator();
-		Func1<String, Integer> selector = Integer::parseInt;
+		IEnumerable<String> source = () -> Enumerable.of("1", "2", "3", null, "4").iterator();
+		Func1<String, Integer> selector = str -> str == null ? null : Integer.parseInt(str);
 		int expected = 1 + 2 + 3 + 4;
 
 		int actual = source.sumInteger(selector);
-		Assert.assertEquals(expected, actual);
+		Assert.assertEquals(expected, actual, 0);
 	}
 }

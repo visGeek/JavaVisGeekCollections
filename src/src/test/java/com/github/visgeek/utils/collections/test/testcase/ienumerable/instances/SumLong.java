@@ -49,11 +49,11 @@ public class SumLong {
 
 	@Test
 	public void successNormal() {
-		IEnumerable<String> source = () -> Enumerable.of("1", "2", "3", "4").iterator();
-		Func1<String, Long> selector = Long::parseLong;
-		long expected = 1 + 2 + 3 + 4;
+		IEnumerable<String> source = () -> Enumerable.of("1", "2", "3", null, "4").iterator();
+		Func1<String, Long> selector = str -> str == null ? null : Long.parseLong(str);
+		long expected = 1L + 2L + 3L + 4L;
 
 		long actual = source.sumLong(selector);
-		Assert.assertEquals(expected, actual);
+		Assert.assertEquals(expected, actual, 0);
 	}
 }
