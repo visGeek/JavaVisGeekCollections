@@ -16,7 +16,7 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 	private final EquatableMap<TKey, IGrouping<TKey, TElement>> map;
 
 	// メソッド
-	final <TResult> IEnumerable<TResult> applyResultSelector(final Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
+	final <TResult> IEnumerable<TResult> applyResultSelector(Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
 		return this.map.entries().select(kv -> resultSelector.func(kv.key, kv.value));
 	}
 
@@ -54,7 +54,12 @@ class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 	// スタティックフィールド
 
 	// スタティックメソッド
-	public static <T, TKey, TElement> Lookup<TKey, TElement> create(Iterable<T> source, Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, IEqualityComparator<? super TKey> comparator) {
+	public static <T, TKey, TElement> Lookup<TKey, TElement> create(
+			Iterable<T> source,
+			Func1<? super T, TKey> keySelector,
+			Func1<? super T, TElement> elementSelector,
+			IEqualityComparator<? super TKey> comparator) {
+
 		Errors.throwIfNull(source, "source");
 		Errors.throwIfNull(keySelector, "keySelector");
 		Errors.throwIfNull(elementSelector, "elementSelector");
