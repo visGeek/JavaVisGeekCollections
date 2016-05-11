@@ -457,7 +457,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Iterator<T> itr = this.iterator();
 		while (itr.hasNext()) {
 			itr.next();
-			count++;
+			count = Math.addExact(count, 1);
 		}
 
 		return count;
@@ -476,7 +476,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 		for (T item : this) {
 			if (predicate.func(item)) {
-				count++;
+				count = Math.addExact(count, 1);
 			}
 		}
 
