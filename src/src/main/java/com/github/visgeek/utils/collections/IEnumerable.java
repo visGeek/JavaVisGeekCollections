@@ -1535,6 +1535,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default <TSecond, TResult> IEnumerable<TResult> zip(Iterable<TSecond> second, Func2<? super T, ? super TSecond, TResult> resultSelector) {
+		Errors.throwIfNull(second, "second");
 		return () -> new LinqZipIterator<>(IEnumerable.this, second, resultSelector);
 	}
 }
