@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 
 public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implements IReadOnlySet<T> {
@@ -97,9 +98,13 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 	}
 
 	@Override
-	@SuppressWarnings("hiding")
-	public <T> T[] toArray(T[] a) {
-		return super.toArray(a);
+	public T[] toArray(Class<T> elementClass) {
+		Errors.throwIfNull(elementClass, "elementClass");
+
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) Array.newInstance(elementClass, this.count());
+
+		return this.toArray(array);
 	}
 
 	// スタティックフィールド

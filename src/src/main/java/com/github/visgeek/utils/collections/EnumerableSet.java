@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 
 public class EnumerableSet<T> extends java.util.HashSet<T> implements IReadOnlySet<T> {
@@ -103,9 +104,13 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements IReadOnlyS
 	}
 
 	@Override
-	@SuppressWarnings("hiding")
-	public <T> T[] toArray(T[] a) {
-		return super.toArray(a);
+	public T[] toArray(Class<T> elementClass) {
+		Errors.throwIfNull(elementClass, "elementClass");
+
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) Array.newInstance(elementClass, this.count());
+
+		return this.toArray(array);
 	}
 
 	// スタティックフィールド
