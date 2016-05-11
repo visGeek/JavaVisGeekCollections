@@ -13,7 +13,7 @@ public class Contains01 {
 		int target = 2;
 		boolean expected = true;
 
-		IEnumerable<Integer> values = Enumerable.of(source);
+		IEnumerable<Integer> values = () -> Enumerable.of(source).iterator();
 		boolean actual = values.contains(target);
 		Assert.assertEquals(expected, actual);
 	}
@@ -24,7 +24,7 @@ public class Contains01 {
 		int target = 4;
 		boolean expected = false;
 
-		IEnumerable<Integer> values = Enumerable.of(source);
+		IEnumerable<Integer> values = () -> Enumerable.of(source).iterator();
 		boolean actual = values.contains(target);
 		Assert.assertEquals(expected, actual);
 	}
