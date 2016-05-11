@@ -1525,6 +1525,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default IEnumerable<T> where(Func1<? super T, Boolean> predicate) {
+		Errors.throwIfNull(predicate, "predicate");
 		return this.where((item, idx) -> predicate.func(item));
 	}
 
