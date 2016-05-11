@@ -56,7 +56,7 @@ public class TakeWhile02 {
 		Func2<Integer, Integer, Boolean> predicate = (n, idx) -> (int) n == idx;
 
 		IEnumerable<Integer> actual = source.takeWhile(predicate);
-		IEnumerator<Integer> e = actual.enumerator();
+		IEnumerator<Integer> e = actual.getEnumerator();
 
 		Assert.assertTrue(e.moveNext());
 		Assert.assertFalse(e.moveNext());

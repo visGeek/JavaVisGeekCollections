@@ -64,7 +64,7 @@ public class Take01 {
 		IEnumerable<Integer> source = () -> Enumerable.of(0, 1).iterator();
 
 		IEnumerable<Integer> actual = source.take(1);
-		IEnumerator<Integer> e = actual.enumerator();
+		IEnumerator<Integer> e = actual.getEnumerator();
 
 		Assert.assertTrue(e.moveNext());
 		Assert.assertFalse(e.moveNext());

@@ -19,7 +19,7 @@ import com.github.visgeek.utils.JoinedValue;
 
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
-	default IEnumerator<T> enumerator() {
+	default IEnumerator<T> getEnumerator() {
 		if (this.iterator() instanceof IEnumerator<?>) {
 			return (IEnumerator<T>) this.iterator();
 		} else {

@@ -56,7 +56,7 @@ public class TakeWhile01 {
 		Func1<Integer, Boolean> predicate = n -> n <= 0;
 
 		IEnumerable<Integer> actual = source.takeWhile(predicate);
-		IEnumerator<Integer> e = actual.enumerator();
+		IEnumerator<Integer> e = actual.getEnumerator();
 
 		Assert.assertTrue(e.moveNext());
 		Assert.assertFalse(e.moveNext());
