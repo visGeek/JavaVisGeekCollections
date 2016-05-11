@@ -169,7 +169,7 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 	}
 
 	public V putOrThrow(K key, V value) {
-		return this.putOrThrow(key, value, (k, v) -> String.format("key %s is already contained.", key));
+		return this.putOrThrow(key, value, (k, v) -> String.format("key %s already exists.", key));
 	}
 
 	public V putOrThrow(K key, V value, String errorMessage) {
