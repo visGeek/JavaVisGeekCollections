@@ -932,24 +932,27 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return value;
 	}
 
-	// シーケンスの要素数を返します。
+	/**
+	 * シーケンスの要素数を返します。
+	 * @return
+	 */
 	default long longCount() {
 		long count = 0;
 
 		Iterator<T> itr = this.iterator();
 		while (itr.hasNext()) {
-			if (count == Long.MAX_VALUE) {
-				throw new IllegalStateException();
-			} else {
-				itr.next();
-				count++;
-			}
+			itr.next();
+			count = Math.addExact(count, 1);
 		}
 
 		return count;
 	}
 
-	// シーケンス内要素の条件を満たす要素の数を返します。
+	/**
+	 * 条件を満たす要素の数を返します。
+	 * @param predicate
+	 * @return
+	 */
 	default long longCount(Func1<? super T, Boolean> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
@@ -957,13 +960,9 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 		Iterator<T> itr = this.iterator();
 		while (itr.hasNext()) {
-			if (count == Long.MAX_VALUE) {
-				throw new IllegalStateException();
-			} else {
-				T item = itr.next();
-				if (predicate.func(item)) {
-					count++;
-				}
+			T item = itr.next();
+			if (predicate.func(item)) {
+				count = Math.addExact(count, 1);
 			}
 		}
 
