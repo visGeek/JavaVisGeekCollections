@@ -1387,11 +1387,12 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return () -> new LinqTakeWhileIterator<>(IEnumerable.this, predicate);
 	}
 
-	@SuppressWarnings("unchecked")
 	default T[] toArray(Class<T> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
 
 		List<?> list = this.toList();
+
+		@SuppressWarnings("unchecked")
 		T[] array = (T[]) Array.newInstance(elementClass, list.size());
 
 		return list.toArray(array);
