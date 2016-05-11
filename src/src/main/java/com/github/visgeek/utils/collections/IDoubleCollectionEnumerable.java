@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-public interface IDoubleCollectionEnumerable extends IDoubleEnumerable, ICollectionEnumerable<Double> {
+interface IDoubleCollectionEnumerable extends IDoubleEnumerable, ICollectionEnumerable<Double> {
 	@Override
 	default double[] toPrimitiveArray() {
 		double[] array = new double[this.count()];

@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-public interface ILongCollectionEnumerable extends ILongEnumerable, ICollectionEnumerable<Long> {
+interface ILongCollectionEnumerable extends ILongEnumerable, ICollectionEnumerable<Long> {
 	@Override
 	default long[] toPrimitiveArray() {
 		long[] array = new long[this.count()];

@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-public interface IIntegerCollectionEnumerable extends IIntegerEnumerable, ICollectionEnumerable<Integer> {
+interface IIntegerCollectionEnumerable extends IIntegerEnumerable, ICollectionEnumerable<Integer> {
 	@Override
 	default int[] toPrimitiveArray() {
 		int[] array = new int[this.count()];
