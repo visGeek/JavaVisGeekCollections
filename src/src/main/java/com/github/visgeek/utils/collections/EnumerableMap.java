@@ -1,6 +1,7 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
+import java.util.Objects;
 
 import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
@@ -45,6 +46,20 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 	}
 
 	@Override
+	public boolean contains(java.util.Map.Entry<K, V> item) {
+		boolean result = false;
+
+		if (this.containsKey2(item.getKey())) {
+			V value = this.getValue(item.getKey());
+			if (Objects.equals(value, item.getValue())) {
+				result = true;
+			}
+		}
+
+		return result;
+	}
+
+	@Override
 	@Deprecated
 	public boolean containsKey(Object key) {
 		return super.containsKey(key);
@@ -62,6 +77,11 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 
 	public boolean containsValue2(V value) {
 		return super.containsValue(value);
+	}
+
+	@Override
+	public int count() {
+		return this.size();
 	}
 
 	@Override

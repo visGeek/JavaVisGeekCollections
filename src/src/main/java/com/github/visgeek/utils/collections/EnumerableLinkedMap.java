@@ -1,6 +1,7 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
+import java.util.Objects;
 import java.util.Map.Entry;
 
 import com.github.visgeek.utils.Func0;
@@ -50,6 +51,20 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 	}
 
 	@Override
+	public boolean contains(java.util.Map.Entry<K, V> item) {
+		boolean result = false;
+
+		if (this.containsKey2(item.getKey())) {
+			V value = this.getValue(item.getKey());
+			if (Objects.equals(value, item.getValue())) {
+				result = true;
+			}
+		}
+
+		return result;
+	}
+
+	@Override
 	@Deprecated
 	public boolean containsKey(Object key) {
 		return super.containsKey(key);
@@ -67,6 +82,11 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 
 	public boolean containsValue2(V value) {
 		return super.containsValue(value);
+	}
+
+	@Override
+	public int count() {
+		return this.size();
 	}
 
 	@Override

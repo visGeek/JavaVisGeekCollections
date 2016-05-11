@@ -77,6 +77,11 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 	}
 
 	@Override
+	public int count() {
+		return this.size();
+	}
+
+	@Override
 	@Deprecated
 	public boolean remove(Object o) {
 		return super.remove(o);

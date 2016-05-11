@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.lang.reflect.Array;
 import java.util.Collection;
 
 public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements IReadOnlyList<T> {
@@ -73,6 +74,16 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 	 */
 	public boolean containsValue(T o) {
 		return super.contains(o);
+	}
+
+	@Override
+	public int count() {
+		return this.size();
+	}
+
+	@Override
+	public T elementAt(int index) {
+		return this.get(index);
 	}
 
 	@Override
@@ -187,6 +198,16 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 		}
 
 		return result;
+	}
+
+	@Override
+	public T[] toArray(Class<T> elementClass) {
+		Errors.throwIfNull(elementClass, "elementClass");
+
+		@SuppressWarnings("unchecked")
+		T[] array = (T[]) Array.newInstance(elementClass, this.count());
+
+		return this.toArray(array);
 	}
 
 	@Override

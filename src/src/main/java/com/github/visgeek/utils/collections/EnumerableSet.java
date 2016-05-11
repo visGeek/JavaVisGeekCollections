@@ -83,6 +83,11 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements IReadOnlyS
 	}
 
 	@Override
+	public int count() {
+		return this.size();
+	}
+
+	@Override
 	@Deprecated
 	public boolean remove(Object o) {
 		return super.remove(o);

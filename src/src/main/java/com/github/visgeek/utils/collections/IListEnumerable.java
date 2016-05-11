@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import com.github.visgeek.utils.Func0;
 
-interface IListEnumerable<T> extends ICollectionEnumerable<T> {
+public interface IListEnumerable<T> extends ICollectionEnumerable<T> {
 	@Override
 	T elementAt(int index);
 
