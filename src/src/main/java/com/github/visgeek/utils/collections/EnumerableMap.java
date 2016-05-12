@@ -1,18 +1,11 @@
 package com.github.visgeek.utils.collections;
 
-import java.util.Iterator;
-import java.util.Objects;
-
-import com.github.visgeek.utils.Func0;
-import com.github.visgeek.utils.Func1;
-import com.github.visgeek.utils.Func2;
-
 /**
  * java.util.HashMap&lt;K, V&gt; の機能と IEnumerable&lt;T&gt; の機能を提供します。
  * @param <K>
  * @param <V>
  */
-public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IReadOnlyMap<K, V> {
+public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IMap<K, V> {
 	// コンストラクター
 	public EnumerableMap() {
 		super();
@@ -46,26 +39,8 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 	}
 
 	@Override
-	public boolean contains(java.util.Map.Entry<K, V> item) {
-		boolean result = false;
-
-		if (this.containsKey2(item.getKey())) {
-			V value = this.getValue(item.getKey());
-			if (Objects.equals(value, item.getValue())) {
-				result = true;
-			}
-		}
-
-		return result;
-	}
-
-	@Override
 	@Deprecated
 	public boolean containsKey(Object key) {
-		return super.containsKey(key);
-	}
-
-	public boolean containsKey2(K key) {
 		return super.containsKey(key);
 	}
 
@@ -75,27 +50,9 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 		return super.containsValue(value);
 	}
 
-	public boolean containsValue2(V value) {
-		return super.containsValue(value);
-	}
-
-	@Override
-	public int count() {
-		return this.size();
-	}
-
 	@Override
 	@Deprecated
 	public V get(Object key) {
-		return super.get(key);
-	}
-
-	/**
-	 * get(Object key) と同じ動作です。
-	 * @param key
-	 * @return
-	 */
-	public V getValue(K key) {
 		return super.get(key);
 	}
 
@@ -105,161 +62,10 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IRea
 		return super.getOrDefault(paramObject, paramV);
 	}
 
-	/**
-	 * getOrDefault(Object Key, V defaultValue) と同じ動作です。
-	 */
-	@Override
-	public V getValueOrDefault(K key, V defaultValue) {
-		return super.getOrDefault(key, defaultValue);
-	}
-
-	/**
-	 * キーに関連する値を取得します。登録されていない場合は規定値を登録します。
-	 * @param key
-	 * @param defaultValue
-	 * @return
-	 */
-	public V getValueOrPut(K key, Func1<K, ? extends V> defaultValue) {
-		return this.getValueOrPut(key, defaultValue, null);
-	}
-
-	/**
-	 * キーに関連する値を取得します。登録されていない場合は規定値を登録します。ロック用オブジェクトを指定すると同期的登録処理となります。
-	 * @param key
-	 * @param defaultValue
-	 * @param lockObject 同期処理のためのロック用オブジェクト。または null。
-	 * @return
-	 */
-	public V getValueOrPut(K key, Func1<K, ? extends V> defaultValue, Object lockObject) {
-		return this.getValueOrPut(key, () -> defaultValue.func(key), lockObject);
-	}
-
-	/**
-	 * キーに関連する値を取得します。登録されていない場合は規定値を登録します。
-	 * @param key
-	 * @param defaultValue
-	 * @return
-	 */
-	public V getValueOrPut(K key, Func0<? extends V> defaultValue) {
-		return this.getValueOrPut(key, defaultValue, null);
-	}
-
-	/**
-	 * キーに関連する値を取得します。登録されていない場合は規定値を登録します。ロック用オブジェクトを指定すると同期的登録処理となります。
-	 * @param key
-	 * @param defaultValue
-	 * @param lockObject 同期処理のためのロック用オブジェクト。または null。
-	 * @return
-	 */
-	public V getValueOrPut(K key, Func0<? extends V> defaultValue, Object lockObject) {
-		V result;
-
-		result = this.getValue(key);
-		if (result == null) {
-			if (lockObject == null) {
-				result = defaultValue.func();
-				this.put(key, result);
-			} else {
-				synchronized (lockObject) {
-					result = this.getValue(key);
-					if (result == null) {
-						result = defaultValue.func();
-						this.put(key, result);
-					}
-				}
-			}
-		}
-
-		return result;
-	}
-
-	@Override
-	public IEnumerable<K> enumerateKeys() {
-		return Enumerable.of(this.keySet());
-	}
-
-	@Override
-	public IEnumerable<V> enumerateValues() {
-		return Enumerable.of(this.values());
-	}
-
-	public V putOrThrow(K key, V value) {
-		return this.putOrThrow(key, value, (k, v) -> String.format("key %s already exists.", key));
-	}
-
-	public V putOrThrow(K key, V value, String errorMessage) {
-		return this.putOrThrow(key, value, (k, v) -> errorMessage);
-	}
-
-	public V putOrThrow(K key, V value, Func2<K, V, String> errorMessage) {
-		if (this.containsKey2(key)) {
-			throw new IllegalArgumentException(errorMessage.func(key, value));
-		} else {
-			return this.put(key, value);
-		}
-	}
-
-	/**
-	 * キーに関連する値が登録されていない場合に値を登録します。
-	 * @param key
-	 * @param value
-	 * @return
-	 */
-	public V putIfAbsent(K key, Func0<? extends V> value) {
-		V result = null;
-
-		if (!this.containsKey2(key)) {
-			result = this.putIfAbsent(key, value.func());
-		}
-
-		return result;
-	}
-
-	public void putAll(IEnumerable<? extends V> values, Func1<? super V, ? extends K> keySelector) {
-		for (V value : values) {
-			K key = keySelector.func(value);
-			this.put(key, value);
-		}
-	}
-
 	@Override
 	@Deprecated
 	public V remove(Object key) {
 		return super.remove(key);
-	}
-
-	/**
-	 * remove(Object key) と同じ動作です。
-	 * @param key
-	 * @return
-	 */
-	public V removeValue(K key) {
-		return super.remove(key);
-	}
-
-	public V removeValueOrThrow(K key) {
-		if (this.containsKey2(key)) {
-			return this.removeValue(key);
-		} else {
-			throw new IllegalArgumentException(String.format("key '%s' is not found.", key));
-		}
-	}
-
-	public V removeValueOrDefault(K key, V defaultValue) {
-		return this.removeValueOrDefault(key, () -> defaultValue);
-	}
-
-	public V removeValueOrDefault(K key, Func0<? extends V> defaultValue) {
-		if (this.containsKey2(key)) {
-			return this.removeValue(key);
-		} else {
-			return defaultValue.func();
-		}
-	}
-
-	@Override
-	public Iterator<Entry<K, V>> iterator() {
-		return this.entrySet().iterator();
 	}
 
 	@Override
