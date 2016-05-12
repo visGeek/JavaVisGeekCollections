@@ -1,27 +1,12 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
-import java.util.Objects;
 
 import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.Func2;
 
 public interface IMap<K, V> extends java.util.Map<K, V>, IReadOnlyMap<K, V> {
-	@Override
-	default boolean contains(java.util.Map.Entry<K, V> item) {
-		boolean result = false;
-
-		if (this.containsKey2(item.getKey())) {
-			V value = this.getValue(item.getKey());
-			if (Objects.equals(value, item.getValue())) {
-				result = true;
-			}
-		}
-
-		return result;
-	}
-
 	default boolean containsKey2(K key) {
 		return this.containsKey(key);
 	}

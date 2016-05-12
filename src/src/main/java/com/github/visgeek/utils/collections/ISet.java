@@ -32,6 +32,9 @@ public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<
 		return result;
 	}
 
+	@Override
+	boolean contains(Object o);
+
 	/**
 	 * contains(Object o) と同じ動作です。
 	 * @param o

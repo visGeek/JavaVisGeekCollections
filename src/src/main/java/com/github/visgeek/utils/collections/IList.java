@@ -28,6 +28,9 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 		return result;
 	}
 
+	@Override
+	boolean contains(Object o);
+
 	/**
 	 * contains(Object o) と同じ動作です。
 	 * @param o

@@ -77,10 +77,6 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 		return String.format("size:%d", this.size());
 	}
 
-	// スタティッククラス
-
 	// スタティックフィールド
 	private static final long serialVersionUID = -7179232799171941533L;
-
-	// スタティックメソッド
 }

@@ -12,9 +12,6 @@ interface ICollectionEnumerable<T> extends IEnumerable<T> {
 	int count();
 
 	@Override
-	boolean contains(T item);
-
-	@Override
 	default T[] toArray(Class<T> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
 

@@ -9,7 +9,4 @@ public interface IReadOnlyCollection<T> extends ICollectionEnumerable<T> {
 	default int count() {
 		return this.size();
 	}
-
-	@Override
-	boolean contains(T item);
 }
