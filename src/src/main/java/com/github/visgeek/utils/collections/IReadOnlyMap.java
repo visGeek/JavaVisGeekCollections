@@ -19,6 +19,11 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 
 	V get(K key);
 
+	/**
+	 * 指定したキーに関連付けられた値を取得します。キーが登録されていない場合は例外が発生します。
+	 * @param key
+	 * @return
+	 */
 	default V getValueOrThrow(K key) {
 		if (this.containsKey(key)) {
 			return this.get(key);
@@ -27,9 +32,23 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 		}
 	}
 
+	/**
+	 * getOrDefault(Object Key, V defaultValue) と同じ動作です。
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	V getValueOrDefault(K key, V defaultValue);
 
+	/**
+	 * 指定したキーに関連付けられた値を取得します。キーが登録されていない場合は指定した関数の結果を取得しますがこの値は登録されません。
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	default V getValueOrDefault(K key, Func0<? extends V> defaultValue) {
+		Errors.throwIfNull(defaultValue, "defaultValue");
+
 		if (this.containsKey(key)) {
 			return this.get(key);
 		} else {
@@ -37,7 +56,15 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 		}
 	}
 
+	/**
+	 * 指定したキーに関連付けられた値を取得します。キーが登録されていない場合は指定した関数の結果を取得しますがこの値は登録されません。
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	default V getValueOrDefault(K key, Func1<? super K, ? extends V> defaultValue) {
+		Errors.throwIfNull(defaultValue, "defaultValue");
+
 		if (this.containsKey(key)) {
 			return this.get(key);
 		} else {
@@ -45,9 +72,21 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 		}
 	}
 
-	IEnumerable<K> enumerateKeys();
+	/**
+	 * 登録されているキーを列挙します。
+	 * @return
+	 */
+	default IEnumerable<K> enumerateKeys() {
+		return Enumerable.of(this.keySet());
+	}
 
-	IEnumerable<V> enumerateValues();
+	/**
+	 * 登録されているキーを列挙します。
+	 * @return
+	 */
+	default IEnumerable<V> enumerateValues() {
+		return Enumerable.of(this.values());
+	}
 
 	Set<K> keySet();
 
