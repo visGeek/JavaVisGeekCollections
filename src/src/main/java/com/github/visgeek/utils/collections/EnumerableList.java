@@ -1,9 +1,9 @@
 package com.github.visgeek.utils.collections;
 
-import java.lang.reflect.Array;
 import java.util.Collection;
 
-public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOnlyList<T> {
+@SuppressWarnings("unchecked")
+public class EnumerableList<T> extends java.util.ArrayList<T> implements IList<T> {
 	// コンストラクター
 	public EnumerableList() {
 		super();
@@ -16,9 +16,7 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 	public EnumerableList(Iterable<? extends T> collection) {
 		this();
 		if (collection instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> c = (Collection<T>) collection;
-			this.addAll(c);
+			this.addAll((Collection<T>) collection);
 		} else {
 			this.addAll(collection);
 		}
@@ -40,34 +38,6 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 	// フィールド
 
 	// メソッド
-	public boolean addAll(Iterable<? extends T> c) {
-		return this.addAll(this.size(), c);
-	}
-
-	public boolean addAll(int index, Iterable<? extends T> c) {
-		boolean result = false;
-
-		if (c instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> vals = (Collection<T>) c;
-			result = this.addAll(index, vals);
-		} else {
-			int idx = index;
-			for (T item : c) {
-				this.add(idx, item);
-				idx++;
-				result = true;
-			}
-		}
-
-		return result;
-	}
-
-	@Override
-	public boolean any() {
-		return !this.isEmpty();
-	}
-
 	@Override
 	public EnumerableList<T> clone() {
 		return new EnumerableList<>(this);
@@ -79,52 +49,15 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 		return super.contains(o);
 	}
 
-	/**
-	 * contains(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public boolean containsValue(T o) {
-		return super.contains(o);
-	}
-
-	@Override
-	public int count() {
-		return this.size();
-	}
-
-	@Override
-	public T elementAt(int index) {
-		return this.get(index);
-	}
-
 	@Override
 	@Deprecated
 	public int indexOf(Object o) {
 		return super.indexOf(o);
 	}
 
-	/**
-	 * indexOf(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public int indexOfValue(T o) {
-		return super.indexOf(o);
-	}
-
 	@Override
 	@Deprecated
 	public int lastIndexOf(Object o) {
-		return super.lastIndexOf(o);
-	}
-
-	/**
-	 * lastIndexOf(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public int lastIndexOfValue(T o) {
 		return super.lastIndexOf(o);
 	}
 
@@ -140,56 +73,10 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 		return super.remove(o);
 	}
 
-	/**
-	 * remove(int index) と同じ動作です。
-	 * @param index
-	 * @return
-	 */
-	public T removeAt(int index) {
-		return super.remove(index);
-	}
-
-	/**
-	 * remove(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public boolean removeValue(T o) {
-		return super.remove(o);
-	}
-
 	@Override
 	@Deprecated
 	public boolean removeAll(Collection<?> c) {
 		return super.removeAll(c);
-	}
-
-	public boolean removeAllValues(Iterable<? extends T> c) {
-		boolean result = false;
-
-		if (c instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> vals = (Collection<T>) c;
-			result = super.removeAll(vals);
-		} else {
-			for (T item : c) {
-				while (this.removeValue(item)) {
-					result = true;
-				}
-			}
-		}
-
-		return result;
-	}
-
-	@Override
-	public T[] toArray(Class<T> elementClass) {
-		Errors.throwIfNull(elementClass, "elementClass");
-
-		@SuppressWarnings("unchecked")
-		T[] array = (T[]) Array.newInstance(elementClass, this.count());
-
-		return this.toArray(array);
 	}
 
 	@Override
@@ -213,7 +100,6 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IReadOn
 	}
 
 	public static <T> IReadOnlyList<T> getEmptyReadOnlyList() {
-		@SuppressWarnings("unchecked")
 		IReadOnlyList<T> result = (IReadOnlyList<T>) EnumerableList._emptyReadOnlyList;
 		return result;
 	}
