@@ -1,27 +1,32 @@
 package com.github.visgeek.utils.collections;
 
-import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 
-public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implements IReadOnlySet<T> {
+@SuppressWarnings("unchecked")
+public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implements ISet<T> {
 	// コンストラクター
 	public EnumerableLinkedSet() {
 		super();
 	}
 
+	public EnumerableLinkedSet(Collection<T> collection) {
+		super(collection);
+	}
+
 	public EnumerableLinkedSet(Iterable<? extends T> collection) {
 		this();
-		this.addAll(collection);
+		if (collection instanceof Collection<?>) {
+			this.addAll((Collection<T>) collection);
+		} else {
+			this.addAll(collection);
+		}
 	}
 
 	@SafeVarargs
 	public EnumerableLinkedSet(T... values) {
 		this();
-		this.addAll(Enumerable.of(values));
-	}
-
-	public EnumerableLinkedSet(int initialCapacity) {
-		super(initialCapacity);
+		this.addAll(Arrays.asList(values));
 	}
 
 	public EnumerableLinkedSet(java.util.Set<T> set) {
@@ -31,32 +36,6 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 	// フィールド
 
 	// メソッド
-	public void addOrThrow(T e) {
-		if (this.containsValue(e)) {
-			throw new IllegalArgumentException(String.format("%s is already contained.", e));
-		} else {
-			this.add(e);
-		}
-	}
-
-	public boolean addAll(Iterable<? extends T> collection) {
-		boolean result = false;
-
-		if (collection instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> c = (Collection<T>) collection;
-			result = super.addAll(c);
-		} else {
-			for (T item : collection) {
-				if (this.add(item)) {
-					result = true;
-				}
-			}
-		}
-
-		return result;
-	}
-
 	@Override
 	public EnumerableLinkedSet<T> clone() {
 		return new EnumerableLinkedSet<>(this);
@@ -68,43 +47,10 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 		return super.contains(o);
 	}
 
-	/**
-	 * contains(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public boolean containsValue(T o) {
-		return super.contains(o);
-	}
-
-	@Override
-	public int count() {
-		return this.size();
-	}
-
 	@Override
 	@Deprecated
 	public boolean remove(Object o) {
 		return super.remove(o);
-	}
-
-	/**
-	 * remove(Object o) と同じ動作です。
-	 * @param o
-	 * @return
-	 */
-	public boolean removeValue(T o) {
-		return super.remove(o);
-	}
-
-	@Override
-	public T[] toArray(Class<T> elementClass) {
-		Errors.throwIfNull(elementClass, "elementClass");
-
-		@SuppressWarnings("unchecked")
-		T[] array = (T[]) Array.newInstance(elementClass, this.count());
-
-		return this.toArray(array);
 	}
 
 	// スタティックフィールド
