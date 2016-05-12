@@ -1,7 +1,6 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
@@ -16,9 +15,9 @@ class LinqIntersectIterator<T> extends AbstractEnumerator<T> {
 
 	private final Iterable<? extends T> second;
 
-	private Set<T> firstSet;
+	private EquatableSet<T> firstSet;
 
-	private Set<T> secondSet;
+	private EquatableSet<T> secondSet;
 
 	private final Iterator<T> itr;
 

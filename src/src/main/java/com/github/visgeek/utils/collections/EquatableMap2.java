@@ -2,12 +2,6 @@ package com.github.visgeek.utils.collections;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
-/**
- * EqualityComparator&lt;T&gt; インターフェイスを使った比較を行うハッシュマップです。
- *
- * @param <TKey>
- * @param <TValue>
- */
 class EquatableMap2<TKey, TValue> extends EquatableMap<TKey, TValue> {
 	// コンストラクター
 	EquatableMap2(IEqualityComparator<? super TKey> comparator) {

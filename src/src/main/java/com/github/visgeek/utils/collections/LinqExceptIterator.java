@@ -1,7 +1,6 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
@@ -16,7 +15,7 @@ class LinqExceptIterator<T> extends AbstractEnumerator<T> {
 
 	private final Iterable<? extends T> second;
 
-	private final Set<T> set;
+	private final EquatableSet<T> set;
 
 	private Iterator<T> itr;
 

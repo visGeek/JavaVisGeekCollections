@@ -1,7 +1,6 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
-import java.util.Set;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
@@ -14,7 +13,7 @@ class LinqDistinctIterator<T> extends AbstractConvertedEnumerator<T, T> {
 
 	private final Iterator<T> iterator;
 
-	private final Set<T> set;
+	private final EquatableSet<T> set;
 
 	private T currentValue;
 
