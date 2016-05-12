@@ -39,7 +39,8 @@ class EquatableMap2<TKey, TValue> extends EquatableMap<TKey, TValue> {
 
 	@Override
 	public TValue put(TKey key, TValue value) {
-		return this.map.put(new Key(key), value);
+		Key internalKey = new Key(key);
+		return this.map.put(internalKey, value);
 	}
 
 	@Override
@@ -54,22 +55,17 @@ class EquatableMap2<TKey, TValue> extends EquatableMap<TKey, TValue> {
 
 	// クラス
 	private class Key {
-		public Key(TKey obj) {
+		Key(TKey obj) {
 			this.obj = obj;
 		}
 
-		private TKey obj;
+		private final TKey obj;
 
 		@Override
+		@SuppressWarnings("unchecked")
 		public boolean equals(Object obj) {
-			boolean result = false;
-
-			if (obj != null) {
-				@SuppressWarnings("unchecked")
-				TKey cast = ((Key) obj).obj;
-				result = EquatableMap2.this.comparator.equals(this.obj, cast);
-			}
-
+			TKey cast = ((Key) obj).obj;
+			boolean result = EquatableMap2.this.comparator.equals(this.obj, cast);
 			return result;
 		}
 
