@@ -1,8 +1,9 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongCollectionEnumerable {
+class ArrayEnumerableLong implements IListEnumerable<Long>, ILongCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableLong(long[] source) {
 		this.source = source;
@@ -12,6 +13,30 @@ class ArrayEnumerableLong extends ArrayEnumerable<Long> implements ILongCollecti
 	private final long[] source;
 
 	// メソッド
+	@Override
+	public Iterator<Long> iterator() {
+		return new AbstractEnumerator<Long>() {
+			private int index = -1;
+
+			@Override
+			public Long current() {
+				return ArrayEnumerableLong.this.source[this.index];
+			}
+
+			@Override
+			public boolean moveNext() {
+				boolean result = false;
+
+				this.index++;
+				if (this.index < ArrayEnumerableLong.this.count()) {
+					result = true;
+				}
+
+				return result;
+			}
+		};
+	}
+
 	@Override
 	public Long elementAt(int index) {
 		try {

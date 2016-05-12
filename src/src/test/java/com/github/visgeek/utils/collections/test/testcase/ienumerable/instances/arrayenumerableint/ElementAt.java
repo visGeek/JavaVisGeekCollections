@@ -11,7 +11,7 @@ import com.github.visgeek.utils.testing.Assert2;
 public class ElementAt {
 	@Test
 	public void testSuccess() {
-		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		int index = 1;
 		int expected = 2;
 
@@ -21,14 +21,14 @@ public class ElementAt {
 
 	@Test
 	public void testIndexOutOfRange01() {
-		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		Action0 action = () -> source.elementAt(-1);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}
 
 	@Test
 	public void testIndexOutOfRange022() {
-		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		Action0 action = () -> source.elementAt(4);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
 	}

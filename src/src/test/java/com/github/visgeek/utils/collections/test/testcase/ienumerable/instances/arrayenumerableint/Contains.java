@@ -9,7 +9,7 @@ import com.github.visgeek.utils.collections.IEnumerable;
 public class Contains {
 	@Test
 	public void contains() {
-		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		Integer target = 2;
 		boolean expected = true;
 
@@ -19,7 +19,7 @@ public class Contains {
 
 	@Test
 	public void notContains() {
-		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		Integer target = 4;
 		boolean expected = false;
 
@@ -29,7 +29,7 @@ public class Contains {
 
 	@Test
 	public void argIsNull() {
-		IEnumerable<Integer> source = Enumerable.of(new int[] { 1, 2, 3 });
+		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
 		Integer target = null;
 		boolean expected = false;
 

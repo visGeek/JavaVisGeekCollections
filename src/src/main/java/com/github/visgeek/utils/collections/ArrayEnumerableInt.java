@@ -1,8 +1,9 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerCollectionEnumerable {
+class ArrayEnumerableInt implements IListEnumerable<Integer>, IIntegerCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableInt(int[] source) {
 		this.source = source;
@@ -12,6 +13,30 @@ class ArrayEnumerableInt extends ArrayEnumerable<Integer> implements IIntegerCol
 	private final int[] source;
 
 	// メソッド
+	@Override
+	public Iterator<Integer> iterator() {
+		return new AbstractEnumerator<Integer>() {
+			private int index = -1;
+
+			@Override
+			public Integer current() {
+				return ArrayEnumerableInt.this.source[this.index];
+			}
+
+			@Override
+			public boolean moveNext() {
+				boolean result = false;
+
+				this.index++;
+				if (this.index < ArrayEnumerableInt.this.count()) {
+					result = true;
+				}
+
+				return result;
+			}
+		};
+	}
+
 	@Override
 	public Integer elementAt(int index) {
 		try {

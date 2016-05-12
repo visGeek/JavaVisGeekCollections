@@ -1,8 +1,9 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
-class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleCollectionEnumerable {
+class ArrayEnumerableDouble implements IListEnumerable<Double>, IDoubleCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableDouble(double[] source) {
 		this.source = source;
@@ -12,6 +13,30 @@ class ArrayEnumerableDouble extends ArrayEnumerable<Double> implements IDoubleCo
 	private final double[] source;
 
 	// メソッド
+	@Override
+	public Iterator<Double> iterator() {
+		return new AbstractEnumerator<Double>() {
+			private int index = -1;
+
+			@Override
+			public Double current() {
+				return ArrayEnumerableDouble.this.source[this.index];
+			}
+
+			@Override
+			public boolean moveNext() {
+				boolean result = false;
+
+				this.index++;
+				if (this.index < ArrayEnumerableDouble.this.count()) {
+					result = true;
+				}
+
+				return result;
+			}
+		};
+	}
+
 	@Override
 	public Double elementAt(int index) {
 		try {

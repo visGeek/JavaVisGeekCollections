@@ -1,6 +1,8 @@
 package com.github.visgeek.utils.collections;
 
-class ArrayEnumerableChar extends ArrayEnumerable<Character> implements IEnumerable<Character> {
+import java.util.Iterator;
+
+class ArrayEnumerableChar implements IListEnumerable<Character>, IEnumerable<Character> {
 	// コンストラクター
 	public ArrayEnumerableChar(char[] source) {
 		this.source = source;
@@ -10,6 +12,30 @@ class ArrayEnumerableChar extends ArrayEnumerable<Character> implements IEnumera
 	private final char[] source;
 
 	// メソッド
+	@Override
+	public Iterator<Character> iterator() {
+		return new AbstractEnumerator<Character>() {
+			private int index = -1;
+
+			@Override
+			public Character current() {
+				return ArrayEnumerableChar.this.source[this.index];
+			}
+
+			@Override
+			public boolean moveNext() {
+				boolean result = false;
+
+				this.index++;
+				if (this.index < ArrayEnumerableChar.this.count()) {
+					result = true;
+				}
+
+				return result;
+			}
+		};
+	}
+
 	@Override
 	public Character elementAt(int index) {
 		try {
