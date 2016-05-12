@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>, Cloneable, Serializable {
+public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>, Cloneable, Serializable {
 	default boolean addAll(Iterable<? extends T> c) {
 		return this.addAll(this.size(), c);
 	}
