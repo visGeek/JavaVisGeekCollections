@@ -28,11 +28,6 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 		return result;
 	}
 
-	@Override
-	default boolean any() {
-		return !this.isEmpty();
-	}
-
 	/**
 	 * contains(Object o) と同じ動作です。
 	 * @param o
@@ -49,7 +44,11 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 
 	@Override
 	default T elementAt(int index) {
-		return this.get(index);
+		try {
+			return this.get(index);
+		} catch (IndexOutOfBoundsException e) {
+			throw Errors.argumentOfOutOfRange("index");
+		}
 	}
 
 	/**
