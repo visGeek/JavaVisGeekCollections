@@ -15,11 +15,6 @@ public interface IMap<K, V> extends java.util.Map<K, V>, IReadOnlyMap<K, V> {
 		return this.containsValue(value);
 	}
 
-	@Override
-	default int count() {
-		return this.size();
-	}
-
 	/**
 	 * get(Object key) と同じ動作です。
 	 * @param key

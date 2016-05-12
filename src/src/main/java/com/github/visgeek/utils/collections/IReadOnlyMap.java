@@ -12,6 +12,11 @@ public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 
 	boolean containsValue(V value);
 
+	@Override
+	default int count() {
+		return this.size();
+	}
+
 	V get(K key);
 
 	default V getValueOrThrow(K key) {
