@@ -36,4 +36,8 @@ class Errors {
 			throw new NullPointerException(name);
 		}
 	}
+
+	static {
+		new Errors();
+	}
 }
