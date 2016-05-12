@@ -6,5 +6,10 @@ public interface IReadOnlyCollection<T> extends ICollectionEnumerable<T> {
 	boolean isEmpty();
 
 	@Override
+	default int count() {
+		return this.size();
+	}
+
+	@Override
 	boolean contains(T item);
 }

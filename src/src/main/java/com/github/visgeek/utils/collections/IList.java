@@ -37,20 +37,6 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 		return this.contains(o);
 	}
 
-	@Override
-	default int count() {
-		return this.size();
-	}
-
-	@Override
-	default T elementAt(int index) {
-		try {
-			return this.get(index);
-		} catch (IndexOutOfBoundsException e) {
-			throw Errors.argumentOfOutOfRange("index");
-		}
-	}
-
 	/**
 	 * indexOf(Object o) と同じ動作です。
 	 * @param o
