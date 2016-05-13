@@ -1,6 +1,7 @@
 package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
+import java.util.function.Predicate;
 
 import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
@@ -24,7 +25,7 @@ public interface IEnumerator<T> extends Iterator<T> {
 	}
 
 	// スタティックメソッド
-	static <T> IEnumerator<T> create(Func0<? extends T> first, Func1<? super T, Boolean> predicate, Func1<? super T, ? extends T> next) {
+	static <T> IEnumerator<T> create(Func0<? extends T> first, Predicate<? super T> predicate, Func1<? super T, ? extends T> next) {
 		return new AbstractEnumerator<T>() {
 			private boolean initial = true;
 
@@ -46,7 +47,7 @@ public interface IEnumerator<T> extends Iterator<T> {
 				}
 
 				// 条件
-				boolean result = (predicate == null) ? true : predicate.func(this.current);
+				boolean result = (predicate == null) ? true : predicate.test(this.current);
 				return result;
 			}
 		};
