@@ -10,12 +10,13 @@ import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
-import com.github.visgeek.utils.Action2;
 import com.github.visgeek.utils.ComparatorUtils;
 import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.Func2;
 import com.github.visgeek.utils.IEqualityComparator;
+import com.github.visgeek.utils.IndexedAction1;
+import com.github.visgeek.utils.IndexedFunc1;
 import com.github.visgeek.utils.IndexedPredicate;
 import com.github.visgeek.utils.JoinedValue;
 
@@ -748,7 +749,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * シーケンスのすべての要素にインデックス位置を利用した処理を実行します。
 	 * @param action
 	 */
-	default void forEach(Action2<? super T, Integer> action) {
+	default void forEach(IndexedAction1<? super T> action) {
 		Errors.throwIfNull(action, "action");
 
 		int i = -1;
@@ -1119,7 +1120,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.select((item, idx) -> selector.func(item));
 	}
 
-	default <TResult> IEnumerable<TResult> select(Func2<? super T, Integer, TResult> selector) {
+	default <TResult> IEnumerable<TResult> select(IndexedFunc1<? super T, TResult> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> new LinqSelectIterator<>(IEnumerable.this, selector);
 	}
@@ -1144,7 +1145,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.selectMany((item, idx) -> selector.func(item));
 	}
 
-	default <TResult> IEnumerable<TResult> selectMany(Func2<? super T, Integer, Iterable<TResult>> selector) {
+	default <TResult> IEnumerable<TResult> selectMany(IndexedFunc1<? super T, Iterable<TResult>> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> new LinqSelectManyIterator<>(IEnumerable.this, selector);
 	}
@@ -1461,7 +1462,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.toMap((item, idx) -> keySelector.func(item), (item, idx) -> item);
 	}
 
-	default <TKey> EnumerableMap<TKey, T> toMap(Func2<? super T, Integer, TKey> keySelector) {
+	default <TKey> EnumerableMap<TKey, T> toMap(IndexedFunc1<? super T, TKey> keySelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
 		return this.toMap(keySelector, (item, idx) -> item);
 	}
@@ -1472,7 +1473,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.toMap((item, idx) -> keySelector.func(item), (item, idx) -> valueSelector.func(item));
 	}
 
-	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(Func2<? super T, Integer, TKey> keySelector, Func2<? super T, Integer, TValue> valueSelector) {
+	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(IndexedFunc1<? super T, TKey> keySelector, IndexedFunc1<? super T, TValue> valueSelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
 		Errors.throwIfNull(valueSelector, "valueSelector");
 

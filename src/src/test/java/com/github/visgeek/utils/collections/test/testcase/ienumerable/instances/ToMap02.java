@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.Action0;
-import com.github.visgeek.utils.Func2;
+import com.github.visgeek.utils.IndexedFunc1;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.EnumerableMap;
 import com.github.visgeek.utils.collections.IEnumerable;
@@ -14,7 +14,7 @@ public class ToMap02 {
 	@Test
 	public void keySelectorIsNull() {
 		IEnumerable<String> source = () -> Enumerable.of(new String[] { "a", "b", "c" }).iterator();
-		Func2<String, Integer, Integer> keySelector = null;
+		IndexedFunc1<String, Integer> keySelector = null;
 
 		Action0 action = () -> source.toMap(keySelector);
 		Assert2.assertNullPointerExceptionThrown("keySelector", action);
@@ -23,7 +23,7 @@ public class ToMap02 {
 	@Test
 	public void keyAlreadExists() {
 		IEnumerable<String> source = () -> Enumerable.of(new String[] { "a", "b", "c" }).iterator();
-		Func2<String, Integer, Integer> keySelector = (str, idx) -> 0;
+		IndexedFunc1<String, Integer> keySelector = (str, idx) -> 0;
 
 		Action0 action = () -> source.toMap(keySelector);
 		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
@@ -32,7 +32,7 @@ public class ToMap02 {
 	@Test
 	public void test() {
 		IEnumerable<String> source = () -> Enumerable.of(new String[] { "a", "b", "c" }).iterator();
-		Func2<String, Integer, Integer> keySelector = (str, idx) -> idx;
+		IndexedFunc1<String, Integer> keySelector = (str, idx) -> idx;
 
 		EnumerableMap<Integer, String> actual = source.toMap(keySelector);
 
