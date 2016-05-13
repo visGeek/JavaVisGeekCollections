@@ -10,11 +10,14 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IList<T
 	}
 
 	public EnumerableList(Collection<? extends T> collection) {
-		super(collection);
+		super(Errors.throwIfNull(collection, "collection"));
 	}
 
 	public EnumerableList(Iterable<? extends T> collection) {
 		this();
+
+		Errors.throwIfNull(collection, "collection");
+
 		if (collection instanceof Collection<?>) {
 			this.addAll((Collection<T>) collection);
 		} else {
@@ -24,7 +27,7 @@ public class EnumerableList<T> extends java.util.ArrayList<T> implements IList<T
 
 	@SafeVarargs
 	public EnumerableList(T... values) {
-		this(values.length);
+		this(Errors.throwIfNull(values, "values").length);
 
 		for (T value : values) {
 			this.add(value);

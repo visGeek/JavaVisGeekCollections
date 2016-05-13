@@ -3,16 +3,30 @@ package com.github.visgeek.utils.collections.test.testcase.list.enumerablelinked
 import java.util.Arrays;
 import java.util.Collection;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.github.visgeek.utils.collections.EnumerableLinkedList;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class Constructor {
+	@Rule
+	public final ExpectedException expectedException = ExpectedException.none();
+
 	@Test
 	public void noArgs() {
 		EnumerableLinkedList<Integer> actual = new EnumerableLinkedList<>(1, 2, 3);
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
+	}
+
+	@Test
+	public void collectionNullArg() {
+		this.expectedException.expect(NullPointerException.class);
+		this.expectedException.expectMessage("collection");
+
+		Collection<Integer> collection = null;
+		new EnumerableLinkedList<>(collection);
 	}
 
 	@Test
@@ -21,6 +35,15 @@ public class Constructor {
 		EnumerableLinkedList<Integer> actual = new EnumerableLinkedList<>(values);
 
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
+	}
+
+	@Test
+	public void iterableNullArg() {
+		this.expectedException.expect(NullPointerException.class);
+		this.expectedException.expectMessage("collection");
+
+		Iterable<Integer> collection = null;
+		new EnumerableLinkedList<>(collection);
 	}
 
 	@Test
@@ -37,6 +60,15 @@ public class Constructor {
 		EnumerableLinkedList<Integer> actual = new EnumerableLinkedList<>(values);
 
 		Assert2.assertSequanceEquals(actual, 1, 2, 3);
+	}
+
+	@Test
+	public void arrayNullArg() {
+		this.expectedException.expect(NullPointerException.class);
+		this.expectedException.expectMessage("values");
+
+		Integer[] collection = null;
+		new EnumerableLinkedList<>(collection);
 	}
 
 	@Test

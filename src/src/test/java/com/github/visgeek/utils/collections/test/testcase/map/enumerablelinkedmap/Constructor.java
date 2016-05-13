@@ -6,12 +6,17 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.github.visgeek.utils.collections.EnumerableLinkedMap;
 import com.github.visgeek.utils.collections.IReadOnlyMap;
 
 public class Constructor {
+	@Rule
+	public final ExpectedException expectedException = ExpectedException.none();
+
 	@Test
 	public void noArgs() {
 		LinkedHashMap<Integer, String> hashMap = new LinkedHashMap<>();
@@ -19,6 +24,15 @@ public class Constructor {
 
 		Assert.assertEquals(Constructor.getThreshold(hashMap), Constructor.getThreshold(enumerableMap));
 		Assert.assertEquals(Constructor.getLoadFactor(hashMap), Constructor.getLoadFactor(enumerableMap), 0);
+	}
+
+	@Test
+	public void mapNullArg() {
+		this.expectedException.expect(NullPointerException.class);
+		this.expectedException.expectMessage("map");
+
+		Map<Integer, String> map = null;
+		new EnumerableLinkedMap<>(map);
 	}
 
 	@Test
@@ -62,6 +76,15 @@ public class Constructor {
 
 		Assert.assertEquals(Constructor.getThreshold(hashMap), Constructor.getThreshold(enumerableMap));
 		Assert.assertEquals(Constructor.getLoadFactor(hashMap), Constructor.getLoadFactor(enumerableMap), 0);
+	}
+
+	@Test
+	public void iReadOnlyMapNullArg() {
+		this.expectedException.expect(NullPointerException.class);
+		this.expectedException.expectMessage("map");
+
+		IReadOnlyMap<Integer, String> map = null;
+		new EnumerableLinkedMap<>(map);
 	}
 
 	@Test

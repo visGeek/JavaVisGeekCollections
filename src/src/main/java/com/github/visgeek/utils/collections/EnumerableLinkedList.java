@@ -10,16 +10,27 @@ public class EnumerableLinkedList<T> extends java.util.LinkedList<T> implements 
 	}
 
 	public EnumerableLinkedList(Collection<? extends T> collection) {
-		super(collection);
+		super(Errors.throwIfNull(collection, "collection"));
 	}
 
 	public EnumerableLinkedList(Iterable<? extends T> collection) {
 		this();
-		this.addAll(collection);
+
+		Errors.throwIfNull(collection, "collection");
+
+		if (collection instanceof Collection<?>) {
+			this.addAll((Collection<T>) collection);
+		} else {
+			this.addAll(collection);
+		}
 	}
 
 	@SafeVarargs
 	public EnumerableLinkedList(T... values) {
+		this();
+
+		Errors.throwIfNull(values, "values");
+
 		for (T value : values) {
 			this.add(value);
 		}

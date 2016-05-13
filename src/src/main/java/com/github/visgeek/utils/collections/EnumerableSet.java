@@ -11,11 +11,14 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements ISet<T> {
 	}
 
 	public EnumerableSet(Collection<T> collection) {
-		super(collection);
+		super(Errors.throwIfNull(collection, "collection"));
 	}
 
 	public EnumerableSet(Iterable<? extends T> collection) {
 		this();
+
+		Errors.throwIfNull(collection, "collection");
+
 		if (collection instanceof Collection<?>) {
 			this.addAll((Collection<T>) collection);
 		} else {
@@ -26,6 +29,7 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements ISet<T> {
 	@SafeVarargs
 	public EnumerableSet(T... values) {
 		this();
+		Errors.throwIfNull(values, "values");
 		this.addAll(Arrays.asList(values));
 	}
 

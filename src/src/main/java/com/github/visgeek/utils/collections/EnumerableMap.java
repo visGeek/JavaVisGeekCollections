@@ -11,8 +11,8 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IMap
 		super();
 	}
 
-	public EnumerableMap(java.util.Map<? extends K, ? extends V> m) {
-		super(m);
+	public EnumerableMap(java.util.Map<? extends K, ? extends V> map) {
+		super(Errors.throwIfNull(map, "map"));
 	}
 
 	public EnumerableMap(int initialCapacity) {
@@ -23,9 +23,12 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IMap
 		super(initialCapacity, loadFactor);
 	}
 
-	public EnumerableMap(IReadOnlyMap<? extends K, ? extends V> m) {
+	public EnumerableMap(IReadOnlyMap<? extends K, ? extends V> map) {
 		this();
-		for (Entry<? extends K, ? extends V> kv : m) {
+
+		Errors.throwIfNull(map, "map");
+
+		for (Entry<? extends K, ? extends V> kv : map) {
 			this.put(kv.getKey(), kv.getValue());
 		}
 	}

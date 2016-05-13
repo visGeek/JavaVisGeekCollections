@@ -11,8 +11,8 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 		super();
 	}
 
-	public EnumerableLinkedMap(java.util.Map<? extends K, ? extends V> m) {
-		super(m);
+	public EnumerableLinkedMap(java.util.Map<? extends K, ? extends V> map) {
+		super(Errors.throwIfNull(map, "map"));
 	}
 
 	public EnumerableLinkedMap(int initialCapacity) {
@@ -27,9 +27,12 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 		super(initialCapacity, loadFactor, accessOrder);
 	}
 
-	public EnumerableLinkedMap(IReadOnlyMap<? extends K, ? extends V> m) {
+	public EnumerableLinkedMap(IReadOnlyMap<? extends K, ? extends V> map) {
 		this();
-		for (Entry<? extends K, ? extends V> kv : m) {
+
+		Errors.throwIfNull(map, "map");
+
+		for (Entry<? extends K, ? extends V> kv : map) {
 			this.put(kv.getKey(), kv.getValue());
 		}
 	}

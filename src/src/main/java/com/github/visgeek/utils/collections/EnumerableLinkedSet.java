@@ -11,11 +11,14 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 	}
 
 	public EnumerableLinkedSet(Collection<T> collection) {
-		super(collection);
+		super(Errors.throwIfNull(collection, "collection"));
 	}
 
 	public EnumerableLinkedSet(Iterable<? extends T> collection) {
 		this();
+
+		Errors.throwIfNull(collection, "collection");
+
 		if (collection instanceof Collection<?>) {
 			this.addAll((Collection<T>) collection);
 		} else {
@@ -26,6 +29,7 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 	@SafeVarargs
 	public EnumerableLinkedSet(T... values) {
 		this();
+		Errors.throwIfNull(values, "values");
 		this.addAll(Arrays.asList(values));
 	}
 
