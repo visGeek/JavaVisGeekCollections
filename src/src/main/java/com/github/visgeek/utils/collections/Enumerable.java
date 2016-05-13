@@ -3,6 +3,7 @@ package com.github.visgeek.utils.collections;
 import java.util.Collection;
 import java.util.List;
 import java.util.RandomAccess;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 
 import com.github.visgeek.utils.Func0;
@@ -125,7 +126,7 @@ public final class Enumerable {
 		}
 	}
 
-	public static <T> IEnumerable<T> forTo(Func0<? extends T> first, Func1<? super T, Boolean> predicate, Func1<? super T, ? extends T> next) {
+	public static <T> IEnumerable<T> forTo(Func0<? extends T> first, Predicate<? super T> predicate, Func1<? super T, ? extends T> next) {
 		return () -> IEnumerator.create(first, predicate, next);
 	}
 

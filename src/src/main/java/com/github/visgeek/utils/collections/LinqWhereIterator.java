@@ -2,15 +2,15 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.Func2;
+import com.github.visgeek.utils.IndexedPredicate;
 
 class LinqWhereIterator<T> extends AbstractEnumerator<T> {
-	public LinqWhereIterator(Iterable<T> source, Func2<? super T, Integer, Boolean> predicate) {
+	public LinqWhereIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {
 		this.predicate = predicate;
 		this.itr = source.iterator();
 	}
 
-	private final Func2<? super T, Integer, Boolean> predicate;
+	private final IndexedPredicate<? super T> predicate;
 
 	private int i = -1;
 
@@ -30,7 +30,7 @@ class LinqWhereIterator<T> extends AbstractEnumerator<T> {
 		while (this.itr.hasNext()) {
 			this.i++;
 			this.current = this.itr.next();
-			if (this.predicate.func(this.current, this.i)) {
+			if (this.predicate.test(this.current, this.i)) {
 				result = true;
 				break;
 			}

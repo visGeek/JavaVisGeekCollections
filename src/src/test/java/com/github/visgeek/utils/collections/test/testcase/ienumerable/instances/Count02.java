@@ -1,11 +1,12 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.instances;
 
+import java.util.function.Predicate;
+
 import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
 import com.github.visgeek.utils.Action0;
-import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.collections.AbstractEnumerator;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
@@ -15,7 +16,7 @@ public class Count02 {
 	@Test
 	public void predicteIsNull() {
 		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3).iterator();
-		Func1<Integer, Boolean> predicate = null;
+		Predicate<Integer> predicate = null;
 
 		Action0 action = () -> source.count(predicate);
 		Assert2.assertNullPointerExceptionThrown("predicate", action);
@@ -24,7 +25,7 @@ public class Count02 {
 	@Test
 	public void test01() {
 		IEnumerable<Integer> source = () -> Enumerable.of(1, 2, 3).iterator();
-		Func1<Integer, Boolean> predicate = n -> n <= 2;
+		Predicate<Integer> predicate = n -> n <= 2;
 		int expected = 2;
 
 		int actual = source.count(predicate);
@@ -50,7 +51,7 @@ public class Count02 {
 					}
 				};
 
-		Func1<Integer, Boolean> predicate = n -> 10 <= n;
+		Predicate<Integer> predicate = n -> 10 <= n;
 
 		Action0 action = () -> source.count(predicate);
 		Assert2.assertExceptionThrown(ArithmeticException.class, action);
