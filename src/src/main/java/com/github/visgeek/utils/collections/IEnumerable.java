@@ -997,14 +997,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return max;
 	}
 
-	default double maxDouble(Func1<? super T, Double> selector) {
+	default Double maxDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return this.select(selector).max();
+		return this.selectDouble(selector).max();
 	}
 
-	default int maxInt(Func1<? super T, Integer> selector) {
+	default Integer maxInt(Func1<? super T, Integer> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return this.select(selector).max();
+		return this.selectInteger(selector).max();
+	}
+
+	default Long maxLong(Func1<? super T, Long> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectLong(selector).max();
 	}
 
 	default T min() {
@@ -1032,14 +1037,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return min;
 	}
 
-	default double minDouble(Func1<? super T, Double> selector) {
+	default Double minDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return this.select(selector).min();
+		return this.selectDouble(selector).min();
 	}
 
-	default int minInt(Func1<? super T, Integer> selector) {
+	default Integer minInt(Func1<? super T, Integer> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return this.select(selector).min();
+		return this.selectInteger(selector).min();
+	}
+
+	default Long minLong(Func1<? super T, Long> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectLong(selector).min();
 	}
 
 	default <TResult extends T> IEnumerable<TResult> ofType(Class<TResult> elementClass) {
