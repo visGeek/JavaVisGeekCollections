@@ -18,7 +18,6 @@ public class AddAll {
 	@Test
 	public void argIsNull() {
 		this.expectedException.expect(NullPointerException.class);
-		this.expectedException.expectMessage("collection");
 
 		EnumerableList<Integer> set = new EnumerableList<>();
 		set.addAll((Iterable<Integer>) null);
