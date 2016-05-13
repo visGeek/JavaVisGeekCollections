@@ -5,7 +5,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.collections.EnumerableList;
+import com.github.visgeek.utils.collections.EnumerableLinkedList;
 
 public class ElementAt {
 	@Rule
@@ -13,7 +13,7 @@ public class ElementAt {
 
 	@Test
 	public void testSuccess() {
-		EnumerableList<Integer> source = new EnumerableList<>();
+		EnumerableLinkedList<Integer> source = new EnumerableLinkedList<>();
 		source.add(1);
 		source.add(2);
 		source.add(3);
@@ -26,7 +26,7 @@ public class ElementAt {
 	public void testIndexOutOfRange01() {
 		this.expectedException.expect(IllegalArgumentException.class);
 
-		EnumerableList<Integer> source = new EnumerableList<>();
+		EnumerableLinkedList<Integer> source = new EnumerableLinkedList<>();
 		source.add(1);
 		source.add(2);
 		source.add(3);
@@ -38,7 +38,7 @@ public class ElementAt {
 	public void testIndexOutOfRange02() {
 		this.expectedException.expect(IllegalArgumentException.class);
 
-		EnumerableList<Integer> source = new EnumerableList<>();
+		EnumerableLinkedList<Integer> source = new EnumerableLinkedList<>();
 		source.add(1);
 		source.add(2);
 		source.add(3);
