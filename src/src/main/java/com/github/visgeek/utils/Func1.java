@@ -34,45 +34,4 @@ public interface Func1<T, TResult> {
 			}
 		};
 	}
-
-	/**
-	 * 複数の条件を合成します。
-	 * @param predicates
-	 * @return
-	 */
-	@SafeVarargs
-	public static <T> Func1<T, Boolean> mergePredicates(Func1<T, Boolean>... predicates) {
-		return arg -> {
-			boolean result = true;
-
-			for (Func1<T, Boolean> predicate : predicates) {
-				if (!predicate.func(arg)) {
-					result = false;
-					break;
-				}
-			}
-
-			return result;
-		};
-	}
-
-	/**
-	 * 複数の条件を合成します。
-	 * @param predicates
-	 * @return
-	 */
-	public static <T> Func1<T, Boolean> mergePredicates(Iterable<Func1<T, Boolean>> predicates) {
-		return arg -> {
-			boolean result = true;
-
-			for (Func1<T, Boolean> predicate : predicates) {
-				if (!predicate.func(arg)) {
-					result = false;
-					break;
-				}
-			}
-
-			return result;
-		};
-	}
 }

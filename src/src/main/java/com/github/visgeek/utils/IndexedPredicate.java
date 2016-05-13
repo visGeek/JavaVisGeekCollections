@@ -2,7 +2,7 @@ package com.github.visgeek.utils;
 
 @FunctionalInterface
 public interface IndexedPredicate<T> {
-	boolean test(T t, int index);
+	boolean test(T arg, int index);
 
 	// default IndexedPredicate<T> and(IndexedPredicate<? super T> other) {
 	// Objects.requireNonNull(other);
@@ -23,4 +23,20 @@ public interface IndexedPredicate<T> {
 	// ? (t, index) -> Objects.isNull(t)
 	// : (object, index) -> targetRef.equals(object);
 	// }
+
+	// スタティックメソッド
+	/**
+	 * 検査例外のある式をラッピングします。
+	 * @param func1WithException
+	 * @return
+	 */
+	public static <T> IndexedPredicate<T> create(IndexedPredicateWithException<T> indexedPredicateWithException) {
+		return (arg, index) -> {
+			try {
+				return indexedPredicateWithException.test(arg, index);
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		};
+	}
 }
