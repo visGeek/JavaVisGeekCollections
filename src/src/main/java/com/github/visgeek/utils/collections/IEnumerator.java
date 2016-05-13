@@ -24,6 +24,14 @@ public interface IEnumerator<T> extends Iterator<T> {
 		return () -> IEnumerator.this;
 	}
 
+	// スタティックフィールド
+	static final IEnumerator<?> empty = IEnumerator.create(null, val -> false, null);
+
+	@SuppressWarnings("unchecked")
+	public static <T> IEnumerator<T> empty() {
+		return (IEnumerator<T>) IEnumerator.empty;
+	}
+
 	// スタティックメソッド
 	static <T> IEnumerator<T> create(Func0<? extends T> first, Predicate<? super T> predicate, Func1<? super T, ? extends T> next) {
 		return new AbstractEnumerator<T>() {

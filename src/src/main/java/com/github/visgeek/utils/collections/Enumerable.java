@@ -14,6 +14,9 @@ public final class Enumerable {
 	private Enumerable() {
 	}
 
+	// スタティックフィールド
+	private static final IEnumerable<?> empty = () -> IEnumerator.empty();
+
 	// スタティックメソッド
 	@SafeVarargs
 	public static <T> IEnumerable<T> of(T... source) {
@@ -104,10 +107,19 @@ public final class Enumerable {
 		return Enumerable.of(source.toCharArray());
 	}
 
+	/**
+	 * 空のシーケンスを取得します。
+	 * @return
+	 */
+	@SuppressWarnings("unchecked")
 	public static <T> IEnumerable<T> empty() {
-		return () -> IEnumerator.create(null, val -> false, null);
+		return (IEnumerable<T>) Enumerable.empty;
 	}
 
+	/**
+	 * 空のシーケンスを取得します。
+	 * @return
+	 */
 	public static <T> IEnumerable<T> empty(Class<T> elementClass) {
 		return Enumerable.<T> empty();
 	}

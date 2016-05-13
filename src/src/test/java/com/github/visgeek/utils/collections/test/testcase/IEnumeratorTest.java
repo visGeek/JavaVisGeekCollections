@@ -22,4 +22,9 @@ public class IEnumeratorTest {
 
 		Assert2.assertSequanceEquals(values, 2, 3, 4, 5);
 	}
+
+	@Test
+	public void empty() {
+		Assert.assertEquals(false, IEnumerator.empty().moveNext());
+	}
 }
