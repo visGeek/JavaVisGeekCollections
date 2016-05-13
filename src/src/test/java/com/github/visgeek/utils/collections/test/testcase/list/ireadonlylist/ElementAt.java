@@ -1,4 +1,4 @@
-package com.github.visgeek.utils.collections.test.testcase.ireadonlylist;
+package com.github.visgeek.utils.collections.test.testcase.list.ireadonlylist;
 
 import org.junit.Assert;
 import org.junit.Rule;
