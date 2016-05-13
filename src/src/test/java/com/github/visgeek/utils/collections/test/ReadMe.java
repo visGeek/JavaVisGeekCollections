@@ -21,7 +21,7 @@ public class ReadMe {
 		// Object
 		Cat taro = new Cat();
 		Cat jiro = new Cat();
-		Cat sabro = new Cat();
+		Cat saburo = new Cat();
 
 		//@formatter:off
 // Usage
@@ -34,11 +34,11 @@ List<Integer> values =
 values.forEach(val -> System.out.print(val)); // 123
 
 // from array
-Cat[] catArray = new Cat[] { taro, jiro, sabro };
+Cat[] catArray = new Cat[] { taro, jiro, saburo };
 IEnumerable<Cat> cats1 = Enumerable.of(catArray);
 
 // from variable arguments
-IEnumerable<Cat> cats2 = Enumerable.of(taro, jiro, sabro);
+IEnumerable<Cat> cats2 = Enumerable.of(taro, jiro, saburo);
 
 // from Iterable<T>
 Iterable<Cat> catList = Arrays.asList(catArray);
