@@ -1,23 +1,27 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.statics;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Action0;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.testing.Assert2;
 
-public class Range {
+public class Range01 {
+	@Rule
+	public final ExpectedException expectedException = ExpectedException.none();
+
 	@Test
 	public void argErrorCountIsNegative() {
-		Action0 action = () -> Enumerable.range(0, -1);
-		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
+		this.expectedException.expect(IllegalArgumentException.class);
+		Enumerable.range(0, -1);
 	}
 
 	@Test
 	public void argErrorOverIntegerMax() {
-		Action0 action = () -> Enumerable.range(Integer.MAX_VALUE, 2);
-		Assert2.assertExceptionThrown(IllegalArgumentException.class, action);
+		this.expectedException.expect(IllegalArgumentException.class);
+		Enumerable.range(Integer.MAX_VALUE, 2);
 	}
 
 	@Test

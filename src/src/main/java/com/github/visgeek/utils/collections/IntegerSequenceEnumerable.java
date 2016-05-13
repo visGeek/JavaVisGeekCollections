@@ -2,21 +2,26 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
+import com.github.visgeek.utils.IndexedFunc0;
+
 /**
  * 開始値から終了値までを指定した int のシーケンスを表すクラスです。
  *
  */
-class IntegerSequenceEnumerable implements IListEnumerable<Integer>, IIntegerEnumerable {
+class IntegerSequenceEnumerable<T> implements IListEnumerable<T> {
 	// コンストラクター
-	IntegerSequenceEnumerable(int start, int end) {
+	IntegerSequenceEnumerable(int start, int end, IndexedFunc0<? extends T> selector) {
 		this.start = start;
 		this.end = end;
+		this.selector = selector;
 	}
 
 	// フィールド
-	private final int start;
+	final int start;
 
-	private final int end;
+	final int end;
+
+	private final IndexedFunc0<? extends T> selector;
 
 	// メソッド
 	@Override
@@ -25,30 +30,15 @@ class IntegerSequenceEnumerable implements IListEnumerable<Integer>, IIntegerEnu
 	}
 
 	@Override
-	public final boolean contains(Integer item) {
-		boolean result = false;
-
-		if (item != null) {
-			if (this.start <= item) {
-				if (item <= this.end) {
-					result = true;
-				}
-			}
-		}
-
-		return result;
-	}
-
-	@Override
-	public final Iterator<Integer> iterator() {
-		return new AbstractEnumerator<Integer>() {
+	public final Iterator<T> iterator() {
+		return new AbstractEnumerator<T>() {
 			boolean first = true;
 
 			private int current;
 
 			@Override
-			public Integer current() {
-				return this.current;
+			public T current() {
+				return selector.func(this.current);
 			}
 
 			@Override
@@ -72,11 +62,32 @@ class IntegerSequenceEnumerable implements IListEnumerable<Integer>, IIntegerEnu
 	}
 
 	@Override
-	public final Integer elementAt(int index) {
+	public final T elementAt(int index) {
 		if (index < 0 || this.count() <= index) {
 			throw Errors.argumentOfOutOfRange("index");
 		} else {
-			return this.start + index;
+			return this.selector.func(this.start + index);
+		}
+	}
+
+	static class IntegerEnumerable extends IntegerSequenceEnumerable<Integer> implements IIntegerEnumerable {
+		IntegerEnumerable(int start, int end) {
+			super(start, end, index -> index);
+		}
+
+		@Override
+		public final boolean contains(Integer item) {
+			boolean result = false;
+
+			if (item != null) {
+				if (this.start <= item) {
+					if (item <= this.end) {
+						result = true;
+					}
+				}
+			}
+
+			return result;
 		}
 	}
 }

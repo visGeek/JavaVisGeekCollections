@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 
 import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
+import com.github.visgeek.utils.IndexedFunc0;
 
 public final class Enumerable {
 	// コンストラクター
@@ -134,8 +135,24 @@ public final class Enumerable {
 		if (end < start) {
 			throw Errors.argumentOfOutOfRange("end");
 		} else {
-			return new IntegerSequenceEnumerable(start, end);
+			return new IntegerSequenceEnumerable.IntegerEnumerable(start, end);
 		}
+	}
+
+	/**
+	 * 指定した範囲の整数をセレクター関数で変換した結果のシーケンスを取得します。
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static <T> IEnumerable<T> forTo(int start, int end, IndexedFunc0<? extends T> selector) {
+		if (end < start) {
+			throw Errors.argumentOfOutOfRange("end");
+		}
+
+		Errors.throwIfNull(selector, "selector");
+
+		return new IntegerSequenceEnumerable<T>(start, end, selector);
 	}
 
 	/**
@@ -161,6 +178,18 @@ public final class Enumerable {
 	}
 
 	/**
+	 * 指定した範囲の整数をセレクター関数で変換した結果のシーケンスを取得します。
+	 * @param start
+	 * @param end
+	 * @return
+	 */
+	public static <T> IEnumerable<T> range(int start, int count, IndexedFunc0<? extends T> selector) {
+		int end = Enumerable.rangeParameterCheck(start, count);
+		Errors.throwIfNull(selector, "selector");
+		return new IntegerSequenceEnumerable<T>(start, end, selector);
+	}
+
+	/**
 	 * start から始まる count の数の連続した整数のシーケンスを作成します。作成されたシーケンスはランダムアクセスをサポートします。
 	 * @param start
 	 * @param count
@@ -168,7 +197,7 @@ public final class Enumerable {
 	 */
 	public static IIntegerEnumerable range2(int start, int count) {
 		int end = Enumerable.rangeParameterCheck(start, count);
-		return new IntegerSequenceEnumerable(start, end);
+		return new IntegerSequenceEnumerable.IntegerEnumerable(start, end);
 	}
 
 	private static int rangeParameterCheck(int start, int count) {
