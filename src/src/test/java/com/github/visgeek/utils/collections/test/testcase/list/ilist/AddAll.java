@@ -4,12 +4,26 @@ import java.util.Arrays;
 import java.util.Collection;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.github.visgeek.utils.collections.EnumerableList;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class AddAll {
+	@Rule
+	public final ExpectedException expectedException = ExpectedException.none();
+
+	@Test
+	public void argIsNull() {
+		this.expectedException.expect(NullPointerException.class);
+		this.expectedException.expectMessage("collection");
+
+		EnumerableList<Integer> set = new EnumerableList<>();
+		set.addAll((Iterable<Integer>) null);
+	}
+
 	@Test
 	public void addAll01() {
 		Collection<Integer> collectionAsCollection = Arrays.asList(1, 2, 3);

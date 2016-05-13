@@ -12,6 +12,8 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 	}
 
 	default boolean addAll(int index, Iterable<? extends T> c) {
+		Errors.throwIfNull(c, null);
+
 		boolean result = false;
 
 		if (c instanceof Collection<?>) {
@@ -77,6 +79,8 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 	}
 
 	default boolean removeAllValues(Iterable<? extends T> c) {
+		Errors.throwIfNull(c, null);
+
 		boolean result = false;
 
 		if (c instanceof Collection<?>) {
