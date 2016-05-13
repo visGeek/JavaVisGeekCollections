@@ -138,6 +138,13 @@ public final class Enumerable {
 		}
 	}
 
+	/**
+	 * for ステートメントと同様の操作で要素を列挙します。
+	 * @param first 最初の要素、または null。
+	 * @param predicate 列挙を続けるための条件、または null。
+	 * @param next 要素を列挙したあとに実行する処理 または null。
+	 * @return
+	 */
 	public static <T> IEnumerable<T> forTo(Func0<? extends T> first, Predicate<? super T> predicate, Func1<? super T, ? extends T> next) {
 		return () -> IEnumerator.create(first, predicate, next);
 	}
