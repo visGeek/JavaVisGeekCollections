@@ -6,7 +6,7 @@ import org.junit.Test;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.ILongEnumerable;
 
-public class ToArray {
+public class ToPrimitiveArray {
 	@Test
 	public void test() {
 		ILongEnumerable source = Enumerable.of(new Long[] { null, 1L, 2L, 3L });

@@ -1,4 +1,4 @@
-package com.github.visgeek.utils.collections.test.testcase.iintegerenumerable;
+package com.github.visgeek.utils.collections.test.testcase.arrayenumerableint;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -6,11 +6,11 @@ import org.junit.Test;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IIntegerEnumerable;
 
-public class ToArray {
+public class ToPrimitiveArray {
 	@Test
 	public void test() {
-		IIntegerEnumerable source = Enumerable.of(null, 1, 2, 3).selectInteger(n -> n);
-		int[] expected = new int[] { 0, 1, 2, 3 };
+		IIntegerEnumerable source = Enumerable.of(1, 2, 3);
+		int[] expected = new int[] { 1, 2, 3 };
 
 		int[] actual = source.toPrimitiveArray();
 		Assert.assertArrayEquals(expected, actual);
