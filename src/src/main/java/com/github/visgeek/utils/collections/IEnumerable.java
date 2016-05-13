@@ -146,6 +146,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
+	 * ICharacterEnumerable に変換します。要素を Character にキャストできない場合でも例外の発生は実行時まで延期されます。
+	 *
+	 * @return
+	 */
+	default ICharacterEnumerable asCharacterEnumerable() {
+		if (this instanceof ICharacterEnumerable) {
+			return (ICharacterEnumerable) this;
+		} else {
+			return this.selectCharacter(n -> (Character) n);
+		}
+	}
+
+	/**
 	 * IDoubleEnumerable に変換します。要素を Double にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
@@ -997,6 +1010,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return max;
 	}
 
+	default Character maxCharacter(Func1<? super T, Character> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectCharacter(selector).max();
+	}
+
 	default Double maxDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return this.selectDouble(selector).max();
@@ -1035,6 +1053,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 
 		return min;
+	}
+
+	default Character minCharacter(Func1<? super T, Character> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectCharacter(selector).min();
 	}
 
 	default Double minDouble(Func1<? super T, Double> selector) {
@@ -1133,6 +1156,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default <TResult> IEnumerable<TResult> select(IndexedFunc1<? super T, TResult> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> new LinqSelectIterator<>(IEnumerable.this, selector);
+	}
+
+	default ICharacterEnumerable selectCharacter(Func1<? super T, Character> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> IEnumerable.this.select(selector).iterator();
 	}
 
 	default IDoubleEnumerable selectDouble(Func1<? super T, Double> selector) {

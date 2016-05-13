@@ -100,11 +100,27 @@ public final class Enumerable {
 		}
 	}
 
-	public static IEnumerable<Character> of(char... source) {
+	public static ICharacterEnumerable of(char... source) {
 		return new ArrayEnumerableChar(source);
 	}
 
-	public static IEnumerable<Character> ofCharacter(String source) {
+	public static ICharacterEnumerable of(Character[] source) {
+		return new ListEnumerableCharacter(source);
+	}
+
+	public static ICharacterEnumerable ofCharacter(Iterable<Character> source) {
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Character>) source).asCharacterEnumerable();
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ListEnumerableCharacter((List<Character>) source);
+		} else if (source instanceof Collection<?>) {
+			return new CollectionEnumerableCharacter((Collection<Character>) source);
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
+	public static ICharacterEnumerable ofCharacter(String source) {
 		return Enumerable.of(source.toCharArray());
 	}
 
