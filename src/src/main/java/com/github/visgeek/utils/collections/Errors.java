@@ -31,9 +31,11 @@ class Errors {
 		return new IllegalArgumentException(message);
 	}
 
-	public static void throwIfNull(Object parameter, String name) {
+	public static <T> T throwIfNull(T parameter, String name) {
 		if (parameter == null) {
 			throw new NullPointerException(name);
+		} else {
+			return parameter;
 		}
 	}
 
