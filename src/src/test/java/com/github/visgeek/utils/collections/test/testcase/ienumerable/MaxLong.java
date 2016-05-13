@@ -33,7 +33,7 @@ public class MaxLong {
 		Func1<Item, Long> selector = item -> item.value;
 		Long expected = 3L;
 		Long actual = source.maxLong(selector);
-		Assert.assertEquals(expected, actual, 0);
+		Assert.assertEquals(expected, actual);
 	}
 
 	private static class Item {
