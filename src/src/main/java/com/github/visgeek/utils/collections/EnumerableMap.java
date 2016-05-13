@@ -61,8 +61,8 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IMap
 
 	@Override
 	@Deprecated
-	public V getOrDefault(Object paramObject, V paramV) {
-		return super.getOrDefault(paramObject, paramV);
+	public V getOrDefault(Object key, V defaultValue) {
+		return super.getOrDefault(key, defaultValue);
 	}
 
 	@Override
@@ -76,10 +76,6 @@ public class EnumerableMap<K, V> extends java.util.HashMap<K, V> implements IMap
 		return String.format("size:%d", this.size());
 	}
 
-	// スタティッククラス
-
 	// スタティックフィールド
 	private static final long serialVersionUID = -7179232799171941533L;
-
-	// スタティックメソッド
 }

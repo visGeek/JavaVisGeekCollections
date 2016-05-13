@@ -65,8 +65,8 @@ public class EnumerableLinkedMap<K, V> extends java.util.LinkedHashMap<K, V> imp
 
 	@Override
 	@Deprecated
-	public V getOrDefault(Object paramObject, V paramV) {
-		return super.getOrDefault(paramObject, paramV);
+	public V getOrDefault(Object key, V value) {
+		return super.getOrDefault(key, value);
 	}
 
 	@Override
