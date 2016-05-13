@@ -33,6 +33,10 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements ISet<T> {
 		super(initialCapacity);
 	}
 
+	public EnumerableSet(int initialCapacity, float loadFactor) {
+		super(initialCapacity, loadFactor);
+	}
+
 	// フィールド
 
 	// メソッド
@@ -54,7 +58,5 @@ public class EnumerableSet<T> extends java.util.HashSet<T> implements ISet<T> {
 	}
 
 	// スタティックフィールド
-	private static final long serialVersionUID = -3993841242732244607L;
-
-	// スタティックメソッド
+	private static final long serialVersionUID = -2073273720009540371L;
 }

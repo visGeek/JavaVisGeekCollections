@@ -13,6 +13,8 @@ public class Clone {
 		Enumerable.range(0, 10000).forEach(n -> source.put(n, n.toString()));
 
 		EnumerableMap<Integer, String> clone = source.clone();
+
+		Assert.assertNotSame(source, clone);
 		Assert.assertEquals(source.entrySet(), clone.entrySet());
 	}
 }

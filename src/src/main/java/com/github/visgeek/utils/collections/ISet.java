@@ -5,22 +5,14 @@ import java.lang.reflect.Array;
 import java.util.Collection;
 import java.util.Set;
 
+@SuppressWarnings("unchecked")
 public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<T>, Cloneable, Serializable {
-	default void addOrThrow(T e) {
-		if (this.containsValue(e)) {
-			throw new IllegalArgumentException(String.format("%s is already contained.", e));
-		} else {
-			this.add(e);
-		}
-	}
-
 	default boolean addAll(Iterable<? extends T> collection) {
+		Errors.throwIfNull(collection, "collection");
 		boolean result = false;
 
 		if (collection instanceof Collection<?>) {
-			@SuppressWarnings("unchecked")
-			Collection<T> c = (Collection<T>) collection;
-			result = this.addAll(c);
+			result = this.addAll((Collection<T>) collection);
 		} else {
 			for (T item : collection) {
 				if (this.add(item)) {
@@ -30,6 +22,14 @@ public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<
 		}
 
 		return result;
+	}
+
+	default void addOrThrow(T e) {
+		if (this.containsValue(e)) {
+			throw new IllegalArgumentException(String.format("%s already exists.", e));
+		} else {
+			this.add(e);
+		}
 	}
 
 	@Override
@@ -45,11 +45,6 @@ public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<
 		return this.contains(o);
 	}
 
-	@Override
-	default int count() {
-		return this.size();
-	}
-
 	/**
 	 * remove(Object o) と同じ動作です。
 	 * @param o
@@ -62,10 +57,7 @@ public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<
 	@Override
 	default T[] toArray(Class<T> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
-
-		@SuppressWarnings("unchecked")
 		T[] array = (T[]) Array.newInstance(elementClass, this.count());
-
 		return this.toArray(array);
 	}
 }

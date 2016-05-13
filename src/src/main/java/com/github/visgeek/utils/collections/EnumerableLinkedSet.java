@@ -29,8 +29,12 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 		this.addAll(Arrays.asList(values));
 	}
 
-	public EnumerableLinkedSet(java.util.Set<T> set) {
-		super(set);
+	public EnumerableLinkedSet(int initialCapacity) {
+		super(initialCapacity);
+	}
+
+	public EnumerableLinkedSet(int initialCapacity, float loadFactor) {
+		super(initialCapacity, loadFactor);
 	}
 
 	// フィールド
@@ -55,6 +59,4 @@ public class EnumerableLinkedSet<T> extends java.util.LinkedHashSet<T> implement
 
 	// スタティックフィールド
 	private static final long serialVersionUID = -3993841242732244607L;
-
-	// スタティックメソッド
 }
