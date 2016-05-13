@@ -6,6 +6,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
+import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -15,6 +16,7 @@ import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.Func2;
 import com.github.visgeek.utils.IEqualityComparator;
+import com.github.visgeek.utils.IndexedPredicate;
 import com.github.visgeek.utils.JoinedValue;
 
 public interface IEnumerable<T> extends Iterable<T> {
@@ -98,13 +100,13 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param predicate 要素が条件を満たしているかどうかを判断するメソッド。
 	 * @return すべての要素が条件を満たしていれば true。そうでなければ false。
 	 */
-	default boolean all(Func1<? super T, Boolean> predicate) {
+	default boolean all(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		boolean result = true;
 
 		for (T item : this) {
-			if (!predicate.func(item)) {
+			if (!predicate.test(item)) {
 				result = false;
 				break;
 			}
@@ -127,13 +129,13 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param predicate
 	 * @return
 	 */
-	default boolean any(Func1<? super T, Boolean> predicate) {
+	default boolean any(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		boolean result = false;
 
 		for (T item : this) {
-			if (predicate.func(item)) {
+			if (predicate.test(item)) {
 				result = true;
 				break;
 			}
@@ -469,13 +471,13 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param predicate
 	 * @return
 	 */
-	default int count(Func1<? super T, Boolean> predicate) {
+	default int count(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		int count = 0;
 
 		for (T item : this) {
-			if (predicate.func(item)) {
+			if (predicate.test(item)) {
 				count = Math.addExact(count, 1);
 			}
 		}
@@ -641,7 +643,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param match
 	 * @return
 	 */
-	default int findIndex(Func1<? super T, Boolean> match) {
+	default int findIndex(Predicate<? super T> match) {
 		Errors.throwIfNull(match, "match");
 
 		int result = -1;
@@ -649,7 +651,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		int idx = -1;
 		for (T item : this) {
 			idx++;
-			if (match.func(item)) {
+			if (match.test(item)) {
 				result = idx;
 				break;
 			}
@@ -677,11 +679,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param predicate
 	 * @return
 	 */
-	default T first(Func1<? super T, Boolean> predicate) {
+	default T first(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		for (T item : this) {
-			if (predicate.func(item)) {
+			if (predicate.test(item)) {
 				return item;
 			}
 		}
@@ -715,7 +717,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param predicate
 	 * @return
 	 */
-	default T firstOrDefault(Func1<? super T, Boolean> predicate) {
+	default T firstOrDefault(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 		return this.firstOrDefault(predicate, null);
 	}
@@ -727,13 +729,13 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param defaultValue
 	 * @return
 	 */
-	default T firstOrDefault(Func1<? super T, Boolean> predicate, T defaultValue) {
+	default T firstOrDefault(Predicate<? super T> predicate, T defaultValue) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		T value = defaultValue;
 
 		for (T local : this) {
-			if (predicate.func(local)) {
+			if (predicate.test(local)) {
 				value = local;
 				break;
 			}
@@ -879,14 +881,14 @@ public interface IEnumerable<T> extends Iterable<T> {
 		throw Errors.empty();
 	}
 
-	default T last(Func1<? super T, Boolean> predicate) {
+	default T last(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		T lastItem = null;
 		boolean found = false;
 
 		for (T item : this) {
-			if (predicate.func(item)) {
+			if (predicate.test(item)) {
 				lastItem = item;
 				found = true;
 			}
@@ -913,18 +915,18 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return value;
 	}
 
-	default T lastOrDefault(Func1<? super T, Boolean> predicate) {
+	default T lastOrDefault(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 		return this.lastOrDefault(predicate, null);
 	}
 
-	default T lastOrDefault(Func1<? super T, Boolean> predicate, T defaultValue) {
+	default T lastOrDefault(Predicate<? super T> predicate, T defaultValue) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		T value = defaultValue;
 
 		for (T local : this) {
-			if (predicate.func(local)) {
+			if (predicate.test(local)) {
 				value = local;
 			}
 		}
@@ -953,7 +955,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param predicate
 	 * @return
 	 */
-	default long longCount(Func1<? super T, Boolean> predicate) {
+	default long longCount(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		long count = 0;
@@ -961,7 +963,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Iterator<T> itr = this.iterator();
 		while (itr.hasNext()) {
 			T item = itr.next();
-			if (predicate.func(item)) {
+			if (predicate.test(item)) {
 				count = Math.addExact(count, 1);
 			}
 		}
@@ -1215,7 +1217,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 	}
 
-	default T single(Func1<? super T, Boolean> predicate) {
+	default T single(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		T value = null;
@@ -1223,7 +1225,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		int count = 0;
 
 		for (T local : this) {
-			if (predicate.func(local)) {
+			if (predicate.test(local)) {
 				value = local;
 				count++;
 				if (2 <= count) {
@@ -1264,11 +1266,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 	}
 
-	default T singleOrDefault(Func1<? super T, Boolean> predicate) {
+	default T singleOrDefault(Predicate<? super T> predicate) {
 		return this.singleOrDefault(predicate, null);
 	}
 
-	default T singleOrDefault(Func1<? super T, Boolean> predicate, T defaultValue) {
+	default T singleOrDefault(Predicate<? super T> predicate, T defaultValue) {
 		Errors.throwIfNull(predicate, "predicate");
 
 		T value = null;
@@ -1276,7 +1278,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		int count = 0;
 
 		for (T local : this) {
-			if (predicate.func(local)) {
+			if (predicate.test(local)) {
 				value = local;
 				count++;
 				if (2 <= count) {
@@ -1300,12 +1302,12 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.skipWhile((item, index) -> index < count);
 	}
 
-	default IEnumerable<T> skipWhile(Func1<? super T, Boolean> predicate) {
+	default IEnumerable<T> skipWhile(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return this.skipWhile((item, idx) -> predicate.func(item));
+		return this.skipWhile((item, idx) -> predicate.test(item));
 	}
 
-	default IEnumerable<T> skipWhile(Func2<? super T, Integer, Boolean> predicate) {
+	default IEnumerable<T> skipWhile(IndexedPredicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 		return () -> new LinqSkipWhileIterator<>(IEnumerable.this, predicate);
 	}
@@ -1377,12 +1379,12 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.takeWhile((item, index) -> index < count);
 	}
 
-	default IEnumerable<T> takeWhile(Func1<? super T, Boolean> predicate) {
+	default IEnumerable<T> takeWhile(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return this.takeWhile((item, idx) -> predicate.func(item));
+		return this.takeWhile((item, idx) -> predicate.test(item));
 	}
 
-	default IEnumerable<T> takeWhile(Func2<? super T, Integer, Boolean> predicate) {
+	default IEnumerable<T> takeWhile(IndexedPredicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 		return () -> new LinqTakeWhileIterator<>(IEnumerable.this, predicate);
 	}
@@ -1513,12 +1515,12 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return () -> new LinqUnionIterator<>(IEnumerable.this, second, comparator);
 	}
 
-	default IEnumerable<T> where(Func1<? super T, Boolean> predicate) {
+	default IEnumerable<T> where(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return this.where((item, idx) -> predicate.func(item));
+		return this.where((item, idx) -> predicate.test(item));
 	}
 
-	default IEnumerable<T> where(Func2<? super T, Integer, Boolean> predicate) {
+	default IEnumerable<T> where(IndexedPredicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
 		return () -> new LinqWhereIterator<>(IEnumerable.this, predicate);
 	}
