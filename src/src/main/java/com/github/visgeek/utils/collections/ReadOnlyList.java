@@ -15,6 +15,13 @@ class ReadOnlyList<T> extends ReadOnlyCollectionBase<T, List<T>> implements IRea
 		return this.source.get(index);
 	}
 
+	// Double
+	static class DoubleList extends ReadOnlyList<Double> implements IDoubleCollection {
+		DoubleList(List<Double> source) {
+			super(source);
+		}
+	}
+
 	// Integer
 	static class IntegerList extends ReadOnlyList<Integer> implements IIntegerCollection {
 		IntegerList(List<Integer> source) {
@@ -29,9 +36,9 @@ class ReadOnlyList<T> extends ReadOnlyCollectionBase<T, List<T>> implements IRea
 		}
 	}
 
-	// Double
-	static class DoubleList extends ReadOnlyList<Double> implements IDoubleCollection {
-		DoubleList(List<Double> source) {
+	// Byte
+	static class ByteList extends ReadOnlyList<Byte> implements IByteCollection {
+		ByteList(List<Byte> source) {
 			super(source);
 		}
 	}

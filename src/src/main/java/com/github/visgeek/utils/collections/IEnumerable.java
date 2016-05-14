@@ -146,6 +146,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
+	 * IByteEnumerable に変換します。要素を Byte にキャストできない場合でも例外の発生は実行時まで延期されます。
+	 *
+	 * @return
+	 */
+	default IByteEnumerable asByteEnumerable() {
+		if (this instanceof IByteEnumerable) {
+			return (IByteEnumerable) this;
+		} else {
+			return this.selectByte(n -> (Byte) n);
+		}
+	}
+
+	/**
 	 * ICharacterEnumerable に変換します。要素を Character にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
@@ -1040,6 +1053,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return max;
 	}
 
+	default Byte maxByte(Func1<? super T, Byte> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectByte(selector).max();
+	}
+
 	default Character maxCharacter(Func1<? super T, Character> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return this.selectCharacter(selector).max();
@@ -1083,6 +1101,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 		}
 
 		return min;
+	}
+
+	default Byte minByte(Func1<? super T, Byte> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectByte(selector).min();
 	}
 
 	default Character minCharacter(Func1<? super T, Character> selector) {
@@ -1186,6 +1209,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default <TResult> IEnumerable<TResult> select(IndexedFunc1<? super T, TResult> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> new LinqSelectIterator<>(IEnumerable.this, selector);
+	}
+
+	default IByteEnumerable selectByte(Func1<? super T, Byte> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> IEnumerable.this.select(selector).iterator();
 	}
 
 	default ICharacterEnumerable selectCharacter(Func1<? super T, Character> selector) {

@@ -1,24 +1,92 @@
-package com.github.visgeek.utils.collections.test.testcase.readonlycollection;
+package com.github.visgeek.utils.testing;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Spliterator;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
+/**
+ * テスト用<br/>
+ * List&lt;E&gt; を被っていない純粋な Collection&lt;E&gt;
+ *
+ */
 @SuppressWarnings("unchecked")
-class ItemCollection {
-	public static <T> Collection<T> createCollection(T... values) {
+public class CollectionCreator {
+	public static <T> ArrayList<T> arrayList(T... values) {
+		return new ArrayList<>(Arrays.asList(values));
+	}
+
+	public static <T> LinkedList<T> linkedList(T... values) {
+		return new LinkedList<>(Arrays.asList(values));
+	}
+
+	public static <T> Iterable<T> iterable(T... values) {
+		return () -> Arrays.asList(values).iterator();
+	}
+
+	public static <T> Iterator<T> iterator(T... values) {
+		return Arrays.asList(values).iterator();
+	}
+
+	public static <T> Collection<T> collection(T... values) {
 		return new CollectionImple<>(values);
 	}
 
-	/**
-	 * テスト用<br/>
-	 * List&lt;E&gt; を被っていない純粋な Collection&lt;E&gt;
-	 *
-	 */
+	public static byte[] primitiveArray(Byte... values) {
+		byte[] result = new byte[values.length];
+
+		for (int i = 0; i < values.length; i++) {
+			result[i] = values[i];
+		}
+
+		return result;
+	}
+
+	public static char[] primitiveArray(Character... values) {
+		char[] result = new char[values.length];
+
+		for (int i = 0; i < values.length; i++) {
+			result[i] = values[i];
+		}
+
+		return result;
+	}
+
+	public static double[] primitiveArray(Double... values) {
+		double[] result = new double[values.length];
+
+		for (int i = 0; i < values.length; i++) {
+			result[i] = values[i];
+		}
+
+		return result;
+	}
+
+	public static int[] primitiveArray(Integer... values) {
+		int[] result = new int[values.length];
+
+		for (int i = 0; i < values.length; i++) {
+			result[i] = values[i];
+		}
+
+		return result;
+	}
+
+	public static long[] primitiveArray(Long... values) {
+		long[] result = new long[values.length];
+
+		for (int i = 0; i < values.length; i++) {
+			result[i] = values[i];
+		}
+
+		return result;
+	}
+
 	private static class CollectionImple<T> implements Collection<T> {
 		CollectionImple(T... values) {
 			this.values = Arrays.asList(values);

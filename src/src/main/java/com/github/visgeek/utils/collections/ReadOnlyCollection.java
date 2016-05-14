@@ -9,13 +9,6 @@ class ReadOnlyCollection<T> extends ReadOnlyCollectionBase<T, Collection<T>> {
 		super(Collections.unmodifiableCollection(collection));
 	}
 
-	// Character
-	static class CharacterCollection extends ReadOnlyCollection<Character> implements ICharacterCollection {
-		CharacterCollection(Collection<Character> source) {
-			super(source);
-		}
-	}
-
 	// Double
 	static class DoubleCollection extends ReadOnlyCollection<Double> implements IDoubleCollection {
 		DoubleCollection(Collection<Double> source) {
@@ -33,6 +26,20 @@ class ReadOnlyCollection<T> extends ReadOnlyCollectionBase<T, Collection<T>> {
 	// Long
 	static class LongCollection extends ReadOnlyCollection<Long> implements ILongCollection {
 		LongCollection(Collection<Long> source) {
+			super(source);
+		}
+	}
+
+	// Byte
+	static class ByteCollection extends ReadOnlyCollection<Byte> implements IByteCollection {
+		ByteCollection(Collection<Byte> source) {
+			super(source);
+		}
+	}
+
+	// Character
+	static class CharacterCollection extends ReadOnlyCollection<Character> implements ICharacterCollection {
+		CharacterCollection(Collection<Character> source) {
 			super(source);
 		}
 	}
