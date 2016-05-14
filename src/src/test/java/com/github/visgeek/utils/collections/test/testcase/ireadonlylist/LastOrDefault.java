@@ -1,31 +1,28 @@
 package com.github.visgeek.utils.collections.test.testcase.ireadonlylist;
 
-import java.util.Arrays;
-
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.visgeek.utils.collections.Enumerable;
-import com.github.visgeek.utils.collections.IEnumerable;
-
-public class LastOrDefault02 {
+public class LastOrDefault {
 	@Test
 	public void empty() {
-		IEnumerable<Integer> source = Enumerable.of(Arrays.asList());
+		Integer[] source = new Integer[] {};
 		Integer defaultValue = 0;
 		Integer expected = defaultValue;
 
-		Integer actual = source.lastOrDefault(defaultValue);
+		TestList<Integer> collection = new TestList<>(source);
+		Integer actual = collection.lastOrDefault(defaultValue);
 		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void any() {
-		IEnumerable<Integer> source = Enumerable.of(1, 2, 3);
+		Integer[] source = new Integer[] { 1, 2, 3 };
 		Integer defaultValue = 0;
 		Integer expected = 3;
 
-		Integer actual = source.lastOrDefault(defaultValue);
+		TestList<Integer> collection = new TestList<>(source);
+		Integer actual = collection.lastOrDefault(defaultValue);
 		Assert.assertEquals(expected, actual);
 	}
 }

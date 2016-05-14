@@ -66,10 +66,15 @@ public interface IReadOnlyList<T> extends IReadOnlyCollection<T> {
 
 	@Override
 	default T single() {
-		if (this.count() == 1) {
-			return this.first();
-		} else {
-			throw Errors.moreThanOneElement();
+		switch (this.count()) {
+			case 1:
+				return this.first();
+
+			case 0:
+				throw Errors.empty();
+
+			default:
+				throw Errors.moreThanOneElement();
 		}
 	}
 
