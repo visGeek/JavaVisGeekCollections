@@ -214,6 +214,36 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return StreamSupport.stream(this.spliterator(), false);
 	}
 
+	/**
+	 * セレクター関数を使用して要素から取得した値の平均値を取得します。セレクター関数の結果が null の場合は 計算の対象外です。
+	 *
+	 * @param selector
+	 * @return null 以外の値の平均値。シーケンスが空、または null のみの場合は null。
+	 */
+	default Double averageDouble(Func1<? super T, Double> selector) {
+		return this.selectDouble(selector).average();
+	}
+
+	/**
+	 * セレクター関数を使用して要素から取得した値の平均値を取得します。セレクター関数の結果が null の場合は 計算の対象外です。
+	 *
+	 * @param selector
+	 * @return null 以外の値の平均値。シーケンスが空、または null のみの場合は null。
+	 */
+	default Double averageInteger(Func1<? super T, Integer> selector) {
+		return this.selectInteger(selector).average();
+	}
+
+	/**
+	 * セレクター関数を使用して要素から取得した値の平均値を取得します。セレクター関数の結果が null の場合は 計算の対象外です。
+	 *
+	 * @param selector
+	 * @return null 以外の値の平均値。シーケンスが空、または null のみの場合は null。
+	 */
+	default Double averageLong(Func1<? super T, Long> selector) {
+		return this.selectLong(selector).average();
+	}
+
 	/***
 	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
 	 * @param item 検索する要素
