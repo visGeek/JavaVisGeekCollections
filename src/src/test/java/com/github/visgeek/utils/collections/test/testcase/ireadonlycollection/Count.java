@@ -3,19 +3,24 @@ package com.github.visgeek.utils.collections.test.testcase.ireadonlycollection;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.visgeek.utils.collections.EnumerableList;
-
 public class Count {
 	@Test
 	public void empty() {
-		EnumerableList<Integer> list = new EnumerableList<>();
-		Assert.assertEquals(list.count(), 0);
+		Integer[] source = new Integer[] {};
+		int expected = source.length;
+
+		TestCollection<Integer> collection = new TestCollection<>(source);
+		int actual = collection.count();
+		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void any() {
-		EnumerableList<Integer> list = new EnumerableList<>();
-		list.add(1);
-		Assert.assertEquals(list.count(), 1);
+		Integer[] source = new Integer[] { 1, 2, 3 };
+		int expected = source.length;
+
+		TestCollection<Integer> collection = new TestCollection<>(source);
+		int actual = collection.count();
+		Assert.assertEquals(expected, actual);
 	}
 }
