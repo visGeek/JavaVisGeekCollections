@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @SuppressWarnings("unchecked")
-public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<T>, Cloneable, Serializable {
+public interface ISet<T> extends Set<T>, IReadOnlySet<T>, Cloneable, Serializable {
 	default boolean addAll(Iterable<? extends T> collection) {
 		Errors.throwIfNull(collection, "collection");
 		boolean result = false;
@@ -44,6 +44,9 @@ public interface ISet<T> extends Set<T>, ICollectionEnumerable<T>, IReadOnlySet<
 	default boolean containsValue(T o) {
 		return this.contains(o);
 	}
+
+	@Override
+	boolean isEmpty();
 
 	/**
 	 * remove(Object o) と同じ動作です。

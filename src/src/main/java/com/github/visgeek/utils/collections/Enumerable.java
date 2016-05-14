@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.RandomAccess;
@@ -21,106 +22,127 @@ public final class Enumerable {
 	// スタティックメソッド
 	@SafeVarargs
 	public static <T> IEnumerable<T> of(T... source) {
-		return new ListEnumerable<>(source);
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList<>(Arrays.asList(source));
 	}
 
 	public static <T> IEnumerable<T> of(Iterable<T> source) {
+		Errors.throwIfNull(source, "source");
+
 		if (source instanceof IEnumerable<?>) {
 			return (IEnumerable<T>) source;
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ListEnumerable<>((List<T>) source);
+			return new ReadOnlyList<>((List<T>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerable<>((Collection<T>) source);
+			return new ReadOnlyCollection<>((Collection<T>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static <T> IEnumerable<T> of(Stream<T> source) {
+		Errors.throwIfNull(source, "source");
 		return () -> source.iterator();
 	}
 
 	public static IDoubleEnumerable of(double... source) {
-		return new ArrayEnumerableDouble(source);
+		Errors.throwIfNull(source, "source");
+		return new DoubleArray(source);
 	}
 
 	public static IDoubleEnumerable of(Double[] source) {
-		return new ListEnumerableDouble(source);
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.DoubleList(Arrays.asList(source));
 	}
 
 	public static IDoubleEnumerable ofDouble(Iterable<Double> source) {
+		Errors.throwIfNull(source, "source");
+
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Double>) source).asDoubleEnumerable();
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ListEnumerableDouble(((List<Double>) source));
+			return new ReadOnlyList.DoubleList(((List<Double>) source));
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableDouble((Collection<Double>) source);
+			return new ReadOnlyCollection.DoubleCollection((Collection<Double>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static IIntegerEnumerable of(int... source) {
-		return new ArrayEnumerableInt(source);
+		Errors.throwIfNull(source, "source");
+		return new IntegerArray(source);
 	}
 
 	public static IIntegerEnumerable of(Integer[] source) {
-		return new ListEnumerableInteger(source);
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.IntegerList(Arrays.asList(source));
 	}
 
 	public static IIntegerEnumerable ofInteger(Iterable<Integer> source) {
+		Errors.throwIfNull(source, "source");
+
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Integer>) source).asIntegerEnumerable();
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ListEnumerableInteger((List<Integer>) source);
+			return new ReadOnlyList.IntegerList((List<Integer>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableInteger((Collection<Integer>) source);
+			return new ReadOnlyCollection.IntegerCollection((Collection<Integer>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static ILongEnumerable of(long... source) {
-		return new ArrayEnumerableLong(source);
+		Errors.throwIfNull(source, "source");
+		return new LongArray(source);
 	}
 
 	public static ILongEnumerable of(Long[] source) {
-		return new ListEnumerableLong(source);
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.LongList(Arrays.asList(source));
 	}
 
 	public static ILongEnumerable ofLong(Iterable<Long> source) {
+		Errors.throwIfNull(source, "source");
+
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Long>) source).asLongEnumerable();
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ListEnumerableLong((List<Long>) source);
+			return new ReadOnlyList.LongList((List<Long>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableLong((Collection<Long>) source);
+			return new ReadOnlyCollection.LongCollection((Collection<Long>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static ICharacterEnumerable of(char... source) {
-		return new ArrayEnumerableChar(source);
+		Errors.throwIfNull(source, "source");
+		return new CharacterArray(source);
 	}
 
 	public static ICharacterEnumerable of(Character[] source) {
-		return new ListEnumerableCharacter(source);
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.CharacterList(Arrays.asList(source));
 	}
 
 	public static ICharacterEnumerable ofCharacter(Iterable<Character> source) {
+		Errors.throwIfNull(source, "source");
+
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Character>) source).asCharacterEnumerable();
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ListEnumerableCharacter((List<Character>) source);
+			return new ReadOnlyList.CharacterList((List<Character>) source);
 		} else if (source instanceof Collection<?>) {
-			return new CollectionEnumerableCharacter((Collection<Character>) source);
+			return new ReadOnlyCollection.CharacterCollection((Collection<Character>) source);
 		} else {
 			return () -> source.iterator();
 		}
 	}
 
 	public static ICharacterEnumerable ofCharacter(String source) {
+		Errors.throwIfNull(source, "source");
 		return Enumerable.of(source.toCharArray());
 	}
 
@@ -151,7 +173,7 @@ public final class Enumerable {
 		if (end < start) {
 			throw Errors.argumentOfOutOfRange("end");
 		} else {
-			return new IntegerSequenceEnumerable.IntegerEnumerable(start, end);
+			return new IntegerSequence.IntegerEnumerable(start, end);
 		}
 	}
 
@@ -168,7 +190,7 @@ public final class Enumerable {
 
 		Errors.throwIfNull(selector, "selector");
 
-		return new IntegerSequenceEnumerable<T>(start, end, selector);
+		return new IntegerSequence<T>(start, end, selector);
 	}
 
 	/**
@@ -202,7 +224,7 @@ public final class Enumerable {
 	public static <T> IEnumerable<T> range(int start, int count, IndexedFunc0<? extends T> selector) {
 		int end = Enumerable.rangeParameterCheck(start, count);
 		Errors.throwIfNull(selector, "selector");
-		return new IntegerSequenceEnumerable<T>(start, end, selector);
+		return new IntegerSequence<T>(start, end, selector);
 	}
 
 	/**
@@ -213,7 +235,7 @@ public final class Enumerable {
 	 */
 	public static IIntegerEnumerable range2(int start, int count) {
 		int end = Enumerable.rangeParameterCheck(start, count);
-		return new IntegerSequenceEnumerable.IntegerEnumerable(start, end);
+		return new IntegerSequence.IntegerEnumerable(start, end);
 	}
 
 	private static int rangeParameterCheck(int start, int count) {
@@ -240,7 +262,7 @@ public final class Enumerable {
 			throw Errors.argumentOfOutOfRange("count");
 		}
 
-		return Enumerable.range(0, count).select(n -> element);
+		return Enumerable.range(0, count, n -> element);
 	}
 
 	/**
@@ -254,6 +276,6 @@ public final class Enumerable {
 			throw Errors.argumentOfOutOfRange("count");
 		}
 
-		return new RepeatEnumerable<>(element, count);
+		return new IntegerSequence.RepeatEnumerable<>(count, element);
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Collection;
 import java.util.List;
 
 @SuppressWarnings("unchecked")
-public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>, Cloneable, Serializable {
+public interface IList<T> extends List<T>, IReadOnlyList<T>, Cloneable, Serializable {
 	default boolean addAll(Iterable<? extends T> c) {
 		return this.addAll(this.size(), c);
 	}
@@ -50,6 +50,9 @@ public interface IList<T> extends List<T>, IListEnumerable<T>, IReadOnlyList<T>,
 	default int indexOfValue(T o) {
 		return this.indexOf(o);
 	}
+
+	@Override
+	boolean isEmpty();
 
 	/**
 	 * lastIndexOf(Object o) と同じ動作です。

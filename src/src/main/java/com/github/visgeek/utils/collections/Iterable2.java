@@ -1,8 +1,7 @@
 package com.github.visgeek.utils.collections;
 
 /**
- * Iterable&lt;T&gt; の機能と IEnumerable&lt;T&gt; に変換する機能を提供します。 
- * @author gako
+ * Iterable&lt;T&gt; の機能と IEnumerable&lt;T&gt; に変換する機能を提供します。
  *
  * @param <T>
  */

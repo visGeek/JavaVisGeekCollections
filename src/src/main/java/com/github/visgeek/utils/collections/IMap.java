@@ -125,6 +125,9 @@ public interface IMap<K, V> extends java.util.Map<K, V>, IReadOnlyMap<K, V> {
 	}
 
 	@Override
+	boolean isEmpty();
+
+	@Override
 	default Iterator<Entry<K, V>> iterator() {
 		return this.entrySet().iterator();
 	}
