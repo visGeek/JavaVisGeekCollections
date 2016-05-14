@@ -42,7 +42,7 @@ public interface IDoubleEnumerable extends IEnumerable<Double> {
 	}
 
 	/**
-	 * 要素をコピーした新しい int 型の配列を取得します。null は 0 として扱います。
+	 * 要素をコピーした新しい double 型の配列を取得します。null は 0 として扱います。
 	 * @return
 	 */
 	default double[] toPrimitiveArray() {
