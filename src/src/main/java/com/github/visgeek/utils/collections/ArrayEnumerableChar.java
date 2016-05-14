@@ -1,8 +1,9 @@
 package com.github.visgeek.utils.collections;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
-class ArrayEnumerableChar implements IListEnumerable<Character>, IEnumerable<Character> {
+class ArrayEnumerableChar implements IListEnumerable<Character>, ICharacterCollectionEnumerable {
 	// コンストラクター
 	public ArrayEnumerableChar(char[] source) {
 		this.source = source;
@@ -65,5 +66,11 @@ class ArrayEnumerableChar implements IListEnumerable<Character>, IEnumerable<Cha
 		}
 
 		return result;
+	}
+
+	@Override
+	public char[] toPrimitiveArray() {
+		char[] array = Arrays.copyOf(this.source, this.count());
+		return array;
 	}
 }
