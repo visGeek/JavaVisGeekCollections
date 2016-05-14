@@ -31,10 +31,13 @@ public final class Enumerable {
 
 		if (source instanceof IEnumerable<?>) {
 			return (IEnumerable<T>) source;
+
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ReadOnlyList<>((List<T>) source);
+
 		} else if (source instanceof Collection<?>) {
 			return new ReadOnlyCollection<>((Collection<T>) source);
+
 		} else {
 			return () -> source.iterator();
 		}
@@ -60,10 +63,13 @@ public final class Enumerable {
 
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Double>) source).asDoubleEnumerable();
+
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ReadOnlyList.DoubleList(((List<Double>) source));
+
 		} else if (source instanceof Collection<?>) {
 			return new ReadOnlyCollection.DoubleCollection((Collection<Double>) source);
+
 		} else {
 			return () -> source.iterator();
 		}
@@ -84,10 +90,13 @@ public final class Enumerable {
 
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Integer>) source).asIntegerEnumerable();
+
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ReadOnlyList.IntegerList((List<Integer>) source);
+
 		} else if (source instanceof Collection<?>) {
 			return new ReadOnlyCollection.IntegerCollection((Collection<Integer>) source);
+
 		} else {
 			return () -> source.iterator();
 		}
@@ -108,10 +117,13 @@ public final class Enumerable {
 
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Long>) source).asLongEnumerable();
+
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ReadOnlyList.LongList((List<Long>) source);
+
 		} else if (source instanceof Collection<?>) {
 			return new ReadOnlyCollection.LongCollection((Collection<Long>) source);
+
 		} else {
 			return () -> source.iterator();
 		}
@@ -132,10 +144,13 @@ public final class Enumerable {
 
 		if (source instanceof IEnumerable<?>) {
 			return ((IEnumerable<Character>) source).asCharacterEnumerable();
+
 		} else if (source instanceof List<?> && source instanceof RandomAccess) {
 			return new ReadOnlyList.CharacterList((List<Character>) source);
+
 		} else if (source instanceof Collection<?>) {
 			return new ReadOnlyCollection.CharacterCollection((Collection<Character>) source);
+
 		} else {
 			return () -> source.iterator();
 		}
