@@ -129,6 +129,33 @@ public final class Enumerable {
 		}
 	}
 
+	public static IByteEnumerable of(byte... source) {
+		Errors.throwIfNull(source, "source");
+		return new ByteArray(source);
+	}
+
+	public static IByteEnumerable of(Byte[] source) {
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.ByteList(Arrays.asList(source));
+	}
+
+	public static IByteEnumerable ofByte(Iterable<Byte> source) {
+		Errors.throwIfNull(source, "source");
+
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Byte>) source).asByteEnumerable();
+
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ReadOnlyList.ByteList((List<Byte>) source);
+
+		} else if (source instanceof Collection<?>) {
+			return new ReadOnlyCollection.ByteCollection((Collection<Byte>) source);
+
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
 	public static ICharacterEnumerable of(char... source) {
 		Errors.throwIfNull(source, "source");
 		return new CharacterArray(source);
