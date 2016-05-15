@@ -1,38 +1,44 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.ienumerable;
 
 import org.junit.Assert;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Action0;
-import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
-import com.github.visgeek.utils.testing.Assert2;
+import com.github.visgeek.utils.testing.CollectionCreator;
 
 public class Max01 {
+	@Rule
+	public final ExpectedException expectedException = ExpectedException.none();
+
 	@Test
 	public void empty() {
-		IEnumerable<Integer> source = Enumerable.empty(Integer.class);
-		Class<? extends Exception> exceptionClass = UnsupportedOperationException.class;
-		Action0 action = () -> source.max();
-		Assert2.assertExceptionThrown(exceptionClass, action);
+		Integer[] source = new Integer[] {};
+		Integer expected = null;
+
+		IEnumerable<Integer> enumerable = () -> CollectionCreator.iterator(source);
+		Integer actual = enumerable.max();
+		Assert.assertEquals(expected, actual);
 	}
 
 	@Test
 	public void uncomparable() {
-		IEnumerable<Uncomparable> source = () -> Enumerable.of(new Uncomparable(), new Uncomparable(), new Uncomparable()).iterator();
-		Class<? extends Exception> exceptionClass = ClassCastException.class;
-		Action0 action = () -> source.max();
-		Assert2.assertExceptionThrown(exceptionClass, action);
+		this.expectedException.expect(IllegalArgumentException.class);
+
+		Object[] source = new Object[] { new Object(), new Object(), new Object() };
+
+		IEnumerable<Object> enumerable = () -> CollectionCreator.iterator(source);
+		enumerable.max();
 	}
 
 	@Test
 	public void normal() {
-		IEnumerable<Integer> source = () -> Enumerable.of(2, 1, 3).iterator();
-		int expected = 3;
-		int actual = source.max();
-		Assert.assertEquals(expected, actual);
-	}
+		Integer[] source = new Integer[] { 2, 1, null, 3 };
+		Integer expected = 3;
 
-	private static class Uncomparable {
+		IEnumerable<Integer> enumerable = () -> CollectionCreator.iterator(source);
+		Integer actual = enumerable.max();
+		Assert.assertEquals(expected, actual);
 	}
 }

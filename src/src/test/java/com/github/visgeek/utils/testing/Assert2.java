@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Objects;
 
 import org.junit.Assert;
+import org.junit.rules.ExpectedException;
 
 import com.github.visgeek.utils.Action0;
 
@@ -62,7 +63,12 @@ public class Assert2 {
 		Assert.assertTrue(String.format("expected:<%s> but was:<%s>", expectedExceptionClass.getName(), raised.getClass().getName()), Objects.equals(raised.getClass(), expectedExceptionClass));
 	}
 
-	public static void assertNullPointerExceptionThrown(String expectedMessage, Action0 action) {
+	public static void assertNullPointerExceptionThrown(ExpectedException expectedException, String expectMessage) {
+		expectedException.expect(NullPointerException.class);
+		expectedException.expectMessage(expectMessage);
+	}
+
+	public static void assertNullPointerExceptionThrown(String expectMessage, Action0 action) {
 		Throwable raised = null;
 
 		try {
@@ -75,7 +81,7 @@ public class Assert2 {
 
 		Assert.assertTrue("exception was not thorwn", raised != null);
 		Assert.assertTrue(String.format("expected:<%s> but was:<%s>", npeClass.getName(), raised.getClass().getName()), Objects.equals(raised.getClass(), npeClass));
-		Assert.assertEquals(expectedMessage, raised.getMessage());
+		Assert.assertEquals(expectMessage, raised.getMessage());
 	}
 
 	public static void assertExceptionNotThrown(Action0 action) {
@@ -100,7 +106,7 @@ public class Assert2 {
 			try {
 				Assert2.assertSequanceEquals(seqs.seq1, seqs.seq2);
 			} catch (AssertionError e) {
-			  //
+				//
 			}
 		}
 
@@ -114,7 +120,7 @@ public class Assert2 {
 			try {
 				Assert2.assertExceptionThrown(action.expectedExceptionClass, action.action);
 			} catch (AssertionError e) {
-			  //
+				//
 			}
 		}
 	}

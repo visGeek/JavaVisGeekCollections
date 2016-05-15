@@ -1,6 +1,7 @@
 package com.github.visgeek.utils.collections;
 
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
@@ -19,6 +20,7 @@ import com.github.visgeek.utils.IndexedAction1;
 import com.github.visgeek.utils.IndexedFunc1;
 import com.github.visgeek.utils.IndexedPredicate;
 import com.github.visgeek.utils.JoinedValue;
+import com.github.visgeek.utils.collections.test.testcase.enumerable.of.IBigDecimalEnumerable;
 
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
@@ -146,6 +148,32 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
+	 * IBigDecimalEnumerable に変換します。要素を BigDecimal にキャストできない場合でも例外の発生は実行時まで延期されます。
+	 *
+	 * @return
+	 */
+	default IBigDecimalEnumerable asBigDecimalEnumerable() {
+		if (this instanceof IBigDecimalEnumerable) {
+			return (IBigDecimalEnumerable) this;
+		} else {
+			return this.selectBigDecimal(n -> (BigDecimal) n);
+		}
+	}
+
+	/**
+	 * IBooleanEnumerable に変換します。要素を Boolean にキャストできない場合でも例外の発生は実行時まで延期されます。
+	 *
+	 * @return
+	 */
+	default IBooleanEnumerable asBooleanEnumerable() {
+		if (this instanceof IBooleanEnumerable) {
+			return (IBooleanEnumerable) this;
+		} else {
+			return this.selectBoolean(n -> (Boolean) n);
+		}
+	}
+
+	/**
 	 * IByteEnumerable に変換します。要素を Byte にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
@@ -194,6 +222,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
+	 * IFloatEnumerable に変換します。要素を Float にキャストできない場合でも例外の発生は実行時まで延期されます。
+	 *
+	 * @return
+	 */
+	default IFloatEnumerable asFloatEnumerable() {
+		if (this instanceof IFloatEnumerable) {
+			return (IFloatEnumerable) this;
+		} else {
+			return this.selectFloat(n -> (Float) n);
+		}
+	}
+
+	/**
 	 * IIntegerEnumerable に変換します。要素を Integer にキャストできない場合でも例外の発生は実行時まで延期されます。
 	 *
 	 * @return
@@ -220,6 +261,19 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	/**
+	 * IShortEnumerable に変換します。要素を Short にキャストできない場合でも例外の発生は実行時まで延期されます。
+	 *
+	 * @return
+	 */
+	default IShortEnumerable asShortEnumerable() {
+		if (this instanceof IShortEnumerable) {
+			return (IShortEnumerable) this;
+		} else {
+			return this.selectShort(n -> (Short) n);
+		}
+	}
+
+	/**
 	 * Stream&lt;T&gt; に変換します。
 	 * @return
 	 */
@@ -235,6 +289,16 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default Double averageDouble(Func1<? super T, Double> selector) {
 		return this.selectDouble(selector).average();
+	}
+
+	/**
+	 * セレクター関数を使用して要素から取得した値の平均値を取得します。セレクター関数の結果が null の場合は 計算の対象外です。
+	 *
+	 * @param selector
+	 * @return null 以外の値の平均値。シーケンスが空、または null のみの場合は null。
+	 */
+	default Float averageFloat(Func1<? super T, Float> selector) {
+		return this.selectFloat(selector).average();
 	}
 
 	/**
@@ -1029,43 +1093,50 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default T max() {
-		return this.max(ComparatorUtils.getDefault());
+		try {
+			return this.max(ComparatorUtils.getDefault());
+		} catch (ClassCastException e) {
+			throw Errors.notComparable();
+		}
 	}
 
 	default T max(Comparator<? super T> comparator) {
 		Errors.throwIfNull(comparator, "comparator");
 
+		T result;
+
 		Iterator<T> itr = this.iterator();
+		if (itr.hasNext()) {
+			result = itr.next();
 
-		if (!itr.hasNext()) {
-			throw Errors.empty();
-		}
-
-		T max = itr.next();
-
-		while (itr.hasNext()) {
-			T tmp = itr.next();
-			if (comparator.compare(max, tmp) < 0) {
-				max = tmp;
+			while (itr.hasNext()) {
+				T tmp = itr.next();
+				if (tmp != null) {
+					if (comparator.compare(result, tmp) < 0) {
+						result = tmp;
+					}
+				}
 			}
+
+		} else {
+			result = null;
 		}
 
-		return max;
+		return result;
 	}
 
-	default Byte maxByte(Func1<? super T, Byte> selector) {
-		Errors.throwIfNull(selector, "selector");
-		return this.selectByte(selector).max();
-	}
-
-	default Character maxCharacter(Func1<? super T, Character> selector) {
-		Errors.throwIfNull(selector, "selector");
-		return this.selectCharacter(selector).max();
+	default <TResult extends Comparable<TResult>> TResult max(Func1<? super T, ? extends TResult> selector) {
+		return this.select(selector).max();
 	}
 
 	default Double maxDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return this.selectDouble(selector).max();
+	}
+
+	default Float maxFloat(Func1<? super T, Float> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectFloat(selector).max();
 	}
 
 	default Integer maxInt(Func1<? super T, Integer> selector) {
@@ -1078,44 +1149,52 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.selectLong(selector).max();
 	}
 
+	default BigDecimal maxBigDecimal(Func1<? super T, BigDecimal> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectBigDecimal(selector).max();
+	}
+
 	default T min() {
-		return this.min(ComparatorUtils.getDefault());
+		try {
+			return this.min(ComparatorUtils.getDefault());
+		} catch (ClassCastException e) {
+			throw Errors.notComparable();
+		}
 	}
 
 	default T min(Comparator<? super T> comparator) {
 		Errors.throwIfNull(comparator, "comparator");
 
+		T result;
+
 		Iterator<T> itr = this.iterator();
+		if (itr.hasNext()) {
+			result = itr.next();
 
-		if (!itr.hasNext()) {
-			throw Errors.empty();
-		}
-
-		T min = itr.next();
-
-		while (itr.hasNext()) {
-			T tmp = itr.next();
-			if (0 < comparator.compare(min, tmp)) {
-				min = tmp;
+			while (itr.hasNext()) {
+				T tmp = itr.next();
+				if (tmp != null) {
+					if (comparator.compare(result, tmp) > 0) {
+						result = tmp;
+					}
+				}
 			}
+
+		} else {
+			result = null;
 		}
 
-		return min;
-	}
-
-	default Byte minByte(Func1<? super T, Byte> selector) {
-		Errors.throwIfNull(selector, "selector");
-		return this.selectByte(selector).min();
-	}
-
-	default Character minCharacter(Func1<? super T, Character> selector) {
-		Errors.throwIfNull(selector, "selector");
-		return this.selectCharacter(selector).min();
+		return result;
 	}
 
 	default Double minDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return this.selectDouble(selector).min();
+	}
+
+	default Float minFloat(Func1<? super T, Float> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectFloat(selector).min();
 	}
 
 	default Integer minInt(Func1<? super T, Integer> selector) {
@@ -1126,6 +1205,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default Long minLong(Func1<? super T, Long> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return this.selectLong(selector).min();
+	}
+
+	default BigDecimal minBigDecimal(Func1<? super T, BigDecimal> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectBigDecimal(selector).min();
 	}
 
 	default <TResult extends T> IEnumerable<TResult> ofType(Class<TResult> elementClass) {
@@ -1211,6 +1295,16 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return () -> new LinqSelectIterator<>(IEnumerable.this, selector);
 	}
 
+	default IBigDecimalEnumerable selectBigDecimal(Func1<? super T, BigDecimal> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> IEnumerable.this.select(selector).iterator();
+	}
+
+	default IBooleanEnumerable selectBoolean(Func1<? super T, Boolean> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> IEnumerable.this.select(selector).iterator();
+	}
+
 	default IByteEnumerable selectByte(Func1<? super T, Byte> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> IEnumerable.this.select(selector).iterator();
@@ -1222,6 +1316,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default IDoubleEnumerable selectDouble(Func1<? super T, Double> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> IEnumerable.this.select(selector).iterator();
+	}
+
+	default IFloatEnumerable selectFloat(Func1<? super T, Float> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> IEnumerable.this.select(selector).iterator();
 	}
@@ -1244,6 +1343,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default <TResult> IEnumerable<TResult> selectMany(IndexedFunc1<? super T, Iterable<TResult>> selector) {
 		Errors.throwIfNull(selector, "selector");
 		return () -> new LinqSelectManyIterator<>(IEnumerable.this, selector);
+	}
+
+	default IShortEnumerable selectShort(Func1<? super T, Short> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> IEnumerable.this.select(selector).iterator();
 	}
 
 	default boolean sequenceEqual(Iterable<? extends T> second) {
@@ -1416,17 +1520,17 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default double sumDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
+		return this.selectDouble(selector).sum();
+	}
 
-		double sum = 0;
-
-		for (T item : this) {
-			Double parsed = selector.func(item);
-			if (parsed != null) {
-				sum += parsed;
-			}
-		}
-
-		return sum;
+	/**
+	 * セレクター関数を使用して要素から取得した値の合計を取得します。セレクター関数の結果が null の場合は 0 として扱います。
+	 * @param selector
+	 * @return
+	 */
+	default double sumFloat(Func1<? super T, Float> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return this.selectFloat(selector).sum();
 	}
 
 	/**
@@ -1436,16 +1540,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default int sumInteger(Func1<? super T, Integer> selector) {
 		Errors.throwIfNull(selector, "selector");
-
-		int sum = 0;
-		for (T item : this) {
-			Integer parsed = selector.func(item);
-			if (parsed != null) {
-				sum = Math.addExact(sum, parsed);
-			}
-		}
-
-		return sum;
+		return this.selectInteger(selector).sum();
 	}
 
 	/**
@@ -1455,17 +1550,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default long sumLong(Func1<? super T, Long> selector) {
 		Errors.throwIfNull(selector, "selector");
-
-		long sum = 0;
-
-		for (T item : this) {
-			Long parsed = selector.func(item);
-			if (parsed != null) {
-				sum = Math.addExact(sum, parsed);
-			}
-		}
-
-		return sum;
+		return this.selectLong(selector).sum();
 	}
 
 	default IEnumerable<T> take(int count) {

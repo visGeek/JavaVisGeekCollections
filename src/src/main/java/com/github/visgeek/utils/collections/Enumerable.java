@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Stream;
 import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.IndexedFunc0;
+import com.github.visgeek.utils.collections.test.testcase.enumerable.of.IBigDecimalEnumerable;
 
 public final class Enumerable {
 	// コンストラクター
@@ -20,6 +22,7 @@ public final class Enumerable {
 	private static final IEnumerable<?> empty = () -> IEnumerator.empty();
 
 	// スタティックメソッド
+	// Object
 	@SafeVarargs
 	public static <T> IEnumerable<T> of(T... source) {
 		Errors.throwIfNull(source, "source");
@@ -43,41 +46,16 @@ public final class Enumerable {
 		}
 	}
 
+	// Stream
 	public static <T> IEnumerable<T> of(Stream<T> source) {
 		Errors.throwIfNull(source, "source");
 		return () -> source.iterator();
 	}
 
-	public static IDoubleEnumerable of(double... source) {
-		Errors.throwIfNull(source, "source");
-		return new DoubleArray(source);
-	}
-
-	public static IDoubleEnumerable of(Double[] source) {
-		Errors.throwIfNull(source, "source");
-		return new ReadOnlyList.DoubleList(Arrays.asList(source));
-	}
-
-	public static IDoubleEnumerable ofDouble(Iterable<Double> source) {
-		Errors.throwIfNull(source, "source");
-
-		if (source instanceof IEnumerable<?>) {
-			return ((IEnumerable<Double>) source).asDoubleEnumerable();
-
-		} else if (source instanceof List<?> && source instanceof RandomAccess) {
-			return new ReadOnlyList.DoubleList(((List<Double>) source));
-
-		} else if (source instanceof Collection<?>) {
-			return new ReadOnlyCollection.DoubleCollection((Collection<Double>) source);
-
-		} else {
-			return () -> source.iterator();
-		}
-	}
-
+	// int
 	public static IIntegerEnumerable of(int... source) {
 		Errors.throwIfNull(source, "source");
-		return new IntegerArray(source);
+		return new PrimitiveIntegerArray(source);
 	}
 
 	public static IIntegerEnumerable of(Integer[] source) {
@@ -102,9 +80,38 @@ public final class Enumerable {
 		}
 	}
 
+	// short
+	public static IShortEnumerable of(short... source) {
+		Errors.throwIfNull(source, "source");
+		return new PrimitiveShortArray(source);
+	}
+
+	public static IShortEnumerable of(Short[] source) {
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.ShortList(Arrays.asList(source));
+	}
+
+	public static IShortEnumerable ofShort(Iterable<Short> source) {
+		Errors.throwIfNull(source, "source");
+
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Short>) source).asShortEnumerable();
+
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ReadOnlyList.ShortList((List<Short>) source);
+
+		} else if (source instanceof Collection<?>) {
+			return new ReadOnlyCollection.ShortCollection((Collection<Short>) source);
+
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
+	// long
 	public static ILongEnumerable of(long... source) {
 		Errors.throwIfNull(source, "source");
-		return new LongArray(source);
+		return new PrimitiveLongArray(source);
 	}
 
 	public static ILongEnumerable of(Long[] source) {
@@ -129,9 +136,10 @@ public final class Enumerable {
 		}
 	}
 
+	// byte
 	public static IByteEnumerable of(byte... source) {
 		Errors.throwIfNull(source, "source");
-		return new ByteArray(source);
+		return new PrimitiveByteArray(source);
 	}
 
 	public static IByteEnumerable of(Byte[] source) {
@@ -156,9 +164,94 @@ public final class Enumerable {
 		}
 	}
 
+	// float
+	public static IFloatEnumerable of(float... source) {
+		Errors.throwIfNull(source, "source");
+		return new PrimitiveFloatArray(source);
+	}
+
+	public static IFloatEnumerable of(Float[] source) {
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.FloatList(Arrays.asList(source));
+	}
+
+	public static IFloatEnumerable ofFloat(Iterable<Float> source) {
+		Errors.throwIfNull(source, "source");
+
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Float>) source).asFloatEnumerable();
+
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ReadOnlyList.FloatList(((List<Float>) source));
+
+		} else if (source instanceof Collection<?>) {
+			return new ReadOnlyCollection.FloatCollection((Collection<Float>) source);
+
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
+	// double
+	public static IDoubleEnumerable of(double... source) {
+		Errors.throwIfNull(source, "source");
+		return new PrimitiveDoubleArray(source);
+	}
+
+	public static IDoubleEnumerable of(Double[] source) {
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.DoubleList(Arrays.asList(source));
+	}
+
+	public static IDoubleEnumerable ofDouble(Iterable<Double> source) {
+		Errors.throwIfNull(source, "source");
+
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Double>) source).asDoubleEnumerable();
+
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ReadOnlyList.DoubleList(((List<Double>) source));
+
+		} else if (source instanceof Collection<?>) {
+			return new ReadOnlyCollection.DoubleCollection((Collection<Double>) source);
+
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
+	// boolean
+	public static IBooleanEnumerable of(boolean... source) {
+		Errors.throwIfNull(source, "source");
+		return new PrimitiveBooleanArray(source);
+	}
+
+	public static IBooleanEnumerable of(Boolean[] source) {
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.BooleanList(Arrays.asList(source));
+	}
+
+	public static IBooleanEnumerable ofBoolean(Iterable<Boolean> source) {
+		Errors.throwIfNull(source, "source");
+
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<Boolean>) source).asBooleanEnumerable();
+
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ReadOnlyList.BooleanList((List<Boolean>) source);
+
+		} else if (source instanceof Collection<?>) {
+			return new ReadOnlyCollection.BooleanCollection((Collection<Boolean>) source);
+
+		} else {
+			return () -> source.iterator();
+		}
+	}
+
+	// char
 	public static ICharacterEnumerable of(char... source) {
 		Errors.throwIfNull(source, "source");
-		return new CharacterArray(source);
+		return new PrimitiveCharacterArray(source);
 	}
 
 	public static ICharacterEnumerable of(Character[] source) {
@@ -186,6 +279,29 @@ public final class Enumerable {
 	public static ICharacterEnumerable ofCharacter(String source) {
 		Errors.throwIfNull(source, "source");
 		return Enumerable.of(source.toCharArray());
+	}
+
+	// BigDecimal
+	public static IBigDecimalEnumerable of(BigDecimal... source) {
+		Errors.throwIfNull(source, "source");
+		return new ReadOnlyList.BigDecimalList(Arrays.asList(source));
+	}
+
+	public static IBigDecimalEnumerable ofBigDecimal(Iterable<BigDecimal> source) {
+		Errors.throwIfNull(source, "source");
+
+		if (source instanceof IEnumerable<?>) {
+			return ((IEnumerable<BigDecimal>) source).asBigDecimalEnumerable();
+
+		} else if (source instanceof List<?> && source instanceof RandomAccess) {
+			return new ReadOnlyList.BigDecimalList((List<BigDecimal>) source);
+
+		} else if (source instanceof Collection<?>) {
+			return new ReadOnlyCollection.BigDecimalCollection((Collection<BigDecimal>) source);
+
+		} else {
+			return () -> source.iterator();
+		}
 	}
 
 	/**
