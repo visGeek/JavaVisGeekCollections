@@ -10,7 +10,7 @@ public class ToPrimitiveArray {
 	@Test
 	public void test() {
 		Byte[] source = new Byte[] { null, 1, 2, 3 };
-		byte[] expected = new byte[] { 0, 1, 2, 3 };;
+		byte[] expected = new byte[] { 0, 1, 2, 3 };
 
 		IByteEnumerable enumerable = Enumerable.of(source);
 		byte[] actual = enumerable.toPrimitiveArray();

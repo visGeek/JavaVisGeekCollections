@@ -9,10 +9,11 @@ import com.github.visgeek.utils.collections.ILongEnumerable;
 public class ToPrimitiveArray {
 	@Test
 	public void test() {
-		ILongEnumerable source = Enumerable.of(new Long[] { null, 1L, 2L, 3L });
-		long[] expected = new long[] { 0L, 1L, 2L, 3L };
+		Long[] source = new Long[] { null, 1L, 2L, 3L };
+		long[] expected = new long[] { 0, 1L, 2L, 3L };
 
-		long[] actual = source.toPrimitiveArray();
+		ILongEnumerable enumerable = Enumerable.of(source);
+		long[] actual = enumerable.toPrimitiveArray();
 		Assert.assertArrayEquals(expected, actual);
 	}
 }

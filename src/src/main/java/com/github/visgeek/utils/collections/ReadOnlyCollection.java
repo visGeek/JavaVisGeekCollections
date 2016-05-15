@@ -1,5 +1,6 @@
 package com.github.visgeek.utils.collections;
 
+import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Collections;
 
@@ -9,9 +10,16 @@ class ReadOnlyCollection<T> extends ReadOnlyCollectionBase<T, Collection<T>> {
 		super(Collections.unmodifiableCollection(collection));
 	}
 
-	// Double
-	static class DoubleCollection extends ReadOnlyCollection<Double> implements IDoubleCollection {
-		DoubleCollection(Collection<Double> source) {
+	// Byte
+	static class ByteCollection extends ReadOnlyCollection<Byte> implements IByteCollection {
+		ByteCollection(Collection<Byte> source) {
+			super(source);
+		}
+	}
+
+	// Short
+	static class ShortCollection extends ReadOnlyCollection<Short> implements IShortCollection {
+		ShortCollection(Collection<Short> source) {
 			super(source);
 		}
 	}
@@ -30,9 +38,23 @@ class ReadOnlyCollection<T> extends ReadOnlyCollectionBase<T, Collection<T>> {
 		}
 	}
 
-	// Byte
-	static class ByteCollection extends ReadOnlyCollection<Byte> implements IByteCollection {
-		ByteCollection(Collection<Byte> source) {
+	// Float
+	static class FloatCollection extends ReadOnlyCollection<Float> implements IFloatCollection {
+		FloatCollection(Collection<Float> source) {
+			super(source);
+		}
+	}
+
+	// Double
+	static class DoubleCollection extends ReadOnlyCollection<Double> implements IDoubleCollection {
+		DoubleCollection(Collection<Double> source) {
+			super(source);
+		}
+	}
+
+	// Boolean
+	static class BooleanCollection extends ReadOnlyCollection<Boolean> implements IBooleanCollection {
+		BooleanCollection(Collection<Boolean> source) {
 			super(source);
 		}
 	}
@@ -40,6 +62,13 @@ class ReadOnlyCollection<T> extends ReadOnlyCollectionBase<T, Collection<T>> {
 	// Character
 	static class CharacterCollection extends ReadOnlyCollection<Character> implements ICharacterCollection {
 		CharacterCollection(Collection<Character> source) {
+			super(source);
+		}
+	}
+
+	// BigDecimal
+	static class BigDecimalCollection extends ReadOnlyCollection<BigDecimal> implements IBigDecimalCollection {
+		BigDecimalCollection(Collection<BigDecimal> source) {
 			super(source);
 		}
 	}

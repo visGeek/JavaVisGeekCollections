@@ -31,6 +31,10 @@ class Errors {
 		return new IllegalArgumentException(message);
 	}
 
+	public static IllegalArgumentException notComparable() {
+		return new IllegalArgumentException("IComparable に変換出来ません。");
+	}
+
 	public static <T> T throwIfNull(T parameter, String name) {
 		if (parameter == null) {
 			throw new NullPointerException(name);

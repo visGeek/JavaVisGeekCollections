@@ -10,8 +10,8 @@ import com.github.visgeek.utils.collections.IEnumerable;
 public class AverageLong {
 	@Test
 	public void test() {
-		Long[] source = new Long[] { null, 1L, 2L, 3L };
-		Double expected = (double) (1L + 2L + 3L) / 3;
+		Long[] source = new Long[] { null, 1L, 2L, 3L, 4L };
+		Double expected = (double) (1L + 2L + 3L + 4L) / 4;
 
 		IEnumerable<Long> enumerable = () -> Arrays.asList(source).iterator();
 		Double actual = enumerable.averageLong(n -> n);

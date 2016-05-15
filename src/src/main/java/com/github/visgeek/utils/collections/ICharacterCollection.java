@@ -5,9 +5,9 @@ interface ICharacterCollection extends ICharacterEnumerable, IReadOnlyCollection
 	default char[] toPrimitiveArray() {
 		char[] array = new char[this.count()];
 
-		int i = 0;
+		char i = 0;
 		for (Character value : this) {
-			array[i] = value == null ? 0 : value;
+			array[i] = value == null ? '\0' : value;
 			i++;
 		}
 

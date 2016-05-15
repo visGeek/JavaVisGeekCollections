@@ -10,8 +10,8 @@ import com.github.visgeek.utils.collections.IEnumerable;
 public class AverageInteger {
 	@Test
 	public void test() {
-		Integer[] source = new Integer[] { null, 1, 2, 3 };
-		Double expected = (double) (1 + 2 + 3) / 3;
+		Integer[] source = new Integer[] { null, 1, 2, 3, 4 };
+		Double expected = (double) (1 + 2 + 3 + 4) / 4;
 
 		IEnumerable<Integer> enumerable = () -> Arrays.asList(source).iterator();
 		Double actual = enumerable.averageInteger(n -> n);
