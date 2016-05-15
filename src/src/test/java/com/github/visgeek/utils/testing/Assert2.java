@@ -8,7 +8,7 @@ import java.util.Objects;
 import org.junit.Assert;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Action0;
+import com.github.visgeek.utils.functions.Action0;
 
 public class Assert2 {
 	private Assert2() {

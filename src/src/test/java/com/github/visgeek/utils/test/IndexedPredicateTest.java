@@ -4,7 +4,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.IndexedPredicate;
+import com.github.visgeek.utils.functions.IndexedPredicate;
 
 public class IndexedPredicateTest {
 	@Rule

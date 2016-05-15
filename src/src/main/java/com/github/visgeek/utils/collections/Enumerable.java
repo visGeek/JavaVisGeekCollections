@@ -8,10 +8,10 @@ import java.util.RandomAccess;
 import java.util.function.Predicate;
 import java.util.stream.Stream;
 
-import com.github.visgeek.utils.Func0;
-import com.github.visgeek.utils.Func1;
-import com.github.visgeek.utils.IndexedFunc0;
 import com.github.visgeek.utils.collections.test.testcase.enumerable.of.IBigDecimalEnumerable;
+import com.github.visgeek.utils.functions.Func0;
+import com.github.visgeek.utils.functions.Func1;
+import com.github.visgeek.utils.functions.IndexedFunc0;
 
 public final class Enumerable {
 	// コンストラクター

@@ -7,8 +7,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.collections.EnumerableMap;
+import com.github.visgeek.utils.functions.Func0;
 
 public class putIfAbsent01 {
 	@Rule

@@ -2,8 +2,8 @@ package com.github.visgeek.utils.collections.test.testcase.collection.map.imap;
 
 import org.junit.Test;
 
-import com.github.visgeek.utils.Func0;
 import com.github.visgeek.utils.collections.EnumerableMap;
+import com.github.visgeek.utils.functions.Func0;
 
 public class GetValueOrPutSync {
 	@Test

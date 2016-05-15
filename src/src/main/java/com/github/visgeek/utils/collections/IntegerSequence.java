@@ -3,7 +3,7 @@ package com.github.visgeek.utils.collections;
 import java.util.Iterator;
 import java.util.Objects;
 
-import com.github.visgeek.utils.IndexedFunc0;
+import com.github.visgeek.utils.functions.IndexedFunc0;
 
 /**
  * 開始値から終了値までを指定した int のシーケンスを表すクラスです。

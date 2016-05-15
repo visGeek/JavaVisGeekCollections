@@ -2,9 +2,9 @@ package com.github.visgeek.utils.collections.test.testcase.enumerable.of;
 
 import java.util.ArrayList;
 
-import com.github.visgeek.utils.Action1;
-import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.collections.IEnumerable;
+import com.github.visgeek.utils.functions.Action1;
+import com.github.visgeek.utils.functions.Func1;
 import com.github.visgeek.utils.testing.CollectionCreator;
 
 @SuppressWarnings("unchecked")

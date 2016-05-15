@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.IndexedPredicate;
+import com.github.visgeek.utils.functions.IndexedPredicate;
 
 class LinqSkipWhileIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqSkipWhileIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {

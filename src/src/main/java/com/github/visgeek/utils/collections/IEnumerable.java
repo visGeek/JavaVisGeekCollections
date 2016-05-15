@@ -12,15 +12,15 @@ import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
 import com.github.visgeek.utils.ComparatorUtils;
-import com.github.visgeek.utils.Func0;
-import com.github.visgeek.utils.Func1;
-import com.github.visgeek.utils.Func2;
 import com.github.visgeek.utils.IEqualityComparator;
-import com.github.visgeek.utils.IndexedAction1;
-import com.github.visgeek.utils.IndexedFunc1;
-import com.github.visgeek.utils.IndexedPredicate;
 import com.github.visgeek.utils.JoinedValue;
 import com.github.visgeek.utils.collections.test.testcase.enumerable.of.IBigDecimalEnumerable;
+import com.github.visgeek.utils.functions.Func0;
+import com.github.visgeek.utils.functions.Func1;
+import com.github.visgeek.utils.functions.Func2;
+import com.github.visgeek.utils.functions.IndexedAction1;
+import com.github.visgeek.utils.functions.IndexedFunc1;
+import com.github.visgeek.utils.functions.IndexedPredicate;
 
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.github.visgeek.utils.IndexedFunc0;
+import com.github.visgeek.utils.functions.IndexedFunc0;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class IndexedFunc0Test {

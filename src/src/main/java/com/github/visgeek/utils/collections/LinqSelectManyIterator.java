@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.IndexedFunc1;
+import com.github.visgeek.utils.functions.IndexedFunc1;
 
 class LinqSelectManyIterator<T, TResult> extends AbstractConvertedEnumerator<T, TResult> {
 	public LinqSelectManyIterator(Iterable<T> source, IndexedFunc1<? super T, Iterable<TResult>> selector) {

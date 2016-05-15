@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.IndexedPredicate;
+import com.github.visgeek.utils.functions.IndexedPredicate;
 
 class LinqTakeWhileIterator<T> extends AbstractConvertedEnumerator<T, T> {
 	public LinqTakeWhileIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {

@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.github.visgeek.utils.Func7;
+import com.github.visgeek.utils.functions.Func7;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class Func7Test {

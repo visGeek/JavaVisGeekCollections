@@ -3,7 +3,7 @@ package com.github.visgeek.utils.collections.test.testcase.ireadonlylist;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.visgeek.utils.Func0;
+import com.github.visgeek.utils.functions.Func0;
 
 public class ElementAtOrDefault {
 	@Test

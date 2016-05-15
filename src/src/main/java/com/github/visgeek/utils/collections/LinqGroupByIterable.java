@@ -2,9 +2,9 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.Func1;
-import com.github.visgeek.utils.Func2;
 import com.github.visgeek.utils.IEqualityComparator;
+import com.github.visgeek.utils.functions.Func1;
+import com.github.visgeek.utils.functions.Func2;
 
 abstract class LinqGroupByIterable<T, TKey, TElement, TResult> implements IEnumerable<TResult> {
 	// コンストラクター

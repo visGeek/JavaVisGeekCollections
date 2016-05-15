@@ -4,10 +4,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Action0;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.ICharacterEnumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
+import com.github.visgeek.utils.functions.Action0;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class AsCharacterEnumerable {

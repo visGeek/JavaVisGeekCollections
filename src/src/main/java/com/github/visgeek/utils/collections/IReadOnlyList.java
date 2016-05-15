@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-import com.github.visgeek.utils.Func0;
+import com.github.visgeek.utils.functions.Func0;
 
 public interface IReadOnlyList<T> extends IReadOnlyCollection<T> {
 	@Override

@@ -4,9 +4,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.IndexedFunc0;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
+import com.github.visgeek.utils.functions.IndexedFunc0;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class Range02 {

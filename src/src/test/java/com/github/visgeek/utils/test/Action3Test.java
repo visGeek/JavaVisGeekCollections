@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.github.visgeek.utils.Action3;
+import com.github.visgeek.utils.functions.Action3;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class Action3Test {
