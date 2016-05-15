@@ -3,8 +3,8 @@ package com.github.visgeek.utils.collections;
 import java.util.Iterator;
 import java.util.function.Predicate;
 
-import com.github.visgeek.utils.Func0;
-import com.github.visgeek.utils.Func1;
+import com.github.visgeek.utils.functions.Func0;
+import com.github.visgeek.utils.functions.Func1;
 
 public interface IEnumerator<T> extends Iterator<T> {
 	// メソッド

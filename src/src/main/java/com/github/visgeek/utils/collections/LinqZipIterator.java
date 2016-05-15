@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.Func2;
+import com.github.visgeek.utils.functions.Func2;
 
 class LinqZipIterator<TFirst, TSecond, TResult> extends AbstractConvertedIterator<TFirst, TResult> {
 	public LinqZipIterator(Iterable<TFirst> source, Iterable<TSecond> second, Func2<? super TFirst, ? super TSecond, TResult> resultSelector) {

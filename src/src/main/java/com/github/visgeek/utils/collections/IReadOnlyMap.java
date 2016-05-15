@@ -2,10 +2,11 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Collection;
 import java.util.Map.Entry;
-import java.util.Set;
 
-import com.github.visgeek.utils.Func0;
-import com.github.visgeek.utils.Func1;
+import com.github.visgeek.utils.functions.Func0;
+import com.github.visgeek.utils.functions.Func1;
+
+import java.util.Set;
 
 public interface IReadOnlyMap<K, V> extends IReadOnlyCollection<Entry<K, V>> {
 	boolean containsKey(K key);

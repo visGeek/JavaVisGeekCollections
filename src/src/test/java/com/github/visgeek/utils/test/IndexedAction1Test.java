@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.junit.Test;
 
-import com.github.visgeek.utils.IndexedAction1;
+import com.github.visgeek.utils.functions.IndexedAction1;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class IndexedAction1Test {

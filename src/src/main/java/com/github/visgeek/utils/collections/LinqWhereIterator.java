@@ -2,7 +2,7 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.IndexedPredicate;
+import com.github.visgeek.utils.functions.IndexedPredicate;
 
 class LinqWhereIterator<T> extends AbstractEnumerator<T> {
 	public LinqWhereIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {

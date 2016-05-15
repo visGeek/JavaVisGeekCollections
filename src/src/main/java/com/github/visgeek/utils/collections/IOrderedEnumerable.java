@@ -3,7 +3,7 @@ package com.github.visgeek.utils.collections;
 import java.util.Comparator;
 
 import com.github.visgeek.utils.ComparatorUtils;
-import com.github.visgeek.utils.Func1;
+import com.github.visgeek.utils.functions.Func1;
 
 public interface IOrderedEnumerable<T> extends IEnumerable<T> {
 	Comparator<T> comparator();

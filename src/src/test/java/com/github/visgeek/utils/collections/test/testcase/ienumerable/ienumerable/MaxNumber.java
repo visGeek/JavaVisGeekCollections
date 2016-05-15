@@ -7,10 +7,10 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Action0;
-import com.github.visgeek.utils.Func1;
-import com.github.visgeek.utils.Func2;
 import com.github.visgeek.utils.collections.IEnumerable;
+import com.github.visgeek.utils.functions.Action0;
+import com.github.visgeek.utils.functions.Func1;
+import com.github.visgeek.utils.functions.Func2;
 import com.github.visgeek.utils.testing.Assert2;
 import com.github.visgeek.utils.testing.CollectionCreator;
 

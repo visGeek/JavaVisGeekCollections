@@ -2,8 +2,8 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.Func0;
-import com.github.visgeek.utils.Func1;
+import com.github.visgeek.utils.functions.Func0;
+import com.github.visgeek.utils.functions.Func1;
 
 public interface IMap<K, V> extends java.util.Map<K, V>, IReadOnlyMap<K, V> {
 	/**

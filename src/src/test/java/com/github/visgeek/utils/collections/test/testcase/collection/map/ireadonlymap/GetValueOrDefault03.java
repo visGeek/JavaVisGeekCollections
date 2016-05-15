@@ -5,8 +5,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.github.visgeek.utils.Func1;
 import com.github.visgeek.utils.collections.EnumerableMap;
+import com.github.visgeek.utils.functions.Func1;
 import com.github.visgeek.utils.testing.Assert2;
 
 public class GetValueOrDefault03 {

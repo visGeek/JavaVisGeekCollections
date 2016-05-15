@@ -2,9 +2,9 @@ package com.github.visgeek.utils.collections;
 
 import java.util.Iterator;
 
-import com.github.visgeek.utils.Func1;
-import com.github.visgeek.utils.Func2;
 import com.github.visgeek.utils.IEqualityComparator;
+import com.github.visgeek.utils.functions.Func1;
+import com.github.visgeek.utils.functions.Func2;
 
 class Lookup<TKey, TElement> implements ILookup<TKey, TElement> {
 	// コンストラクター

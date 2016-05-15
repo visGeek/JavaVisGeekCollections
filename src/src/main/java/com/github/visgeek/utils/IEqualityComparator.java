@@ -2,6 +2,9 @@ package com.github.visgeek.utils;
 
 import java.util.Objects;
 
+import com.github.visgeek.utils.functions.Func1;
+import com.github.visgeek.utils.functions.Func2;
+
 /**
  * 等価比較のためのメソッドを実装します。
  *
