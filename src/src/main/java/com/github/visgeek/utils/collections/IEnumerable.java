@@ -443,7 +443,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default IEnumerable<T> concat(Iterable<? extends T> second) {
 		Errors.throwIfNull(second, "second");
-		return () -> new LinqConcateIterator<>(IEnumerable.this, second);
+		return () -> new LinqConcateIterator<>(this, second);
 	}
 
 	/**
@@ -454,7 +454,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default IEnumerable<T> concat(@SuppressWarnings("unchecked") T... second) {
 		Errors.throwIfNull(second, "second");
-		return () -> new LinqConcateIterator<>(IEnumerable.this, Enumerable.of(second));
+		return () -> new LinqConcateIterator<>(this, Enumerable.of(second));
 	}
 
 	/**
@@ -633,7 +633,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default IEnumerable<T> defaultIfEmpty(@SuppressWarnings("unchecked") T... defaultValues) {
-		return () -> new LinqDefaultIfEmptyIterator<>(IEnumerable.this, Enumerable.of(defaultValues));
+		return () -> new LinqDefaultIfEmptyIterator<>(this, Enumerable.of(defaultValues));
 	}
 
 	/**
@@ -643,7 +643,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default IEnumerable<T> defaultIfEmpty(Iterable<? extends T> defaultValues) {
-		return () -> new LinqDefaultIfEmptyIterator<>(IEnumerable.this, defaultValues);
+		return () -> new LinqDefaultIfEmptyIterator<>(this, defaultValues);
 	}
 
 	/**
@@ -662,7 +662,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default IEnumerable<T> distinct(IEqualityComparator<? super T> comparator) {
-		return () -> new LinqDistinctIterator<>(IEnumerable.this, comparator);
+		return () -> new LinqDistinctIterator<>(this, comparator);
 	}
 
 	/**
@@ -747,7 +747,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default IEnumerable<T> except(Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
-		return () -> new LinqExceptIterator<>(IEnumerable.this, second, comparator);
+		return () -> new LinqExceptIterator<>(this, second, comparator);
 	}
 
 	/**
@@ -942,7 +942,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
 		Errors.throwIfNull(resultSelector, "resultSelector");
 
-		return () -> new LinqGroupJoinIterator<>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
+		return () -> new LinqGroupJoinIterator<>(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
 	/**
@@ -963,7 +963,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 */
 	default IEnumerable<T> intersect(Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
 		Errors.throwIfNull(second, "second");
-		return () -> new LinqIntersectIterator<>(IEnumerable.this, second, comparator);
+		return () -> new LinqIntersectIterator<>(this, second, comparator);
 	}
 
 	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
@@ -986,7 +986,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
 		Errors.throwIfNull(resultSelector, "resultSelector");
 
-		return () -> new LinqJoinIterator<>(IEnumerable.this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
+		return () -> new LinqJoinIterator<>(this, inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
 	default T last() {
@@ -1214,7 +1214,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TResult extends T> IEnumerable<TResult> ofType(Class<TResult> elementClass) {
 		Errors.throwIfNull(elementClass, "elementClass");
-		return () -> new LinqOfTypeIterator<>(IEnumerable.this, elementClass);
+		return () -> new LinqOfTypeIterator<>(this, elementClass);
 	}
 
 	default <TKey extends Comparable<TKey>> IOrderedEnumerable<T> orderBy(Func1<? super T, TKey> keySelector) {
@@ -1282,57 +1282,107 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default IEnumerable<T> reverse() {
-		return () -> new LinqReverseIterator<>(IEnumerable.this);
+		return () -> new LinqReverseIterator<>(this);
 	}
 
 	default <TResult> IEnumerable<TResult> select(Func1<? super T, TResult> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return this.select((item, idx) -> selector.func(item));
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default <TResult> IEnumerable<TResult> select(IndexedFunc1<? super T, TResult> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> new LinqSelectIterator<>(IEnumerable.this, selector);
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default IBigDecimalEnumerable selectBigDecimal(Func1<? super T, BigDecimal> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IBigDecimalEnumerable selectBigDecimal(IndexedFunc1<? super T, BigDecimal> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default IBooleanEnumerable selectBoolean(Func1<? super T, Boolean> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IBooleanEnumerable selectBoolean(IndexedFunc1<? super T, Boolean> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default IByteEnumerable selectByte(Func1<? super T, Byte> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IByteEnumerable selectByte(IndexedFunc1<? super T, Byte> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default ICharacterEnumerable selectCharacter(Func1<? super T, Character> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default ICharacterEnumerable selectCharacter(IndexedFunc1<? super T, Character> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default IDoubleEnumerable selectDouble(Func1<? super T, Double> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IDoubleEnumerable selectDouble(IndexedFunc1<? super T, Double> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default IFloatEnumerable selectFloat(Func1<? super T, Float> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IFloatEnumerable selectFloat(IndexedFunc1<? super T, Float> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default IIntegerEnumerable selectInteger(Func1<? super T, Integer> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IIntegerEnumerable selectInteger(IndexedFunc1<? super T, Integer> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default ILongEnumerable selectLong(Func1<? super T, Long> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default ILongEnumerable selectLong(IndexedFunc1<? super T, Long> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IShortEnumerable selectShort(Func1<? super T, Short> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
+	}
+
+	default IShortEnumerable selectShort(IndexedFunc1<? super T, Short> selector) {
+		Errors.throwIfNull(selector, "selector");
+		return () -> new LinqSelectIterator<>(this, selector);
 	}
 
 	default <TResult> IEnumerable<TResult> selectMany(Func1<? super T, Iterable<TResult>> selector) {
@@ -1342,12 +1392,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TResult> IEnumerable<TResult> selectMany(IndexedFunc1<? super T, Iterable<TResult>> selector) {
 		Errors.throwIfNull(selector, "selector");
-		return () -> new LinqSelectManyIterator<>(IEnumerable.this, selector);
-	}
-
-	default IShortEnumerable selectShort(Func1<? super T, Short> selector) {
-		Errors.throwIfNull(selector, "selector");
-		return () -> IEnumerable.this.select(selector).iterator();
+		return () -> new LinqSelectManyIterator<>(this, selector);
 	}
 
 	default boolean sequenceEqual(Iterable<? extends T> second) {
@@ -1389,7 +1434,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default IEnumerable<T> shift(int count) {
-		return () -> new LinqShiftIterator<>(IEnumerable.this, count);
+		return () -> new LinqShiftIterator<>(this, count);
 	}
 
 	default IEnumerable<T> shuffle() {
@@ -1397,7 +1442,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	}
 
 	default IEnumerable<T> shuffle(Random rnd) {
-		return () -> new LinqShuffleIterator<>(IEnumerable.this, rnd);
+		return () -> new LinqShuffleIterator<>(this, rnd);
 	}
 
 	default T single() {
@@ -1510,7 +1555,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> skipWhile(IndexedPredicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return () -> new LinqSkipWhileIterator<>(IEnumerable.this, predicate);
+		return () -> new LinqSkipWhileIterator<>(this, predicate);
 	}
 
 	/**
@@ -1568,7 +1613,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> takeWhile(IndexedPredicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return () -> new LinqTakeWhileIterator<>(IEnumerable.this, predicate);
+		return () -> new LinqTakeWhileIterator<>(this, predicate);
 	}
 
 	default T[] toArray(Class<T> elementClass) {
@@ -1694,7 +1739,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> union(Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
 		Errors.throwIfNull(second, "second");
-		return () -> new LinqUnionIterator<>(IEnumerable.this, second, comparator);
+		return () -> new LinqUnionIterator<>(this, second, comparator);
 	}
 
 	default IEnumerable<T> where(Predicate<? super T> predicate) {
@@ -1704,11 +1749,11 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> where(IndexedPredicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return () -> new LinqWhereIterator<>(IEnumerable.this, predicate);
+		return () -> new LinqWhereIterator<>(this, predicate);
 	}
 
 	default <TSecond, TResult> IEnumerable<TResult> zip(Iterable<TSecond> second, Func2<? super T, ? super TSecond, TResult> resultSelector) {
 		Errors.throwIfNull(second, "second");
-		return () -> new LinqZipIterator<>(IEnumerable.this, second, resultSelector);
+		return () -> new LinqZipIterator<>(this, second, resultSelector);
 	}
 }

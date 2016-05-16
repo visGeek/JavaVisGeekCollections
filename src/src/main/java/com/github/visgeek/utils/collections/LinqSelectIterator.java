@@ -1,9 +1,14 @@
 package com.github.visgeek.utils.collections;
 
+import com.github.visgeek.utils.functions.Func1;
 import com.github.visgeek.utils.functions.IndexedFunc1;
 
 class LinqSelectIterator<T, TResult> extends AbstractConvertedIterator<T, TResult> {
-	public LinqSelectIterator(Iterable<T> source, IndexedFunc1<? super T, TResult> selector) {
+	LinqSelectIterator(Iterable<T> source, Func1<? super T, TResult> selector) {
+		this(source, (item, index) -> selector.func(item));
+	}
+
+	LinqSelectIterator(Iterable<T> source, IndexedFunc1<? super T, TResult> selector) {
 		super(source);
 		this.selector = selector;
 	}

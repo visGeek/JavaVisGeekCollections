@@ -25,7 +25,7 @@ public interface Action1<T> {
 	 * @param funcWithException
 	 * @return
 	 */
-	public static <T1> Action1<T1> create(Action1WithException<T1> actionWithException) {
+	public static <T1> Action1<T1> create(WithException<T1> actionWithException) {
 		return arg1 -> {
 			try {
 				actionWithException.action(arg1);
@@ -33,5 +33,10 @@ public interface Action1<T> {
 				throw new RuntimeException(e);
 			}
 		};
+	}
+
+	@FunctionalInterface
+	public static interface WithException<T> {
+		void action(T arg) throws Exception;
 	}
 }

@@ -8,7 +8,7 @@ public interface Predicate<T> extends java.util.function.Predicate<T> {
 	 * @param func1WithException
 	 * @return
 	 */
-	public static <T> Predicate<T> create(PredicateWithException<T> indexedPredicateWithException) {
+	public static <T> Predicate<T> create(WithException<T> indexedPredicateWithException) {
 		return (arg) -> {
 			try {
 				return indexedPredicateWithException.test(arg);
@@ -16,5 +16,10 @@ public interface Predicate<T> extends java.util.function.Predicate<T> {
 				throw new RuntimeException(e);
 			}
 		};
+	}
+
+	@FunctionalInterface
+	public static interface WithException<T> {
+		boolean test(T arg) throws Exception;
 	}
 }

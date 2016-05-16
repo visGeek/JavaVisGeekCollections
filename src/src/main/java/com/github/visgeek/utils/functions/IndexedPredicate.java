@@ -30,7 +30,7 @@ public interface IndexedPredicate<T> {
 	 * @param func1WithException
 	 * @return
 	 */
-	public static <T> IndexedPredicate<T> create(IndexedPredicateWithException<T> indexedPredicateWithException) {
+	public static <T> IndexedPredicate<T> create(WithException<T> indexedPredicateWithException) {
 		return (arg, index) -> {
 			try {
 				return indexedPredicateWithException.test(arg, index);
@@ -38,5 +38,10 @@ public interface IndexedPredicate<T> {
 				throw new RuntimeException(e);
 			}
 		};
+	}
+
+	@FunctionalInterface
+	public static interface WithException<T> {
+		boolean test(T t, int index) throws Exception;
 	}
 }

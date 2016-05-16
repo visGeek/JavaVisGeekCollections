@@ -37,7 +37,7 @@ public interface Func5<T1, T2, T3, T4, T5, TResult> {
 	 * @param funcWithException
 	 * @return
 	 */
-	public static <T1, T2, T3, T4, T5, TResult> Func5<T1, T2, T3, T4, T5, TResult> create(Func5WithException<T1, T2, T3, T4, T5, TResult> funcWithException) {
+	public static <T1, T2, T3, T4, T5, TResult> Func5<T1, T2, T3, T4, T5, TResult> create(WithException<T1, T2, T3, T4, T5, TResult> funcWithException) {
 		return (arg1, arg2, arg3, arg4, arg5) -> {
 			try {
 				return funcWithException.func(arg1, arg2, arg3, arg4, arg5);
@@ -45,5 +45,10 @@ public interface Func5<T1, T2, T3, T4, T5, TResult> {
 				throw new RuntimeException(e);
 			}
 		};
+	}
+
+	@FunctionalInterface
+	public static interface WithException<T1, T2, T3, T4, T5, TResult> {
+		TResult func(T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5) throws Exception;
 	}
 }
