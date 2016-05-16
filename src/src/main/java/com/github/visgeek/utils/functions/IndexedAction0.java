@@ -14,7 +14,7 @@ public interface IndexedAction0 {
 	 * @param funcWithException
 	 * @return
 	 */
-	public static IndexedAction0 create(IndexedAction0WithException actionWithException) {
+	public static IndexedAction0 create(WithException actionWithException) {
 		return index -> {
 			try {
 				actionWithException.action(index);
@@ -22,5 +22,10 @@ public interface IndexedAction0 {
 				throw new RuntimeException(e);
 			}
 		};
+	}
+
+	@FunctionalInterface
+	public static interface WithException {
+		void action(int index) throws Exception;
 	}
 }

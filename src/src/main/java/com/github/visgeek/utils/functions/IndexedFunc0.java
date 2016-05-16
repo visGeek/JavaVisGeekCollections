@@ -15,7 +15,7 @@ public interface IndexedFunc0<TResult> {
 	 * @param func1WithException
 	 * @return
 	 */
-	public static <TResult> IndexedFunc0<TResult> create(IndexedFunc0WithException<TResult> funcWithException) {
+	public static <TResult> IndexedFunc0<TResult> create(WithException<TResult> funcWithException) {
 		return index -> {
 			try {
 				return funcWithException.func(index);
@@ -23,5 +23,10 @@ public interface IndexedFunc0<TResult> {
 				throw new RuntimeException(e);
 			}
 		};
+	}
+
+	@FunctionalInterface
+	public static interface WithException<TResult> {
+		TResult func(int index) throws Exception;
 	}
 }
