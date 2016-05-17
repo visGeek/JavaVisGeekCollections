@@ -4,8 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
+import com.github.visgeek.utils.collections.Enumerator;
 import com.github.visgeek.utils.collections.IEnumerable;
-import com.github.visgeek.utils.collections.IEnumerator;
 import com.github.visgeek.utils.functions.Action0;
 import com.github.visgeek.utils.testing.Assert2;
 
@@ -64,7 +64,7 @@ public class Take01 {
 		IEnumerable<Integer> source = () -> Enumerable.of(0, 1).iterator();
 
 		IEnumerable<Integer> actual = source.take(1);
-		IEnumerator<Integer> e = actual.getEnumerator();
+		Enumerator<Integer> e = actual.getEnumerator();
 
 		Assert.assertTrue(e.moveNext());
 		Assert.assertFalse(e.moveNext());

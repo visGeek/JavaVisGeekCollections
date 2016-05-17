@@ -19,7 +19,7 @@ public final class Enumerable {
 	}
 
 	// スタティックフィールド
-	private static final IEnumerable<?> empty = () -> IEnumerator.empty();
+	private static final IEnumerable<?> empty = () -> Enumerator.empty();
 
 	// スタティックメソッド
 	// Object
@@ -359,7 +359,7 @@ public final class Enumerable {
 	 * @return
 	 */
 	public static <T> IEnumerable<T> forTo(Func0<? extends T> first, Predicate<? super T> predicate, Func1<? super T, ? extends T> next) {
-		return () -> IEnumerator.create(first, predicate, next);
+		return () -> Enumerator.create(first, predicate, next);
 	}
 
 	/**

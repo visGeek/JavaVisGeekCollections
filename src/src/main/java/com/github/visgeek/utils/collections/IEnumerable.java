@@ -24,9 +24,9 @@ import com.github.visgeek.utils.functions.IndexedPredicate;
 
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
-	default IEnumerator<T> getEnumerator() {
-		if (this.iterator() instanceof IEnumerator<?>) {
-			return (IEnumerator<T>) this.iterator();
+	default Enumerator<T> getEnumerator() {
+		if (this.iterator() instanceof Enumerator<?>) {
+			return (Enumerator<T>) this.iterator();
 		} else {
 			return new Enumerator<T>() {
 				private final Iterator<T> itr = IEnumerable.this.iterator();

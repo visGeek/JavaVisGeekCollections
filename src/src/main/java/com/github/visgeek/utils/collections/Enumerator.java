@@ -1,12 +1,18 @@
 package com.github.visgeek.utils.collections;
 
+import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.function.Predicate;
+
+import com.github.visgeek.utils.functions.Func0;
+import com.github.visgeek.utils.functions.Func1;
 
 /**
- * IEnumerator&lt;T&gt; のメソッドを実装した抽象クラスです。Iterator&lt;T&gt; のメソッドと IEnumerator&lt;T&gt; のメソッドをあわせて実行した場合の動作は保証されません。
+ * current() と moveNext() を使ったイテレーションを行うための抽象クラスです。Iterator&lt;T&gt; のメソッドと IEnumerator&lt;T&gt; のメソッドをあわせて実行した場合の動作は保証されません。
  * @param <T>
  */
-public abstract class Enumerator<T> implements IEnumerator<T> {
+@SuppressWarnings("unchecked")
+public abstract class Enumerator<T> implements Iterator<T> {
 	// コンストラクター
 	public Enumerator() {
 	}
@@ -17,10 +23,8 @@ public abstract class Enumerator<T> implements IEnumerator<T> {
 	private boolean hasNext;
 
 	// メソッド
-	@Override
 	public abstract T current();
 
-	@Override
 	public abstract boolean moveNext();
 
 	/**
@@ -68,5 +72,41 @@ public abstract class Enumerator<T> implements IEnumerator<T> {
 	@Override
 	public final void remove() {
 		throw Errors.invalidOperation();
+	}
+
+	// スタティックフィールド
+	private static final Enumerator<?> empty = Enumerator.create(null, val -> false, null);
+
+	// スタティックメソッド
+	public static <T> Enumerator<T> empty() {
+		return (Enumerator<T>) Enumerator.empty;
+	}
+
+	public static <T> Enumerator<T> create(Func0<? extends T> first, Predicate<? super T> predicate, Func1<? super T, ? extends T> next) {
+		return new Enumerator<T>() {
+			private boolean initial = true;
+
+			private T current = null;
+
+			@Override
+			public T current() {
+				return this.current;
+			}
+
+			@Override
+			public boolean moveNext() {
+				if (this.initial) { // 最初
+					this.current = (first == null) ? null : first.func();
+					this.initial = false;
+
+				} else if (next != null) { // 2回目以降
+					this.current = next.func(this.current);
+				}
+
+				// 条件
+				boolean result = (predicate == null) ? true : predicate.test(this.current);
+				return result;
+			}
+		};
 	}
 }

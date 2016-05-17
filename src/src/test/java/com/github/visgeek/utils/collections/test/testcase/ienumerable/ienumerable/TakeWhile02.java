@@ -4,8 +4,8 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
+import com.github.visgeek.utils.collections.Enumerator;
 import com.github.visgeek.utils.collections.IEnumerable;
-import com.github.visgeek.utils.collections.IEnumerator;
 import com.github.visgeek.utils.functions.Action0;
 import com.github.visgeek.utils.functions.IndexedPredicate;
 import com.github.visgeek.utils.testing.Assert2;
@@ -56,7 +56,7 @@ public class TakeWhile02 {
 		IndexedPredicate<Integer> predicate = (n, idx) -> (int) n == idx;
 
 		IEnumerable<Integer> actual = source.takeWhile(predicate);
-		IEnumerator<Integer> e = actual.getEnumerator();
+		Enumerator<Integer> e = actual.getEnumerator();
 
 		Assert.assertTrue(e.moveNext());
 		Assert.assertFalse(e.moveNext());
