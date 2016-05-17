@@ -1,12 +1,11 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.ienumerable;
 
-import java.util.function.Predicate;
-
 import org.junit.Assert;
 import org.junit.Test;
 
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
+import com.github.visgeek.utils.functions.Predicate;
 
 public class All {
 	@Test

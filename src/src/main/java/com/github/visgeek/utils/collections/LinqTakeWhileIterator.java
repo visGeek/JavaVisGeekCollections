@@ -3,17 +3,28 @@ package com.github.visgeek.utils.collections;
 import java.util.Iterator;
 
 import com.github.visgeek.utils.functions.IndexedPredicate;
+import com.github.visgeek.utils.functions.Predicate;
 
 class LinqTakeWhileIterator<T> extends AbstractConvertedEnumerator<T, T> {
-	public LinqTakeWhileIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {
+	LinqTakeWhileIterator(Iterable<T> source, Predicate<? super T> predicate) {
+		super(source);
+		this.predicate = (item, index) -> predicate.test(item);
+		this.itr = this.source.iterator();
+		this.indexEnabled = false;
+	}
+
+	LinqTakeWhileIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {
 		super(source);
 		this.predicate = predicate;
 		this.itr = this.source.iterator();
+		this.indexEnabled = true;
 	}
 
 	private final IndexedPredicate<? super T> predicate;
 
 	private final Iterator<T> itr;
+
+	private final boolean indexEnabled;
 
 	private T current;
 
@@ -32,8 +43,12 @@ class LinqTakeWhileIterator<T> extends AbstractConvertedEnumerator<T, T> {
 
 		if (this.taking) {
 			if (this.itr.hasNext()) {
+				if (this.indexEnabled) {
+					this.index = Math.addExact(this.index, 1);
+				}
+
 				this.current = this.itr.next();
-				this.index++;
+
 				if (this.predicate.test(this.current, this.index)) {
 					result = true;
 				} else {

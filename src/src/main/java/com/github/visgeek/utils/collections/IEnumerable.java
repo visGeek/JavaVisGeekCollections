@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-import java.util.function.Predicate;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 
@@ -21,6 +20,7 @@ import com.github.visgeek.utils.functions.Func2;
 import com.github.visgeek.utils.functions.IndexedAction1;
 import com.github.visgeek.utils.functions.IndexedFunc1;
 import com.github.visgeek.utils.functions.IndexedPredicate;
+import com.github.visgeek.utils.functions.Predicate;
 
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
@@ -874,7 +874,8 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 		int i = -1;
 		for (T item : this) {
-			action.action(item, ++i);
+			i = Math.addExact(i, 1);
+			action.action(item, i);
 		}
 	}
 
@@ -1550,7 +1551,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> skipWhile(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return this.skipWhile((item, idx) -> predicate.test(item));
+		return () -> new LinqSkipWhileIterator<>(this, predicate);
 	}
 
 	default IEnumerable<T> skipWhile(IndexedPredicate<? super T> predicate) {
@@ -1608,7 +1609,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> takeWhile(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return this.takeWhile((item, idx) -> predicate.test(item));
+		return () -> new LinqTakeWhileIterator<>(this, predicate);
 	}
 
 	default IEnumerable<T> takeWhile(IndexedPredicate<? super T> predicate) {
@@ -1685,18 +1686,45 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default <TKey> EnumerableMap<TKey, T> toMap(Func1<? super T, TKey> keySelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
-		return this.toMap((item, idx) -> keySelector.func(item), (item, idx) -> item);
+
+		EnumerableMap<TKey, T> map = new EnumerableMap<>();
+
+		for (T item : this) {
+			TKey key = keySelector.func(item);
+			map.putOrThrow(key, item);
+		}
+
+		return map;
 	}
 
 	default <TKey> EnumerableMap<TKey, T> toMap(IndexedFunc1<? super T, TKey> keySelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
-		return this.toMap(keySelector, (item, idx) -> item);
+
+		EnumerableMap<TKey, T> map = new EnumerableMap<>();
+
+		int i = -1;
+		for (T item : this) {
+			i = Math.addExact(i, 1);
+			TKey key = keySelector.func(item, i);
+			map.putOrThrow(key, item);
+		}
+
+		return map;
 	}
 
 	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(Func1<? super T, TKey> keySelector, Func1<? super T, TValue> valueSelector) {
 		Errors.throwIfNull(keySelector, "keySelector");
 		Errors.throwIfNull(valueSelector, "valueSelector");
-		return this.toMap((item, idx) -> keySelector.func(item), (item, idx) -> valueSelector.func(item));
+
+		EnumerableMap<TKey, TValue> map = new EnumerableMap<>();
+
+		for (T item : this) {
+			TKey key = keySelector.func(item);
+			TValue value = valueSelector.func(item);
+			map.putOrThrow(key, value);
+		}
+
+		return map;
 	}
 
 	default <TKey, TValue> EnumerableMap<TKey, TValue> toMap(IndexedFunc1<? super T, TKey> keySelector, IndexedFunc1<? super T, TValue> valueSelector) {
@@ -1707,7 +1735,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 		int i = -1;
 		for (T item : this) {
-			i++;
+			i = Math.addExact(i, 1);
 			TKey key = keySelector.func(item, i);
 			TValue value = valueSelector.func(item, i);
 			map.putOrThrow(key, value);
@@ -1744,7 +1772,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 
 	default IEnumerable<T> where(Predicate<? super T> predicate) {
 		Errors.throwIfNull(predicate, "predicate");
-		return this.where((item, idx) -> predicate.test(item));
+		return () -> new LinqWhereIterator<>(this, predicate);
 	}
 
 	default IEnumerable<T> where(IndexedPredicate<? super T> predicate) {
