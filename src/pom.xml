@@ -3,7 +3,7 @@
 
 	<groupId>visGeek</groupId>
 	<artifactId>visGeekCollections</artifactId>
-	<version>0.0.1</version>
+	<version>1.0.0</version>
 	<packaging>jar</packaging>
 
 	<name>visGeekCollections</name>
