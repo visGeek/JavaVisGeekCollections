@@ -60,4 +60,42 @@ public interface IFloatEnumerable extends IEnumerable<Float> {
 
 		return array;
 	}
+
+	@Override
+	default Float max() {
+		Float result = null;
+
+		for (Float item : this) {
+			if (item != null) {
+				if (result == null) {
+					result = item;
+				} else if (result < item) {
+					result = item;
+				} else if (Float.isNaN(result)) {
+					result = item;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	default Float min() {
+		Float result = null;
+
+		for (Float item : this) {
+			if (item != null) {
+				if (result == null) {
+					result = item;
+				} else if (item < result) {
+					result = item;
+				} else if (Float.isNaN(item)) {
+					result = item;
+				}
+			}
+		}
+
+		return result;
+	}
 }

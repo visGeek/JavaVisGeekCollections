@@ -23,8 +23,8 @@ public class MaxNumber {
 		//@formatter:off
 		this.test(Integer::parseInt   , (enumerable, selector) -> enumerable.maxInt   (selector), 3   , "2"  , "1"  , null, "3"  );
 		this.test(Long   ::parseLong  , (enumerable, selector) -> enumerable.maxLong  (selector), 3L  , "2"  , "1"  , null, "3"  );
-		this.test(Double ::parseDouble, (enumerable, selector) -> enumerable.maxDouble(selector), 3.0 , "2.0", "1.0", null, "3.0");
-		this.test(Float  ::parseFloat , (enumerable, selector) -> enumerable.maxFloat (selector), 3.0f, "2.0", "1.0", null, "3.0");
+		this.test(Double ::parseDouble, (enumerable, selector) -> enumerable.maxDouble(selector), 3.0 , "NaN", "2.0", "1.0", null, "3.0");
+		this.test(Float  ::parseFloat , (enumerable, selector) -> enumerable.maxFloat (selector), 3.0f, "NaN", "2.0", "1.0", null, "3.0");
 		this.test(str -> BigDecimal.valueOf(Long.parseLong(str)), (enumerable, selector) -> enumerable.maxBigDecimal(selector), BigDecimal.valueOf(3L), "2", "1", null, "3");
 		//@formatter:on
 	}
@@ -69,5 +69,9 @@ public class MaxNumber {
 		T actual = testFunc.func(enumerable, selector);
 
 		Assert.assertEquals(expected, actual);
+	}
+
+	public static void main(String[] args) {
+		System.out.println(Double.NaN);
 	}
 }

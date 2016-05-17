@@ -60,4 +60,42 @@ public interface IDoubleEnumerable extends IEnumerable<Double> {
 
 		return array;
 	}
+
+	@Override
+	default Double max() {
+		Double result = null;
+
+		for (Double item : this) {
+			if (item != null) {
+				if (result == null) {
+					result = item;
+				} else if (result < item) {
+					result = item;
+				} else if (Double.isNaN(result)) {
+					result = item;
+				}
+			}
+		}
+
+		return result;
+	}
+
+	@Override
+	default Double min() {
+		Double result = null;
+
+		for (Double item : this) {
+			if (item != null) {
+				if (result == null) {
+					result = item;
+				} else if (item < result) {
+					result = item;
+				} else if (Double.isNaN(item)) {
+					result = item;
+				}
+			}
+		}
+
+		return result;
+	}
 }

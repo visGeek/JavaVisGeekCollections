@@ -1104,23 +1104,16 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default T max(Comparator<? super T> comparator) {
 		Errors.throwIfNull(comparator, "comparator");
 
-		T result;
+		T result = null;
 
-		Iterator<T> itr = this.iterator();
-		if (itr.hasNext()) {
-			result = itr.next();
-
-			while (itr.hasNext()) {
-				T tmp = itr.next();
-				if (tmp != null) {
-					if (comparator.compare(result, tmp) < 0) {
-						result = tmp;
-					}
+		for (T item : this) {
+			if (item != null) {
+				if (result == null) {
+					result = item;
+				} else if (comparator.compare(result, item) < 0) {
+					result = item;
 				}
 			}
-
-		} else {
-			result = null;
 		}
 
 		return result;
@@ -1166,23 +1159,16 @@ public interface IEnumerable<T> extends Iterable<T> {
 	default T min(Comparator<? super T> comparator) {
 		Errors.throwIfNull(comparator, "comparator");
 
-		T result;
+		T result = null;
 
-		Iterator<T> itr = this.iterator();
-		if (itr.hasNext()) {
-			result = itr.next();
-
-			while (itr.hasNext()) {
-				T tmp = itr.next();
-				if (tmp != null) {
-					if (comparator.compare(result, tmp) > 0) {
-						result = tmp;
-					}
+		for (T item : this) {
+			if (item != null) {
+				if (result == null) {
+					result = item;
+				} else if (comparator.compare(result, item) > 0) {
+					result = item;
 				}
 			}
-
-		} else {
-			result = null;
 		}
 
 		return result;

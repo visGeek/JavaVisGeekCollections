@@ -1,6 +1,7 @@
 package com.github.visgeek.utils.collections.test.testcase.ienumerable.ienumerable;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
 
 import org.junit.Assert;
 import org.junit.Rule;
@@ -24,7 +25,9 @@ public class MinNumber {
 		this.test(Integer::parseInt   , (enumerable, selector) -> enumerable.minInt   (selector), 1   , "2"  , "1"  , null, "3"  );
 		this.test(Long   ::parseLong  , (enumerable, selector) -> enumerable.minLong  (selector), 1L  , "2"  , "1"  , null, "3"  );
 		this.test(Double ::parseDouble, (enumerable, selector) -> enumerable.minDouble(selector), 1.0 , "2.0", "1.0", null, "3.0");
+		this.test(Double ::parseDouble, (enumerable, selector) -> enumerable.minDouble(selector), Double.NaN, "2.0", "1.0", null, "NaN", "3.0");
 		this.test(Float  ::parseFloat , (enumerable, selector) -> enumerable.minFloat (selector), 1.0f, "2.0", "1.0", null, "3.0");
+		this.test(Float  ::parseFloat , (enumerable, selector) -> enumerable.minFloat (selector), Float.NaN , "2.0", "1.0", null, "NaN", "3.0");
 		this.test(str -> BigDecimal.valueOf(Long.parseLong(str)), (enumerable, selector) -> enumerable.minBigDecimal(selector), BigDecimal.valueOf(1L), "2", "1", null, "3");
 		//@formatter:on
 	}
@@ -69,5 +72,17 @@ public class MinNumber {
 		T actual = testFunc.func(enumerable, selector);
 
 		Assert.assertEquals(expected, actual);
+	}
+
+	public static void main(String[] args) {
+		{
+			IEnumerable<Double> source = () -> Arrays.asList(2.0, 1.0, Double.NaN, 3.0).iterator();
+			System.out.println(source.min());
+		}
+
+		{
+			IEnumerable<Float> source = () -> Arrays.asList(2.0f, 1.0f, Float.NaN, 3.0f).iterator();
+			System.out.println(source.min());
+		}
 	}
 }
