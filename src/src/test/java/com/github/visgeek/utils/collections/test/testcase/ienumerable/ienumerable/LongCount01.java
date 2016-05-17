@@ -4,7 +4,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.github.visgeek.utils.collections.AbstractEnumerator;
+import com.github.visgeek.utils.collections.Enumerator;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.functions.Action0;
@@ -31,7 +31,7 @@ public class LongCount01 {
 	@Ignore
 	public void longCount() {
 		IEnumerable<String> source =
-				() -> new AbstractEnumerator<String>() {
+				() -> new Enumerator<String>() {
 					private long i = 0;
 
 					@Override
@@ -56,7 +56,7 @@ public class LongCount01 {
 	@Ignore
 	public void overflow() {
 		IEnumerable<String> source =
-				() -> new AbstractEnumerator<String>() {
+				() -> new Enumerator<String>() {
 					private long i = -100;
 
 					@Override

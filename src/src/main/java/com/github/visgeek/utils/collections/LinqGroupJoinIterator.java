@@ -6,7 +6,7 @@ import com.github.visgeek.utils.IEqualityComparator;
 import com.github.visgeek.utils.functions.Func1;
 import com.github.visgeek.utils.functions.Func2;
 
-class LinqGroupJoinIterator<TOuter, TInner, TKey, TResult> extends AbstractEnumerator<TResult> {
+class LinqGroupJoinIterator<TOuter, TInner, TKey, TResult> extends Enumerator<TResult> {
 	public LinqGroupJoinIterator(
 									Iterable<TOuter> source,
 									Iterable<TInner> inner,

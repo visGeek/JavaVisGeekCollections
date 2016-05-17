@@ -36,7 +36,7 @@ class IntegerSequence<T> implements IReadOnlyList<T> {
 
 	@Override
 	public final Iterator<T> iterator() {
-		return new AbstractEnumerator<T>() {
+		return new Enumerator<T>() {
 			boolean first = true;
 
 			private int current;

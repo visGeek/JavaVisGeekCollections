@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
-class LinqIntersectIterator<T> extends AbstractEnumerator<T> {
+class LinqIntersectIterator<T> extends Enumerator<T> {
 	public LinqIntersectIterator(Iterable<T> source, Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
 		this.itr = source.iterator();
 		this.second = second;

@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Test;
 
-import com.github.visgeek.utils.collections.AbstractEnumerator;
+import com.github.visgeek.utils.collections.Enumerator;
 import com.github.visgeek.utils.collections.Enumerable;
 import com.github.visgeek.utils.collections.IEnumerable;
 import com.github.visgeek.utils.functions.Action0;
@@ -36,7 +36,7 @@ public class Count02 {
 	@Ignore
 	public void overflow() {
 		IEnumerable<Integer> source =
-				() -> new AbstractEnumerator<Integer>() {
+				() -> new Enumerator<Integer>() {
 					private int i = -20;
 
 					@Override

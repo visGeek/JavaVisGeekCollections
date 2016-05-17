@@ -8,7 +8,7 @@ import com.github.visgeek.utils.IEqualityComparator;
 import com.github.visgeek.utils.functions.Func1;
 import com.github.visgeek.utils.functions.Func2;
 
-class LinqJoinIterator<TOuter, TInner, TKey, TResult> extends AbstractEnumerator<TResult> {
+class LinqJoinIterator<TOuter, TInner, TKey, TResult> extends Enumerator<TResult> {
 	public LinqJoinIterator(Iterable<TOuter> source, Iterable<TInner> inner, Func1<? super TOuter, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super TOuter, ? super TInner, TResult> resultSelector, IEqualityComparator<? super TKey> comparator) {
 		this.inner = inner;
 		this.outerKeySelector = outerKeySelector;

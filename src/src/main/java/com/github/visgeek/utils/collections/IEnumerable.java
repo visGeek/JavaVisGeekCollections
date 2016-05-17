@@ -28,7 +28,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 		if (this.iterator() instanceof IEnumerator<?>) {
 			return (IEnumerator<T>) this.iterator();
 		} else {
-			return new AbstractEnumerator<T>() {
+			return new Enumerator<T>() {
 				private final Iterator<T> itr = IEnumerable.this.iterator();
 
 				private T current;

@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
-class LinqUnionIterator<T> extends AbstractEnumerator<T> {
+class LinqUnionIterator<T> extends Enumerator<T> {
 	public LinqUnionIterator(Iterable<T> source, Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
 		this.second = second;
 		this.set = EquatableSet.create(comparator);

@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.IEqualityComparator;
 
-class LinqExceptIterator<T> extends AbstractEnumerator<T> {
+class LinqExceptIterator<T> extends Enumerator<T> {
 	public LinqExceptIterator(Iterable<T> source, Iterable<? extends T> second, IEqualityComparator<? super T> comparator) {
 		this.source = source;
 		this.second = second;

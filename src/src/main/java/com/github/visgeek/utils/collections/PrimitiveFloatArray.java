@@ -41,7 +41,7 @@ class PrimitiveFloatArray implements IReadOnlyList<Float>, IFloatCollection {
 
 	@Override
 	public Iterator<Float> iterator() {
-		return new AbstractEnumerator<Float>() {
+		return new Enumerator<Float>() {
 			private int index = -1;
 
 			@Override

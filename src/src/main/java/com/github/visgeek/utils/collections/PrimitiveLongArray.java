@@ -41,7 +41,7 @@ class PrimitiveLongArray implements IReadOnlyList<Long>, ILongCollection {
 
 	@Override
 	public Iterator<Long> iterator() {
-		return new AbstractEnumerator<Long>() {
+		return new Enumerator<Long>() {
 			private int index = -1;
 
 			@Override

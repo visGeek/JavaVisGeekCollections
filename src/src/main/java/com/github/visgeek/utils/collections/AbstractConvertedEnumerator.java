@@ -6,7 +6,7 @@ package com.github.visgeek.utils.collections;
  * @param <T>
  * @param <TResult>
  */
-abstract class AbstractConvertedEnumerator<T, TResult> extends AbstractEnumerator<TResult> {
+abstract class AbstractConvertedEnumerator<T, TResult> extends Enumerator<TResult> {
 	// コンストラクター
 	public AbstractConvertedEnumerator(Iterable<T> source) {
 		this.source = source;

@@ -1,6 +1,6 @@
 package com.github.visgeek.utils.collections;
 
-class LinqRangeEnumerator extends AbstractEnumerator<Integer> {
+class LinqRangeEnumerator extends Enumerator<Integer> {
 	// コンストラクター
 	public LinqRangeEnumerator(int start, int count) {
 		this.start = start;

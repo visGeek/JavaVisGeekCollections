@@ -5,12 +5,12 @@ import java.util.NoSuchElementException;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.github.visgeek.utils.collections.AbstractEnumerator;
+import com.github.visgeek.utils.collections.Enumerator;
 import com.github.visgeek.utils.testing.Assert2;
 
-public class AbstractEnumeratorTest {
-	private final AbstractEnumerator<Integer> create(int... values) {
-		return new AbstractEnumerator<Integer>() {
+public class EnumeratorTest {
+	private final Enumerator<Integer> create(int... values) {
+		return new Enumerator<Integer>() {
 			private int index = -1;
 
 			@Override
@@ -34,7 +34,7 @@ public class AbstractEnumeratorTest {
 
 	@Test
 	public void enumeration01() {
-		AbstractEnumerator<Integer> enumerator = this.create(1, 2, 3);
+		Enumerator<Integer> enumerator = this.create(1, 2, 3);
 
 		Assert.assertTrue(enumerator.moveNext());
 		Assert.assertEquals(enumerator.current(), Integer.valueOf(1));
@@ -51,7 +51,7 @@ public class AbstractEnumeratorTest {
 
 	@Test
 	public void enumeration02() {
-		AbstractEnumerator<Integer> enumerator = this.create(1, 2, 3);
+		Enumerator<Integer> enumerator = this.create(1, 2, 3);
 
 		Assert.assertTrue(enumerator.moveNext());
 		Assert.assertTrue(enumerator.moveNext());
@@ -65,7 +65,7 @@ public class AbstractEnumeratorTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void iteration01() {
-		AbstractEnumerator<Integer> enumerator = this.create(1, 2, 3);
+		Enumerator<Integer> enumerator = this.create(1, 2, 3);
 
 		Assert.assertTrue(enumerator.hasNext());
 		Assert.assertTrue(enumerator.hasNext());
@@ -83,7 +83,7 @@ public class AbstractEnumeratorTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void iteration02() {
-		AbstractEnumerator<Integer> enumerator = this.create(1, 2, 3);
+		Enumerator<Integer> enumerator = this.create(1, 2, 3);
 
 		Assert.assertEquals(enumerator.next(), Integer.valueOf(1));
 		Assert.assertEquals(enumerator.next(), Integer.valueOf(2));
@@ -94,7 +94,7 @@ public class AbstractEnumeratorTest {
 	@Test
 	@SuppressWarnings("deprecation")
 	public void remove() {
-		AbstractEnumerator<Integer> enumerator = this.create(1, 2, 3);
+		Enumerator<Integer> enumerator = this.create(1, 2, 3);
 		Assert2.assertExceptionThrown(UnsupportedOperationException.class, () -> {
 			enumerator.moveNext();
 			enumerator.remove();

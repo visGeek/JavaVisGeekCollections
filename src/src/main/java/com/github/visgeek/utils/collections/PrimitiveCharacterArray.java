@@ -41,7 +41,7 @@ class PrimitiveCharacterArray implements IReadOnlyList<Character>, ICharacterCol
 
 	@Override
 	public Iterator<Character> iterator() {
-		return new AbstractEnumerator<Character>() {
+		return new Enumerator<Character>() {
 			private int index = -1;
 
 			@Override

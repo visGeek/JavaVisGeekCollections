@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 import com.github.visgeek.utils.functions.IndexedPredicate;
 
-class LinqWhereIterator<T> extends AbstractEnumerator<T> {
+class LinqWhereIterator<T> extends Enumerator<T> {
 	public LinqWhereIterator(Iterable<T> source, IndexedPredicate<? super T> predicate) {
 		this.predicate = predicate;
 		this.itr = source.iterator();

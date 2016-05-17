@@ -41,7 +41,7 @@ class PrimitiveByteArray implements IReadOnlyList<Byte>, IByteCollection {
 
 	@Override
 	public Iterator<Byte> iterator() {
-		return new AbstractEnumerator<Byte>() {
+		return new Enumerator<Byte>() {
 			private int index = -1;
 
 			@Override

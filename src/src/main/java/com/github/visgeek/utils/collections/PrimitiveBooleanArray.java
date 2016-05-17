@@ -41,7 +41,7 @@ class PrimitiveBooleanArray implements IReadOnlyList<Boolean>, IBooleanCollectio
 
 	@Override
 	public Iterator<Boolean> iterator() {
-		return new AbstractEnumerator<Boolean>() {
+		return new Enumerator<Boolean>() {
 			private int index = -1;
 
 			@Override

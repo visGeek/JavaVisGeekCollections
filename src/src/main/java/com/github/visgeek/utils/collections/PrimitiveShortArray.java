@@ -41,7 +41,7 @@ class PrimitiveShortArray implements IReadOnlyList<Short>, IShortCollection {
 
 	@Override
 	public Iterator<Short> iterator() {
-		return new AbstractEnumerator<Short>() {
+		return new Enumerator<Short>() {
 			private int index = -1;
 
 			@Override

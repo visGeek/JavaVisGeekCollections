@@ -41,7 +41,7 @@ class PrimitiveDoubleArray implements IReadOnlyList<Double>, IDoubleCollection {
 
 	@Override
 	public Iterator<Double> iterator() {
-		return new AbstractEnumerator<Double>() {
+		return new Enumerator<Double>() {
 			private int index = -1;
 
 			@Override

@@ -41,7 +41,7 @@ class PrimitiveIntegerArray implements IReadOnlyList<Integer>, IIntegerCollectio
 
 	@Override
 	public Iterator<Integer> iterator() {
-		return new AbstractEnumerator<Integer>() {
+		return new Enumerator<Integer>() {
 			private int index = -1;
 
 			@Override
