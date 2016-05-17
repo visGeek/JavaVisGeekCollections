@@ -1,6 +1,8 @@
 package com.github.visgeek.utils.collections.test;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import com.github.visgeek.utils.collections.Enumerable;
@@ -22,6 +24,16 @@ public class ReadMe {
 		Cat taro = new Cat();
 		Cat jiro = new Cat();
 		Cat saburo = new Cat();
+
+		//@formatter:off
+List<Integer> values1 = new ArrayList<>();
+for (int val : new int[] { 2, 4, 6, 1, 5, 3 }) {
+	if (val <= 3) {
+		values1.add(val);
+	}
+}
+Collections.sort(values1);
+//@formatter:on
 
 		//@formatter:off
 // Usage

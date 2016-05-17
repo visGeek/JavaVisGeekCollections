@@ -22,6 +22,7 @@ import com.github.visgeek.utils.functions.IndexedFunc1;
 import com.github.visgeek.utils.functions.IndexedPredicate;
 import com.github.visgeek.utils.functions.Predicate;
 
+@SuppressWarnings("unchecked")
 public interface IEnumerable<T> extends Iterable<T> {
 	// メソッド
 	default Enumerator<T> getEnumerator() {
@@ -321,97 +322,97 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.selectLong(selector).average();
 	}
 
-	/***
-	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
-	 * @param item 検索する要素
-	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
-	 */
-	default int binarySearch(T item) {
-		return this.binarySearch(0, this.count(), item);
-	}
-
-	/***
-	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
-	 * @param index 検索開始位置を表すインデックス。
-	 * @param count 検索範囲の要素数。
-	 * @param item 検索する要素
-	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
-	 */
-	default int binarySearch(int index, int count, T item) {
-		return this.binarySearch(index, count, item, ComparatorUtils.getDefault());
-	}
-
-	/***
-	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
-	 * @param item 検索する要素
-	 * @param comparer 要素を比較するための比較子
-	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
-	 */
-	default int binarySearch(T item, Comparator<? super T> comparer) {
-		return this.binarySearch(0, this.count(), item, comparer);
-	}
-
-	/***
-	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
-	 * @param index 検索開始位置を表すインデックス。
-	 * @param count 検索範囲の要素数。
-	 * @param item 検索する要素
-	 * @param comparator 要素を比較するための比較子
-	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
-	 */
-	default int binarySearch(int index, int count, T item, Comparator<? super T> comparator) {
-		if (comparator == null) {
-			comparator = ComparatorUtils.getDefault();
-		}
-
-		int itemCount;
-
-		if (index < 0) {
-			throw new IllegalArgumentException("index");
-		} else if (count < 0) {
-			throw new IllegalArgumentException("count");
-		} else {
-			itemCount = this.count();
-			if (itemCount < index + count) {
-				throw new IllegalArgumentException();
-			}
-		}
-
-		int result;
-
-		if (itemCount == 0) {
-			result = ~0;
-
-		} else {
-			int startIndex = index;
-			int endIndex = startIndex + count - 1;
-			while (true) {
-				int idx = startIndex + (endIndex - startIndex) / 2;
-				T val = this.elementAt(idx);
-
-				int compareResult = comparator.compare(val, item);
-				if (compareResult == 0) {
-					result = idx;
-					break;
-
-				} else {
-					if (compareResult < 0) {
-						startIndex = idx + 1;
-
-					} else {
-						endIndex = idx - 1;
-					}
-
-					if (endIndex < startIndex) {
-						result = ~startIndex;
-						break;
-					}
-				}
-			}
-		}
-
-		return result;
-	}
+//	/***
+//	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
+//	 * @param item 検索する要素
+//	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
+//	 */
+//	default int binarySearch(T item) {
+//		return this.binarySearch(0, this.count(), item);
+//	}
+//
+//	/***
+//	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
+//	 * @param index 検索開始位置を表すインデックス。
+//	 * @param count 検索範囲の要素数。
+//	 * @param item 検索する要素
+//	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
+//	 */
+//	default int binarySearch(int index, int count, T item) {
+//		return this.binarySearch(index, count, item, ComparatorUtils.getDefault());
+//	}
+//
+//	/***
+//	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
+//	 * @param item 検索する要素
+//	 * @param comparer 要素を比較するための比較子
+//	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
+//	 */
+//	default int binarySearch(T item, Comparator<? super T> comparer) {
+//		return this.binarySearch(0, this.count(), item, comparer);
+//	}
+//
+//	/***
+//	 * 整列済みのシーケンスから指定された要素を二分探索し、見つかった位置のインデックスを取得します。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。要素が整列されていない場合の動作は保証されません。
+//	 * @param index 検索開始位置を表すインデックス。
+//	 * @param count 検索範囲の要素数。
+//	 * @param item 検索する要素
+//	 * @param comparator 要素を比較するための比較子
+//	 * @return 見つかった位置のインデックス。見つからなかった場合は検索値の次に大きい要素のインデックスのビットごとの補数です。大きい要素が存在しない場合は検索範囲の最後の要素のインデックス + 1 の補数です。
+//	 */
+//	default int binarySearch(int index, int count, T item, Comparator<? super T> comparator) {
+//		if (comparator == null) {
+//			comparator = ComparatorUtils.getDefault();
+//		}
+//
+//		int itemCount;
+//
+//		if (index < 0) {
+//			throw new IllegalArgumentException("index");
+//		} else if (count < 0) {
+//			throw new IllegalArgumentException("count");
+//		} else {
+//			itemCount = this.count();
+//			if (itemCount < index + count) {
+//				throw new IllegalArgumentException();
+//			}
+//		}
+//
+//		int result;
+//
+//		if (itemCount == 0) {
+//			result = ~0;
+//
+//		} else {
+//			int startIndex = index;
+//			int endIndex = startIndex + count - 1;
+//			while (true) {
+//				int idx = startIndex + (endIndex - startIndex) / 2;
+//				T val = this.elementAt(idx);
+//
+//				int compareResult = comparator.compare(val, item);
+//				if (compareResult == 0) {
+//					result = idx;
+//					break;
+//
+//				} else {
+//					if (compareResult < 0) {
+//						startIndex = idx + 1;
+//
+//					} else {
+//						endIndex = idx - 1;
+//					}
+//
+//					if (endIndex < startIndex) {
+//						result = ~startIndex;
+//						break;
+//					}
+//				}
+//			}
+//		}
+//
+//		return result;
+//	}
 
 	/**
 	 * シーケンスの要素を指定した型にキャストします。
@@ -430,9 +431,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @return
 	 */
 	default <TResult> IEnumerable<TResult> cast() {
-		@SuppressWarnings("unchecked")
-		IEnumerable<TResult> enumerable = (IEnumerable<TResult>) this;
-		return enumerable;
+		return (IEnumerable<TResult>) this;
 	}
 
 	/**
@@ -452,7 +451,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param second
 	 * @return
 	 */
-	default IEnumerable<T> concat(@SuppressWarnings("unchecked") T... second) {
+	default IEnumerable<T> concat(T... second) {
 		Errors.throwIfNull(second, "second");
 		return () -> new LinqConcateIterator<>(this, Enumerable.of(second));
 	}
@@ -632,7 +631,7 @@ public interface IEnumerable<T> extends Iterable<T> {
 	 * @param defaultValues
 	 * @return
 	 */
-	default IEnumerable<T> defaultIfEmpty(@SuppressWarnings("unchecked") T... defaultValues) {
+	default IEnumerable<T> defaultIfEmpty(T... defaultValues) {
 		return () -> new LinqDefaultIfEmptyIterator<>(this, Enumerable.of(defaultValues));
 	}
 
@@ -883,38 +882,67 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return new LinqGroupByIterable.Iterable1<>(this, keySelector, n -> n, null);
 	}
 
-	default <TKey> IEnumerable<IGrouping<TKey, T>> groupBy(Func1<? super T, TKey> keySelector, IEqualityComparator<TKey> comparator) {
+	default <TKey> IEnumerable<IGrouping<TKey, T>> groupBy(
+			Func1<? super T, TKey> keySelector,
+			IEqualityComparator<TKey> comparator) {
+
 		return new LinqGroupByIterable.Iterable1<>(this, keySelector, n -> n, comparator);
 	}
 
-	default <TKey, TElement> IEnumerable<IGrouping<TKey, TElement>> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector) {
+	default <TKey, TElement> IEnumerable<IGrouping<TKey, TElement>> groupBy(
+			Func1<? super T, TKey> keySelector,
+			Func1<? super T, TElement> elementSelector) {
+
 		return new LinqGroupByIterable.Iterable1<>(this, keySelector, elementSelector, null);
 	}
 
-	default <TKey, TElement> IEnumerable<IGrouping<TKey, TElement>> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, IEqualityComparator<TKey> comparator) {
+	default <TKey, TElement> IEnumerable<IGrouping<TKey, TElement>> groupBy(
+			Func1<? super T, TKey> keySelector,
+			Func1<? super T, TElement> elementSelector,
+			IEqualityComparator<TKey> comparator) {
+
 		return new LinqGroupByIterable.Iterable1<>(this, keySelector, elementSelector, comparator);
 	}
 
-	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, ? super IEnumerable<T>, TResult> resultSelector) {
+	default <TKey, TResult> IEnumerable<TResult> groupBy(
+			Func1<? super T, TKey> keySelector,
+			Func2<TKey, ? super IEnumerable<T>, TResult> resultSelector) {
+
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, n -> n, resultSelector, null);
 	}
 
-	default <TKey, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func2<TKey, ? super IEnumerable<T>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
+	default <TKey, TResult> IEnumerable<TResult> groupBy(
+			Func1<? super T, TKey> keySelector,
+			Func2<TKey, ? super IEnumerable<T>, TResult> resultSelector,
+			IEqualityComparator<TKey> comparator) {
+
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, n -> n, resultSelector, comparator);
 	}
 
-	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
+	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(
+			Func1<? super T, TKey> keySelector,
+			Func1<? super T, TElement> elementSelector,
+			Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector) {
+
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, null);
 	}
 
-	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(Func1<? super T, TKey> keySelector, Func1<? super T, TElement> elementSelector, Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector, IEqualityComparator<TKey> comparator) {
+	default <TKey, TElement, TResult> IEnumerable<TResult> groupBy(
+			Func1<? super T, TKey> keySelector,
+			Func1<? super T, TElement> elementSelector,
+			Func2<TKey, ? super IEnumerable<TElement>, TResult> resultSelector,
+			IEqualityComparator<TKey> comparator) {
+
 		return new LinqGroupByIterable.Iterable2<>(this, keySelector, elementSelector, resultSelector, comparator);
 	}
 
-	default <TInner, TKey> IEnumerable<JoinedValue<T, IEnumerable<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
+	default <TInner, TKey> IEnumerable<JoinedValue<T, IEnumerable<TInner>>> groupJoin(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector) {
+
 		Func2<T, Iterable<? super TInner>, JoinedValue<T, IEnumerable<TInner>>> resultSelector =
 				(arg1, arg2) -> {
-					@SuppressWarnings("unchecked")
 					IEnumerable<TInner> inner_ = (IEnumerable<TInner>) new EnumerableList<>(arg2);
 					return new JoinedValue<>(arg1, inner_);
 				};
@@ -922,14 +950,23 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector);
 	}
 
-	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, ? super IEnumerable<TInner>, TResult> resultSelector) {
+	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector,
+			Func2<? super T, ? super IEnumerable<TInner>, TResult> resultSelector) {
+
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, null);
 	}
 
-	default <TInner, TKey> IEnumerable<JoinedValue<T, IEnumerable<TInner>>> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, IEqualityComparator<? super TKey> comparator) {
+	default <TInner, TKey> IEnumerable<JoinedValue<T, IEnumerable<TInner>>> groupJoin(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector,
+			IEqualityComparator<? super TKey> comparator) {
+
 		Func2<T, Iterable<? super TInner>, JoinedValue<T, IEnumerable<TInner>>> resultSelector =
 				(arg1, arg2) -> {
-					@SuppressWarnings("unchecked")
 					IEnumerable<TInner> inner_ = (IEnumerable<TInner>) new EnumerableList<>(arg2);
 					return new JoinedValue<>(arg1, inner_);
 				};
@@ -937,7 +974,13 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return this.groupJoin(inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
-	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, ? super IEnumerable<TInner>, TResult> resultSelector, IEqualityComparator<? super TKey> comparator) {
+	default <TInner, TKey, TResult> IEnumerable<TResult> groupJoin(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector,
+			Func2<? super T, ? super IEnumerable<TInner>, TResult> resultSelector,
+			IEqualityComparator<? super TKey> comparator) {
+
 		Errors.throwIfNull(inner, "inner");
 		Errors.throwIfNull(outerKeySelector, "outerKeySelector");
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
@@ -967,21 +1010,41 @@ public interface IEnumerable<T> extends Iterable<T> {
 		return () -> new LinqIntersectIterator<>(this, second, comparator);
 	}
 
-	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector) {
+	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector) {
+
 		Func2<T, TInner, JoinedValue<T, TInner>> resultSelector = (arg1, arg2) -> new JoinedValue<>(arg1, arg2);
 		return this.join(inner, outerKeySelector, innerKeySelector, resultSelector);
 	}
 
-	default <TInner, TKey, TResult> IEnumerable<TResult> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, ? super TInner, TResult> resultSelector) {
+	default <TInner, TKey, TResult> IEnumerable<TResult> join(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector,
+			Func2<? super T, ? super TInner, TResult> resultSelector) {
+
 		return this.join(inner, outerKeySelector, innerKeySelector, resultSelector, null);
 	}
 
-	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, IEqualityComparator<? super TKey> comparator) {
+	default <TInner, TKey> IEnumerable<JoinedValue<T, TInner>> join(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector,
+			IEqualityComparator<? super TKey> comparator) {
+
 		Func2<T, TInner, JoinedValue<T, TInner>> resultSelector = (arg1, arg2) -> new JoinedValue<>(arg1, arg2);
 		return this.join(inner, outerKeySelector, innerKeySelector, resultSelector, comparator);
 	}
 
-	default <TInner, TKey, TResult> IEnumerable<TResult> join(Iterable<TInner> inner, Func1<? super T, TKey> outerKeySelector, Func1<? super TInner, TKey> innerKeySelector, Func2<? super T, ? super TInner, TResult> resultSelector, IEqualityComparator<? super TKey> comparator) {
+	default <TInner, TKey, TResult> IEnumerable<TResult> join(
+			Iterable<TInner> inner,
+			Func1<? super T, TKey> outerKeySelector,
+			Func1<? super TInner, TKey> innerKeySelector,
+			Func2<? super T, ? super TInner, TResult> resultSelector,
+			IEqualityComparator<? super TKey> comparator) {
+
 		Errors.throwIfNull(inner, "inner");
 		Errors.throwIfNull(outerKeySelector, "outerKeySelector");
 		Errors.throwIfNull(innerKeySelector, "innerKeySelector");
@@ -1607,8 +1670,6 @@ public interface IEnumerable<T> extends Iterable<T> {
 		Errors.throwIfNull(elementClass, "elementClass");
 
 		List<?> list = this.toList();
-
-		@SuppressWarnings("unchecked")
 		T[] array = (T[]) Array.newInstance(elementClass, list.size());
 
 		return list.toArray(array);
